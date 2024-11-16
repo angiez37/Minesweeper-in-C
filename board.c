@@ -47,12 +47,14 @@ int surroundingMines(int rows, int columns, char minefield[rows][columns], int i
 void boardLayout(int rows, int columns, int mines) {
 	
 	char minefield[rows][columns]; 
+	char playerBoard[rows][columns];
 	
 	int mines_placed = 0; 
 
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
 	            minefield[i][j] = '.';
+		    playerBoard[i][j] = '.';
 	        }
 	    }
 
@@ -67,7 +69,7 @@ void boardLayout(int rows, int columns, int mines) {
 	}
 
 	for (int i = 0; i < rows; i++) { // printing for dev purposes - need to print this when user selects a square 
-    		for (int j = 0; j < columns; j++) {
+    		for (int j = 0; j < columns; j++) { 
     			printf("%c ", minefield[i][j]);
 		}
      	printf("\n");
@@ -77,10 +79,19 @@ void boardLayout(int rows, int columns, int mines) {
 		for (int j = 0; j < columns; j++) { 
 			if (minefield[i][j] != 'X') { 
 				int touching_mines = surroundingMines(rows, columns, minefield, i, j); 
-				printf("%d", touching_mines);
-    			}
+				playerBoard[i][j] = touching_mines;    			
+			}
 		}
 	}
+
+	for (int i = 0; i < rows; i++) {
+        	for (int j = 0; j < columns; j++) {
+            		printf("%c ", playerBoard[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 
 }
 
