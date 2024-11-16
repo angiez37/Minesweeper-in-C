@@ -97,5 +97,5 @@ int main() {
 
 	srand(time(NULL)); 
 
-	boardLayout(20, 20, 16); // testing - needs to be input from Angel's code  
+	boardLayout(10, 10, 56); // testing - needs to be input from Angel's code  
 }
