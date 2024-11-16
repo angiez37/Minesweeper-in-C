@@ -75,7 +75,7 @@ void boardLayout(int rows, int columns, int mines) {
     		printf("%c ", minefield[i][j]);
 			if (minefield[i][j] != 'X') { 
 				int touching_mines = surroundingMines(rows, columns, minefield, i, j); 
-				print("%d", touching_mines);
+				printf("%d", touching_mines);
     			}
 	}
      	printf("\n");
