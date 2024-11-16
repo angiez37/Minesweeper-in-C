@@ -68,7 +68,7 @@ void boardLayout(int rows, int columns, int mines) {
 		}
 	}
 
-	for (int i = 0; i < rows; i++) { // printing for dev purposes - need to print this when user selects a square 
+	for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
     		for (int j = 0; j < columns; j++) { 
     			printf("%c ", minefield[i][j]);
 		}
@@ -78,13 +78,14 @@ void boardLayout(int rows, int columns, int mines) {
 	for (int i = 0; i < rows; i++) { 
 		for (int j = 0; j < columns; j++) { 
 			if (minefield[i][j] != 'X') { 
-				int touching_mines = surroundingMines(rows, columns, minefield, i, j); 
+				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
+				minefield[i][j] = '0' + touching_mines;
 				playerBoard[i][j] = '0' + touching_mines;    			
 			}
 		}
 	}
 
-	for (int i = 0; i < rows; i++) {
+	for (int i = 0; i < rows; i++) { // only for dev testing - need to print only the square player selects 
         	for (int j = 0; j < columns; j++) {
             		printf("%c ", playerBoard[i][j]);
         }
@@ -94,7 +95,7 @@ void boardLayout(int rows, int columns, int mines) {
 
 int main() { 
 
-	srand(time(NULL));
+	srand(time(NULL)); 
 
-	boardLayout(5, 7, 3);
+	boardLayout(5, 7, 3); // testing - needs to be input from Angel's code  
 }
