@@ -92,9 +92,6 @@ void boardLayout(int rows, int columns, int mines) {
     }
 }
 
-
-}
-
 int main() { 
 
 	srand(time(NULL));
