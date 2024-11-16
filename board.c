@@ -79,7 +79,7 @@ void boardLayout(int rows, int columns, int mines) {
 		for (int j = 0; j < columns; j++) { 
 			if (minefield[i][j] != 'X') { 
 				int touching_mines = surroundingMines(rows, columns, minefield, i, j); 
-				playerBoard[i][j] = touching_mines;    			
+				playerBoard[i][j] = '0' + touching_mines;    			
 			}
 		}
 	}
