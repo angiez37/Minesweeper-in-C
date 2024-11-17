@@ -1,2 +1,8 @@
 # Minesweeper in a galaxy far, far away....
-the-team-assignment-team-7-a-jedi created by GitHub Classroom
+Built by: A JEDI (AKA, Angel, Jack, Esha, Dhruv, Irfan)
+
+##### How to play Minesweeper 
+
+
+
+
