@@ -38,7 +38,7 @@ int surroundingMines(int rows, int columns, char minefield[rows][columns], int i
 
 		if (minefield[i+1][j-1] == 'X') {
                 	surrounding_mines++;
-            	}
+		}
 	}	
 
 	return surrounding_mines; 
@@ -79,8 +79,12 @@ void boardLayout(int rows, int columns, int mines) {
 		for (int j = 0; j < columns; j++) { 
 			if (minefield[i][j] != 'X') { 
 				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
+				if (touching_mines == 0) { 
+    					playerBoard[i][j] = ' ';
+				} else {
 				minefield[i][j] = '0' + touching_mines;
 				playerBoard[i][j] = '0' + touching_mines;    			
+				}
 			}
 		}
 	}
