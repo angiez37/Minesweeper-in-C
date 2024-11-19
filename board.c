@@ -8,7 +8,7 @@ int surroundingMines(int rows, int columns, char minefield[rows][columns], int i
 
 	if (minefield[i][j] != 'X') {
 				
-		if (minefield[i+1][j] == 'X') { 
+		if (minefield[i+1][j] == 'X' && ((i+1) < rows)) { 
 			surrounding_mines++; 
 		}	
 
