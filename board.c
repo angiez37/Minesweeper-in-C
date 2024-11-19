@@ -38,7 +38,9 @@ int surroundingMines(int rows, int columns, char minefield[rows][columns], int i
 
 		if (minefield[i+1][j-1] == 'X') {
                 	surrounding_mines++;
-            	}
+            	} else { 
+		   (minefield[i][j] == ' ');
+		}
 	}	
 
 	return surrounding_mines; 
