@@ -8,35 +8,35 @@ int surroundingMines(int rows, int columns, char minefield[rows][columns], int i
 
 	if (minefield[i][j] != 'X') {
 				
-		if (minefield[i+1][j] == 'X' && i < (rows - 1) { // reorder the two for all
+		if (i < (rows - 1) && minefield[i+1][j] == 'X') {
 			surrounding_mines++; 
 		}	
 
-		if (minefield[i-1][j] == 'X' && i > 0) { 
+		if (i > 0 && minefield[i-1][j] == 'X') { 
 			surrounding_mines++;
 		}
 	
-		if (minefield[i][j+1] == 'X' && j < (columns - 1)) {
+		if (j < (columns - 1) && minefield[i][j+1] == 'X') {
                 	surrounding_mines++;
             	}
 
-		if (minefield[i][j-1] == 'X' && j > 0) {
+		if (j > 0 && minefield[i][j-1] == 'X') {
                 	surrounding_mines++;
 		}
 
-		if (minefield[i-1][j+1] == 'X' && i > 0 && j < (columns - 1)) { 
+		if (i > 0 && j < (columns - 1) && minefield[i-1][j+1] == 'X') { 
                 	surrounding_mines++;
             	}
 			
-		if (minefield[i+1][j+1] == 'X' && i < (rows - 1) && j < (columns - 1)) {
+		if (i < (rows - 1) && j < (columns - 1) && minefield[i+1][j+1] == 'X') {
                 	surrounding_mines++;
             	}
 
-		if (minefield[i-1][j-1] == 'X' && i > 0 && j > 0) {
+		if (i > 0 && j > 0 && minefield[i-1][j-1] == 'X') {
 			surrounding_mines++;
             	}
 
-		if (minefield[i+1][j-1] == 'X' && j > 0 && i < (rows - 1)) {
+		if (j > 0 && i < (rows - 1) && minefield[i+1][j-1] == 'X') {
                 	surrounding_mines++;
 		}
 	}	
