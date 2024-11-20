@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h> 
 
-int surroundingMines(int rows, int columns, char minefield[rows][columns], int i, int j) { // to-do - need to fix out-of-bounds errors (indexing)
+int surroundingMines(int rows, int columns, char minefield[rows][columns], int i, int j) { 
 	
 	int surrounding_mines = 0; 
 
