@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h> 
 
-#define DEBUG 1
+#define DEBUG 0
 #define MINEFIELDOUTPUT 1
 
 // COPIED ESHA'S CODE INTO HERE JUST TO GENERATE TESTING INPUT
@@ -115,37 +115,80 @@ void boardLayout(int rows, int columns, int mines) {
 void modifyBoard(int r, int c, int rows, int columns, char board[rows][columns], char numbermap[rows][columns]) { // RECURSE CALLS WILL BE FUN
     if (board[r][c] == '.') {
         board[r][c] = numbermap[r][c];
-
-        if (numbermap[r][c] == '0') {
-            printf("Ripple Revealing around [%d][%d]\n", r, c);
-
-            if (r > 0 && c > 0) { // NW diagonal
-                modifyBoard(r-1, c-1, rows, columns, board, numbermap);
-            }	
-            if (r > 0) { // N face
-                modifyBoard(r-1, c, rows, columns, board, numbermap);
-            }
-            if (r > 0 && c < columns) { // NE diagonal
-                modifyBoard(r-1, c+1, rows, columns, board, numbermap);
-            }
-            if (c < columns) { // E face
-                modifyBoard(r, c+1, rows, columns, board, numbermap);
-            }
-            if (r < rows && c < columns) { // SE diagonal
-                modifyBoard(r+1, c+1, rows, columns, board, numbermap);
-            }
-            if (r < rows) { // S face
-                modifyBoard(r+1, c, rows, columns, board, numbermap);
-            }
-            if (r < rows && c > 0) { // SW diagonal
-                modifyBoard(r+1, c-1, rows, columns, board, numbermap);
-            }
-            if (c > 0) { // W face
-                modifyBoard(r, c-1, rows, columns, board, numbermap);
-            }
-
+    }
+    else {
+        if (DEBUG) {
+        printf("[%d][%d] not '.'\tSkipping\n", r, c); // dev
         }
-	}	
+        return;
+    }
+    
+    if (DEBUG) {
+        printf("\nDEV - Printing Board:\n");
+        for (int i = 0; i < rows; i++) { // only for dev testing
+                for (int j = 0; j < columns; j++) {
+                        printf("%c ", board[i][j]);
+            }
+            printf("\n");
+        }
+    }
+
+    if (numbermap[r][c] == '0') {
+        if (DEBUG) {
+            printf("Ripple Revealing around [%d][%d]\n", r, c);
+        }
+
+        if (r > 0 && c > 0) { // NW diagonal
+            if (DEBUG) {
+                printf("Looking NW from [%d][%d] at [%d][%d]\n", r, c, r-1, c-1);
+            }
+            modifyBoard(r-1, c-1, rows, columns, board, numbermap);
+        }	
+        if (r > 0) { // N face
+            if (DEBUG) {
+                printf("Looking N from [%d][%d] at [%d][%d]\n", r, c, r-1, c);
+            }
+            modifyBoard(r-1, c, rows, columns, board, numbermap);
+        }
+        if (r > 0 && c < (columns-1)) { // NE diagonal
+            if (DEBUG) {
+                printf("Looking NE from [%d][%d] at [%d][%d]\n", r, c, r-1, c+1);
+            }
+            modifyBoard(r-1, c+1, rows, columns, board, numbermap);
+        }
+        if (c < (columns-1)) { // E face
+            if (DEBUG) {
+                printf("rows:%d cols:%d\tLooking E from [%d][%d] at [%d][%d]\n", rows, columns, r, c, r, c+1);
+            }
+            modifyBoard(r, c+1, rows, columns, board, numbermap);
+        }
+        if (r < (rows-1) && c < (columns-1)) { // SE diagonal
+            if (DEBUG) {
+                printf("Looking SE from [%d][%d] at [%d][%d]\n", r, c, r+1, c+1);
+            }
+            modifyBoard(r+1, c+1, rows, columns, board, numbermap);
+        }
+        if (r < (rows-1)) { // S face
+            if (DEBUG) {
+                printf("Looking S from [%d][%d] at [%d][%d]\n", r, c, r+1, c);
+            }
+            modifyBoard(r+1, c, rows, columns, board, numbermap);
+        }
+        if (r < (rows-1) && c > 0) { // SW diagonal
+            if (DEBUG) {
+                printf("Looking SW from [%d][%d] at [%d][%d]\n", r, c, r+1, c-1);
+            }
+            modifyBoard(r+1, c-1, rows, columns, board, numbermap);
+        }
+        if (c > 0) { // W face
+            if (DEBUG) {
+                printf("Looking W from [%d][%d] at [%d][%d]\n", r, c, r, c-1);
+            }
+            modifyBoard(r, c-1, rows, columns, board, numbermap);
+        }
+
+    }
+    
 
 }
 
@@ -175,6 +218,7 @@ void processMove(int row_guess, int column_guess, int change, int rows, int colu
         }
 
         else {
+            printf("Calling Modify Board\n");
             modifyBoard(row_guess, column_guess, rows, columns, board, numbermap); // add parameters
         }
 
@@ -229,27 +273,28 @@ int main() {
 		}
 	}
 
-    printf("DEV - Printing Minefield:\n");
-    for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
-            for (int j = 0; j < columns; j++) { 
-                printf("%c ", minefield[i][j]);
+    if (DEBUG) {
+        printf("DEV - Printing Minefield:\n");
+        for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
+                for (int j = 0; j < columns; j++) { 
+                    printf("%c ", minefield[i][j]);
+            }
+            printf("\n");
         }
-        printf("\n");
+
+        printf("\nDEV - Printing NumberMap:\n");
+        for (int i = 0; i < rows; i++) { // only for dev testing - need to print only the square player selects 
+                for (int j = 0; j < columns; j++) {
+                        printf("%c ", numbermap[i][j]);
+            }
+            printf("\n");
+        }
     }
 
-    printf("\nDEV - Printing NumberMap:\n");
-    for (int i = 0; i < rows; i++) { // only for dev testing - need to print only the square player selects 
-            for (int j = 0; j < columns; j++) {
-                    printf("%c ", numbermap[i][j]);
-        }
-        printf("\n");
-    }
-
-
-    printf("\n\nTESTING MOVE PROCESSING\n");
+    printf("TESTING MOVE PROCESSING\n");
     int flags = 5;
     processMove(2, 2, 0, 4, 5, board, minefield, numbermap, 2, &flags);
-    printf("\nDEV - Printing Board:\n");
+    printf("Modify Board completed\n\nPrinting Board AFTER MOVE PROCESS:\n");
 
     for (int i = 0; i < rows; i++) { // only for dev testing
             for (int j = 0; j < columns; j++) {
