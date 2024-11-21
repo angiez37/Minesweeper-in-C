@@ -112,9 +112,10 @@ void boardLayout(int rows, int columns, int mines) {
 
 
 
-void modifyBoard(int r, int c, int rows, int columns, char board[rows][columns], char numbermap[rows][columns]) { // RECURSE CALLS WILL BE FUN
+void modifyBoard(int r, int c, int rows, int columns, char board[rows][columns], char numbermap[rows][columns], int * squares_revealed) { // RECURSE CALLS WILL BE FUN
     if (board[r][c] == '.') {
         board[r][c] = numbermap[r][c];
+        (*squares_revealed)++;
     }
     else {
         if (DEBUG) {
@@ -142,49 +143,49 @@ void modifyBoard(int r, int c, int rows, int columns, char board[rows][columns],
             if (DEBUG) {
                 printf("Looking NW from [%d][%d] at [%d][%d]\n", r, c, r-1, c-1);
             }
-            modifyBoard(r-1, c-1, rows, columns, board, numbermap);
+            modifyBoard(r-1, c-1, rows, columns, board, numbermap, squares_revealed);
         }	
         if (r > 0) { // N face
             if (DEBUG) {
                 printf("Looking N from [%d][%d] at [%d][%d]\n", r, c, r-1, c);
             }
-            modifyBoard(r-1, c, rows, columns, board, numbermap);
+            modifyBoard(r-1, c, rows, columns, board, numbermap, squares_revealed);
         }
         if (r > 0 && c < (columns-1)) { // NE diagonal
             if (DEBUG) {
                 printf("Looking NE from [%d][%d] at [%d][%d]\n", r, c, r-1, c+1);
             }
-            modifyBoard(r-1, c+1, rows, columns, board, numbermap);
+            modifyBoard(r-1, c+1, rows, columns, board, numbermap, squares_revealed);
         }
         if (c < (columns-1)) { // E face
             if (DEBUG) {
                 printf("rows:%d cols:%d\tLooking E from [%d][%d] at [%d][%d]\n", rows, columns, r, c, r, c+1);
             }
-            modifyBoard(r, c+1, rows, columns, board, numbermap);
+            modifyBoard(r, c+1, rows, columns, board, numbermap, squares_revealed);
         }
         if (r < (rows-1) && c < (columns-1)) { // SE diagonal
             if (DEBUG) {
                 printf("Looking SE from [%d][%d] at [%d][%d]\n", r, c, r+1, c+1);
             }
-            modifyBoard(r+1, c+1, rows, columns, board, numbermap);
+            modifyBoard(r+1, c+1, rows, columns, board, numbermap, squares_revealed);
         }
         if (r < (rows-1)) { // S face
             if (DEBUG) {
                 printf("Looking S from [%d][%d] at [%d][%d]\n", r, c, r+1, c);
             }
-            modifyBoard(r+1, c, rows, columns, board, numbermap);
+            modifyBoard(r+1, c, rows, columns, board, numbermap, squares_revealed);
         }
         if (r < (rows-1) && c > 0) { // SW diagonal
             if (DEBUG) {
                 printf("Looking SW from [%d][%d] at [%d][%d]\n", r, c, r+1, c-1);
             }
-            modifyBoard(r+1, c-1, rows, columns, board, numbermap);
+            modifyBoard(r+1, c-1, rows, columns, board, numbermap, squares_revealed);
         }
         if (c > 0) { // W face
             if (DEBUG) {
                 printf("Looking W from [%d][%d] at [%d][%d]\n", r, c, r, c-1);
             }
-            modifyBoard(r, c-1, rows, columns, board, numbermap);
+            modifyBoard(r, c-1, rows, columns, board, numbermap, squares_revealed);
         }
 
     }
@@ -209,7 +210,7 @@ void gameEndCheck(int rows, int columns, char board[rows][columns], char minefie
     }
 }
 
-void processMove(int row_guess, int column_guess, int change, int rows, int columns, char board[rows][columns], char minefield[rows][columns], char numbermap[rows][columns], int mines, int * flags) {
+void processMove(int row_guess, int column_guess, int change, int rows, int columns, char board[rows][columns], char minefield[rows][columns], char numbermap[rows][columns], int mines, int * flags, int * squares_revealed) {
     
     if (change == 0) { // 0 for dig
         if (numbermap[row_guess][column_guess] == 'X') {
@@ -219,7 +220,7 @@ void processMove(int row_guess, int column_guess, int change, int rows, int colu
 
         else {
             printf("Calling Modify Board\n");
-            modifyBoard(row_guess, column_guess, rows, columns, board, numbermap); // add parameters
+            modifyBoard(row_guess, column_guess, rows, columns, board, numbermap, squares_revealed); // add parameters
         }
 
     }
@@ -293,7 +294,8 @@ int main() {
 
     printf("TESTING MOVE PROCESSING\n");
     int flags = 5;
-    processMove(2, 2, 0, 4, 5, board, minefield, numbermap, 2, &flags);
+    int squares_revealed = 0;
+    processMove(2, 2, 0, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
     printf("Modify Board completed\n\nPrinting Board AFTER MOVE PROCESS:\n");
 
     for (int i = 0; i < rows; i++) { // only for dev testing
@@ -302,5 +304,6 @@ int main() {
         }
         printf("\n");
     }
+    printf("Squares Revealed: %d of %d total.\n", squares_revealed, rows*columns);
 
 }
