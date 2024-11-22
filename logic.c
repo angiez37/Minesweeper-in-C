@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h> 
 
-#define DEBUG 0
+#define DEBUG 1
 #define MINEFIELDOUTPUT 1
 
 // COPIED ESHA'S CODE INTO HERE JUST TO GENERATE TESTING INPUT
@@ -210,25 +210,30 @@ void gameEndCheck(int rows, int columns, char board[rows][columns], char minefie
     }
 }
 
-void processMove(int row_guess, int column_guess, int change, int rows, int columns, char board[rows][columns], char minefield[rows][columns], char numbermap[rows][columns], int mines, int * flags, int * squares_revealed) {
+void processMove(int specified_row, int specified_column, int change, int rows, int columns, char board[rows][columns], char minefield[rows][columns], char numbermap[rows][columns], int mines, int * flags, int * squares_revealed) {
     
     if (change == 0) { // 0 for dig
-        if (numbermap[row_guess][column_guess] == 'X') {
+        if (numbermap[specified_row][specified_column] == 'X') {
             printf("TRIGGER END OF GAME - LOSE\n"); /////////////////////////////////// DHRUV FUCTION
             // trigger scoreboard
         }
 
         else {
             printf("Calling Modify Board\n");
-            modifyBoard(row_guess, column_guess, rows, columns, board, numbermap, squares_revealed); // add parameters
+            modifyBoard(specified_row, specified_column, rows, columns, board, numbermap, squares_revealed); // add parameters
         }
-
     }
 
+
     if (change == 1) { // 1 is flag
-        // toggle flag in location
-        *flags++;
-        *flags--;
+        if (board[specified_row][specified_column] == '.') {
+            board[specified_row][specified_column] = 'F';
+            flags++;
+        }
+        else if (board[specified_row][specified_column] == 'F') {
+            board[specified_row][specified_column] = '.';
+            flags--;
+        }
     }
 
     gameEndCheck(rows, columns, board, minefield, mines, flags);
@@ -255,8 +260,9 @@ int main() {
 			if (minefield[i][j] != 'X') { 
 				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
 				if (touching_mines == 0) { 
-    					numbermap[i][j] = '0';
-				} else {
+    				numbermap[i][j] = '0';
+				}
+                else {
 				numbermap[i][j] = '0' + touching_mines;    			
 				}
 			}
@@ -295,8 +301,9 @@ int main() {
     printf("TESTING MOVE PROCESSING\n");
     int flags = 5;
     int squares_revealed = 0;
+    processMove(0, 4, 1, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
     processMove(2, 2, 0, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
-    printf("Modify Board completed\n\nPrinting Board AFTER MOVE PROCESS:\n");
+    printf("Modify Board Tests completed\n\nPrinting Board:\n");
 
     for (int i = 0; i < rows; i++) { // only for dev testing
             for (int j = 0; j < columns; j++) {
