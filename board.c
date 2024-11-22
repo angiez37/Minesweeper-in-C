@@ -85,7 +85,7 @@ void numberMap(int rows, int columns, char minefield[rows][columns], char player
 
 }
 
-void boardLayout(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) {
+void boardLayout(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) { // work in progress
 	
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
