@@ -44,19 +44,9 @@ int surroundingMines(int rows, int columns, char minefield[rows][columns], int i
 	return surrounding_mines; 
 }
 
-void boardLayout(int rows, int columns, int mines) {
-	
-	char minefield[rows][columns]; 
-	char playerBoard[rows][columns];
+void generateMinefield(int rows, int columns, int mines, char minefield[rows][columns]) { 
 	
 	int mines_placed = 0; 
-
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < columns; j++) {
-	            minefield[i][j] = '.';
-		    playerBoard[i][j] = '.';
-	        }
-	    }
 
 	while (mines_placed < mines) { 
 		int i = rand() % rows;
@@ -68,13 +58,9 @@ void boardLayout(int rows, int columns, int mines) {
 		}
 	}
 
-	for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
-    		for (int j = 0; j < columns; j++) { 
-    			printf("%c ", minefield[i][j]);
-		}
-     	printf("\n");
-    }
+}
 
+void numberMap(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) { 
 	for (int i = 0; i < rows; i++) { 
 		for (int j = 0; j < columns; j++) { 
 			if (minefield[i][j] != 'X') { 
@@ -82,8 +68,8 @@ void boardLayout(int rows, int columns, int mines) {
 				if (touching_mines == 0) { 
     					playerBoard[i][j] = ' ';
 				} else {
-				minefield[i][j] = '0' + touching_mines;
-				playerBoard[i][j] = '0' + touching_mines;    			
+					minefield[i][j] = '0' + touching_mines;
+					playerBoard[i][j] = '0' + touching_mines;    			
 				}
 			}
 		}
@@ -97,9 +83,32 @@ void boardLayout(int rows, int columns, int mines) {
     }
 }
 
+}
+
+void boardLayout(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) {
+	
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+	            minefield[i][j] = '.';
+		    playerBoard[i][j] = '.';
+	        }
+	    }
+
+	for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
+    		for (int j = 0; j < columns; j++) { 
+    			printf("%c ", minefield[i][j]);
+		}
+     		
+		printf("\n");
+    }
+
+}
+
 int main() { 
 
 	srand(time(NULL)); 
 
-	boardLayout(5, 7, 3); // testing - needs to be input from Angel's code  
+	boardLayout();
+	generateMinefield(rows, columns, mines, minefield);
+	numberMap(rows, columns, minefield, playerBoard);
 }
