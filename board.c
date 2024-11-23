@@ -2,41 +2,45 @@
 #include <stdlib.h>
 #include <time.h> 
 
-int surroundingMines(int rows, int columns, char minefield[rows][columns], int i, int j) { // to-do - need to fix out-of-bounds errors (indexing)
+int surroundingMines(int rows, int columns, char minefield[rows][columns], int i, int j) { 
 	
 	int surrounding_mines = 0; 
 
 	if (minefield[i][j] != 'X') {
 				
+<<<<<<< HEAD
 		if (minefield[i+1][j] == 'X' && ((i+1) < rows)) { 
+=======
+		if (i < (rows - 1) && minefield[i+1][j] == 'X') {
+>>>>>>> origin/main
 			surrounding_mines++; 
 		}	
 
-		if (minefield[i-1][j] == 'X') { 
+		if (i > 0 && minefield[i-1][j] == 'X') { 
 			surrounding_mines++;
 		}
 	
-		if (minefield[i][j+1] == 'X') {
+		if (j < (columns - 1) && minefield[i][j+1] == 'X') {
                 	surrounding_mines++;
             	}
 
-		if (minefield[i][j-1] == 'X') {
+		if (j > 0 && minefield[i][j-1] == 'X') {
                 	surrounding_mines++;
 		}
 
-		if (minefield[i-1][j+1] == 'X') { 
+		if (i > 0 && j < (columns - 1) && minefield[i-1][j+1] == 'X') { 
                 	surrounding_mines++;
             	}
 			
-		if (minefield[i+1][j+1] == 'X') {
+		if (i < (rows - 1) && j < (columns - 1) && minefield[i+1][j+1] == 'X') {
                 	surrounding_mines++;
             	}
 
-		if (minefield[i-1][j-1] == 'X') {
+		if (i > 0 && j > 0 && minefield[i-1][j-1] == 'X') {
 			surrounding_mines++;
             	}
 
-		if (minefield[i+1][j-1] == 'X') {
+		if (j > 0 && i < (rows - 1) && minefield[i+1][j-1] == 'X') {
                 	surrounding_mines++;
 		}
 	}	
@@ -44,19 +48,9 @@ int surroundingMines(int rows, int columns, char minefield[rows][columns], int i
 	return surrounding_mines; 
 }
 
-void boardLayout(int rows, int columns, int mines) {
-	
-	char minefield[rows][columns]; 
-	char playerBoard[rows][columns];
+void generateMinefield(int rows, int columns, int mines, char minefield[rows][columns]) { 
 	
 	int mines_placed = 0; 
-
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < columns; j++) {
-	            minefield[i][j] = '.';
-		    playerBoard[i][j] = '.';
-	        }
-	    }
 
 	while (mines_placed < mines) { 
 		int i = rand() % rows;
@@ -68,13 +62,9 @@ void boardLayout(int rows, int columns, int mines) {
 		}
 	}
 
-	for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
-    		for (int j = 0; j < columns; j++) { 
-    			printf("%c ", minefield[i][j]);
-		}
-     	printf("\n");
-    }
+}
 
+void generateNumberMap(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) { 
 	for (int i = 0; i < rows; i++) { 
 		for (int j = 0; j < columns; j++) { 
 			if (minefield[i][j] != 'X') { 
@@ -82,9 +72,11 @@ void boardLayout(int rows, int columns, int mines) {
 				if (touching_mines == 0) { 
     					playerBoard[i][j] = ' ';
 				} else {
-				minefield[i][j] = '0' + touching_mines;
-				playerBoard[i][j] = '0' + touching_mines;    			
+					playerBoard[i][j] = '0' + touching_mines;    			
 				}
+			}
+			else { 
+				playerBoard[i][j] = 'X';
 			}
 		}
 	}
@@ -97,9 +89,27 @@ void boardLayout(int rows, int columns, int mines) {
     }
 }
 
+void board(int rows, int columns, char minefield[rows][columns]) { 
+	
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < columns; j++) {
+	            minefield[i][j] = '.';
+	        }
+	    }
+}
+
 int main() { 
 
 	srand(time(NULL)); 
 
-	boardLayout(5, 7, 3); // testing - needs to be input from Angel's code  
+	int rows = 4; // for dev testing - Angel's code
+    	int columns = 4;
+    	int mines = 4;
+	
+	char minefield[rows][columns];
+	char playerBoard[rows][columns];
+
+	board(rows, columns, minefield);
+	generateMinefield(rows, columns, mines, minefield);
+	generateNumberMap(rows, columns, minefield, playerBoard);
 }
