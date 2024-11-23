@@ -8,11 +8,7 @@ int surroundingMines(int rows, int columns, char minefield[rows][columns], int i
 
 	if (minefield[i][j] != 'X') {
 				
-<<<<<<< HEAD
-		if (minefield[i+1][j] == 'X' && ((i+1) < rows)) { 
-=======
 		if (i < (rows - 1) && minefield[i+1][j] == 'X') {
->>>>>>> origin/main
 			surrounding_mines++; 
 		}	
 
@@ -89,11 +85,11 @@ void generateNumberMap(int rows, int columns, char minefield[rows][columns], cha
     }
 }
 
-void board(int rows, int columns, char minefield[rows][columns]) { 
+void board(int rows, int columns) { 
 	
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
-	            minefield[i][j] = '.';
+	            board[i][j] = '.';
 	        }
 	    }
 }
@@ -109,7 +105,8 @@ int main() {
 	char minefield[rows][columns];
 	char playerBoard[rows][columns];
 
-	board(rows, columns, minefield);
+	boardLayout(rows, columns, minefield, playerBoard);
 	generateMinefield(rows, columns, mines, minefield);
 	generateNumberMap(rows, columns, minefield, playerBoard);
 }
+
