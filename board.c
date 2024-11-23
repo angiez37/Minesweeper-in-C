@@ -103,7 +103,7 @@ char** generateNumberMap(int rows, int columns, char **minefield) {
 	return numberMap;
 }
 
-char** gameboard(int rows, int columns) { 
+char** generateGameboard(int rows, int columns) { 
 
     char** gameboard = malloc(rows * sizeof(char*));
     for (int i = 0; i < rows; i++) {
@@ -125,7 +125,7 @@ int main() {
 	
 	char** minefield = generateMinefield(rows, columns, mines);
 	char** numberMap = generateNumberMap(rows, columns, minefield);
-	char** gameboard = gameboard(rows, columns);
+	char** gameboard = generateGameboard(rows, columns);
 
 	free(minefield);
 	free(numberMap);
