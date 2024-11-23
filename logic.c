@@ -116,8 +116,25 @@ char** generateGameboard(int rows, int columns) {
 
 
 
-
-//void modifyBoard(int r, int c, int rows, int columns, char board[rows][columns], char numbermap[rows][columns], int * squares_revealed) { // RECURSE CALLS WILL BE FUN
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| modifyBoard - Recursively ripple reveals unrevealed spaces on the game board.
+|               If the [r][c] indicated square on board is unrevealed (indicated by '.' character) replace it with the number of adjacent mines, numbermap[r][j].
+|               Then, if there are 0 adjacent mines (to that square), repeat the reveal process at all 8 adjacent squares on board (making sure staying within bounds of board).
+|
+| Arguments: r = row index of targetted square for reveal
+|            c = column coordinate of targetted square for reveal
+|            rows = total number of rows in the board (and numbermap)
+|            columns = total number of columns in the board (and numbermap)
+|            ** board = pointer to 2D array holding the player-shown game board
+|            ** numbermap = pointer to 2D array that holds the number of mines adjacent to each square
+|
+| Pointers / Side Effects:  *squares_revealed = scoring metric, incremented each time a new square is revealed
+| Outputs: None
+| Returns: None
+| Functions Called: modifyBoard - recursively calls itself to ripple reveal multiple squares
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 void modifyBoard(int r, int c, int rows, int columns, char ** board, char ** numbermap, int * squares_revealed) { // RECURSE CALLS WILL BE FUN
     if (board[r][c] == '.') {
         board[r][c] = numbermap[r][c];
@@ -196,10 +213,26 @@ void modifyBoard(int r, int c, int rows, int columns, char ** board, char ** num
 
     }
     
-
 }
 
-// void gameEndCheck(int rows, int columns, char board[rows][columns], char minefield[rows][columns], int mines, int * flags) {
+
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| gameEndCheck - determines if player has won game (if every mine has been flagged and there are no additional incorrect flags
+|
+| Arguments: rows = total number of rows in the board (and minefield)
+|            columns = total number of columns in the board (and minefield)
+|            ** board = pointer to 2D array holding the player-shown game board
+|            ** minefield = pointer to 2D array that holds the positions of the mines
+|            mines = number of mines in play
+|            * flags = the number of flags the user has placed
+|
+| Pointers / Side Effects: None
+| Outputs: None
+| Returns: None
+| Functions Called: /////////////////////////////////// DHRUV FUCTION --> win
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 void gameEndCheck(int rows, int columns, char ** board, char ** minefield, int mines, int * flags) {
     printf("IN GAME END CHECK: end of game check:\tmines:%d\tflags%d\n", mines, *flags);
     if (mines == *flags) { // same number of flags as mines, assume flag char is 'F'
@@ -213,51 +246,71 @@ void gameEndCheck(int rows, int columns, char ** board, char ** minefield, int m
             }
         } 
         if (correct_flags == mines) { // if every flag maps exactly to a mine
-            printf("END OF GAME - WIN\n"); /////////////////////////////////// DHRUV FUCTION
+            printf("END OF GAME - WIN\n"); /////////////////////////////////// DHRUV FUCTION --> win
             //scoreboard
         }
     }
 }
 
-// void processMove(int specified_row, int specified_column, int change, int rows, int columns, char board[rows][columns], char minefield[rows][columns], char numbermap[rows][columns], int mines, int * flags, int * squares_revealed)
-
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| processMove - processes the users move based on parameters user inputted in ////////////////// READ INPUT FUNCTION
+|               depending on user input, handles the flagging process or calls modifyBoard to reveal the particular square
+|
+| Arguments: specified_row = the row index of the square the user wants to modify
+|            specified_column = the column index of the square the user wants to modify
+|            change = indicates the action the user wishes to perform on the targetted square (0 for dig, 1 for flag)
+|            row = total number of rows in the board (and minefield and numbermap)
+|            columns = total number of columns in the board (and minefield and numbermap)
+|            ** board = pointer to 2D array holding the player-shown game board
+|            ** minefield = pointer to 2D array that holds the positions of the mines
+|            ** numbermap = pointer to 2D array that holds the number of mines adjacent to each square
+|            mines = number of mines in play
+|            * flags = the number of flags the user has placed
+|            * squares_revealed = the number of flags the user has placed
+|
+| Pointers / Side Effects: None
+| Returns: None
+| Functions Called: modifyBoard - if user specifies dig (change==0) modifyBoard is called on [specified_row][specified_column]
+|                   gameEndCheck - calls at end of the flag processing to check if user has now won the game
+| /////////////////////////////////// DHRUV FUCTION --> lose
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 void processMove(int specified_row, int specified_column, int change, int rows, int columns, char ** board, char ** minefield, char ** numbermap, int mines, int * flags, int * squares_revealed) {
     
     if (change == 0) { // 0 for dig
         if (numbermap[specified_row][specified_column] == 'X') {
-            printf("TRIGGER END OF GAME - LOSE\n"); /////////////////////////////////// DHRUV FUCTION
+            printf("TRIGGER END OF GAME - LOSE\n"); /////////////////////////////////// DHRUV FUCTION --> lose
             // trigger scoreboard
         }
 
         else {
             printf("Calling Modify Board\n");
-            modifyBoard(specified_row, specified_column, rows, columns, board, numbermap, squares_revealed); // add parameters
+            modifyBoard(specified_row, specified_column, rows, columns, board, numbermap, squares_revealed);
         }
     }
 
 
     if (change == 1) { // 1 is flag
-        printf("flag specified\n");
         if (board[specified_row][specified_column] == '.') {
-            printf("flagging\n");
             board[specified_row][specified_column] = 'F';
             *flags+=1;
         }
         else if (board[specified_row][specified_column] == 'F') {
-            printf("unflagging\n");
             board[specified_row][specified_column] = '.';
             *flags-=1;
         }
+
+        printf("BEFORE GAME END CHECK:\tmines:%d\tflags%d\n", mines, *flags);
+        gameEndCheck(rows, columns, board, minefield, mines, flags);
     }
 
-    printf("BEFORE GAME END CHECK:\tmines:%d\tflags%d\n", mines, *flags);
-    gameEndCheck(rows, columns, board, minefield, mines, flags);
 }
 
 
 
 
-
+// MY MAIN WILL NOT BE IN FINAL RELEASE, IT IS PURELY FOR TESTING PURPOSES OF ALL logic.c FUCTIONS
 int main() { 
     
     int rows = 4;
@@ -272,12 +325,14 @@ int main() {
     }
     // end of hard coding array
     
+    
+    // generate boards
     char ** numbermap = generateNumberMap(4, 5, minefield);
-
-    //playerboard
     char ** board = generateGameboard(4, 5);
 
-    if (DEBUG) {
+
+
+    if (DEBUG) { // make sure that minefield and numbermap generated properly
         printf("DEV - Printing Minefield:\n");
         for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
                 for (int j = 0; j < columns; j++) { 
@@ -307,6 +362,7 @@ int main() {
     printf("\n\n\ntest step 5:\n");
     processMove(1, 0, 1, 4, 5, board, minefield, numbermap, 3, &flags, &squares_revealed);
 
+
     printf("Modify Board Tests completed\n\nPrinting Board:\n");
 
     for (int i = 0; i < rows; i++) { // only for dev testing
@@ -315,6 +371,8 @@ int main() {
         }
         printf("\n");
     }
+
+    
     printf("Squares Revealed: %d of %d total.\n", squares_revealed, rows*columns);
 
 
