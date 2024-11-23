@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h> 
 
-int surroundingMines(int rows, int columns, char minefield[rows][columns], int i, int j) { 
+int surroundingMines(int rows, int columns, char **minefield, int i, int j) { 
 	
 	int surrounding_mines = 0; 
 
@@ -44,8 +44,19 @@ int surroundingMines(int rows, int columns, char minefield[rows][columns], int i
 	return surrounding_mines; 
 }
 
-void generateMinefield(int rows, int columns, int mines, char minefield[rows][columns]) { 
+char** generateMinefield(int rows, int columns, int mines) { 	
 	
+	char** minefield = (char**)malloc(rows * sizeof(char*));
+		for (int i = 0; i < rows; i++) {
+			minefield[i] = (char*)malloc(columns * sizeof(char));
+    	}
+	
+	for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            minefield[i][j] = '.';
+        }
+    }
+
 	int mines_placed = 0; 
 
 	while (mines_placed < mines) { 
@@ -58,9 +69,15 @@ void generateMinefield(int rows, int columns, int mines, char minefield[rows][co
 		}
 	}
 
+	return minefield;
 }
 
-void generateNumberMap(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) { 
+char** generateNumberMap(int rows, int columns, char **minefield) { 
+	char** playerBoard = (char**)malloc(rows * sizeof(char*));
+    		for (int i = 0; i < rows; i++) {
+        		playerBoard[i] = (char*)malloc(columns * sizeof(char));
+    		}
+
 	for (int i = 0; i < rows; i++) { 
 		for (int j = 0; j < columns; j++) { 
 			if (minefield[i][j] != 'X') { 
@@ -70,43 +87,47 @@ void generateNumberMap(int rows, int columns, char minefield[rows][columns], cha
 				} else {
 					playerBoard[i][j] = '0' + touching_mines;    			
 				}
-			}
-			else { 
+			} else { 
 				playerBoard[i][j] = 'X';
-			}
 		}
 	}
-
+}
 	for (int i = 0; i < rows; i++) { // only for dev testing - need to print only the square player selects 
         	for (int j = 0; j < columns; j++) {
             		printf("%c ", playerBoard[i][j]);
         }
         printf("\n");
     }
+
+	return playerBoard;
 }
 
-void board(int rows, int columns, char minefield[rows][columns]) { 
-	
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < columns; j++) {
-	            minefield[i][j] = '.';
-	        }
-	    }
+void boardLayout(int rows, int columns, char **minefield, char **playerBoard) { 
+
+	for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
+    		for (int j = 0; j < columns; j++) { 
+    			printf("%c ", minefield[i][j]);
+		}
+     		
+		printf("\n");
+    }
+
 }
 
 int main() { 
 
 	srand(time(NULL)); 
 
-	int rows = 4; // for dev testing - Angel's code
-    	int columns = 4;
-    	int mines = 4;
+	int rows = 5; // for dev testing - Angel's code
+    int columns = 7;
+    int mines = 10;
 	
-	char minefield[rows][columns];
-	char playerBoard[rows][columns];
+	char** minefield = generateMinefield(rows, columns, mines);
+	char** playerBoard = generateNumberMap(rows, columns, minefield);
 
-	board(rows, columns, minefield);
-	generateMinefield(rows, columns, mines, minefield);
-	generateNumberMap(rows, columns, minefield, playerBoard);
+	boardLayout(rows, columns, minefield, playerBoard);
+
+	free(minefield);
+	free(playerBoard);
+
 }
-
