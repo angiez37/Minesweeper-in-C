@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h> 
 
-#define DEBUG 1
+#define DEBUG 0
 #define MINEFIELDOUTPUT 1
 
 // COPIED ESHA'S CODE INTO HERE JUST TO GENERATE TESTING INPUT
@@ -201,7 +201,9 @@ void modifyBoard(int r, int c, int rows, int columns, char ** board, char ** num
 
 // void gameEndCheck(int rows, int columns, char board[rows][columns], char minefield[rows][columns], int mines, int * flags) {
 void gameEndCheck(int rows, int columns, char ** board, char ** minefield, int mines, int * flags) {
+    printf("IN GAME END CHECK: end of game check:\tmines:%d\tflags%d\n", mines, *flags);
     if (mines == *flags) { // same number of flags as mines, assume flag char is 'F'
+        printf("same number of mines as flags\n");
         int correct_flags = 0;
         for (int i = 0; i < rows; i++) { 
                 for (int j = 0; j < columns; j++) { 
@@ -235,16 +237,20 @@ void processMove(int specified_row, int specified_column, int change, int rows, 
 
 
     if (change == 1) { // 1 is flag
+        printf("flag specified\n");
         if (board[specified_row][specified_column] == '.') {
+            printf("flagging\n");
             board[specified_row][specified_column] = 'F';
-            flags++;
+            *flags+=1;
         }
         else if (board[specified_row][specified_column] == 'F') {
+            printf("unflagging\n");
             board[specified_row][specified_column] = '.';
-            flags--;
+            *flags-=1;
         }
     }
 
+    printf("BEFORE GAME END CHECK:\tmines:%d\tflags%d\n", mines, *flags);
     gameEndCheck(rows, columns, board, minefield, mines, flags);
 }
 
@@ -290,14 +296,16 @@ int main() {
     }
 
     printf("TESTING MOVE PROCESSING\n");
-    int flags = 5;
+    int flags = 0;
     int squares_revealed = 0;
     printf("\n\n\ntest step 1:\n");
-    processMove(2, 2, 0, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
+    processMove(2, 2, 0, 4, 5, board, minefield, numbermap, 3, &flags, &squares_revealed);
     printf("\n\n\ntest step 2:\n");
-    processMove(3, 4, 1, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
-    //processMove(0, 0, 1, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
-    //processMove(1, 0, 1, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
+    processMove(3, 4, 1, 4, 5, board, minefield, numbermap, 3, &flags, &squares_revealed);
+    printf("\n\n\ntest step 4:\n");
+    processMove(0, 0, 1, 4, 5, board, minefield, numbermap, 3, &flags, &squares_revealed);
+    printf("\n\n\ntest step 5:\n");
+    processMove(1, 0, 1, 4, 5, board, minefield, numbermap, 3, &flags, &squares_revealed);
 
     printf("Modify Board Tests completed\n\nPrinting Board:\n");
 

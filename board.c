@@ -92,7 +92,7 @@ char** generateNumberMap(int rows, int columns, char **minefield) {
 			if (minefield[i][j] != 'X') { 
 				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
 				if (touching_mines == 0) { 
-    					numberMap[i][j] = ' ';
+    					numberMap[i][j] = '0';
 				} else {
 					numberMap[i][j] = '0' + touching_mines;    			
 				}
