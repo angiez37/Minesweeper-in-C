@@ -128,7 +128,7 @@ int main() {
 	char** gameboard = gameboard(rows, columns);
 
 	free(minefield);
-	free(playerBoard);
+	free(numberMap);
 	free(gameboard);
 
 }
