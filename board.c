@@ -83,9 +83,7 @@ void numberMap(int rows, int columns, char minefield[rows][columns], char player
     }
 }
 
-}
-
-void boardLayout(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) { // work in progress
+void boardLayout(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) { 
 	
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
@@ -108,7 +106,7 @@ int main() {
 
 	srand(time(NULL)); 
 
-	boardLayout();
+	boardLayout(rows, columns, minefield, playerBoard);
 	generateMinefield(rows, columns, mines, minefield);
 	numberMap(rows, columns, minefield, playerBoard);
 }
