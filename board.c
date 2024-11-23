@@ -71,6 +71,9 @@ void generateNumberMap(int rows, int columns, char minefield[rows][columns], cha
 					playerBoard[i][j] = '0' + touching_mines;    			
 				}
 			}
+			else { 
+				playerBoard[i][j] = 'X';
+			}
 		}
 	}
 
@@ -82,23 +85,13 @@ void generateNumberMap(int rows, int columns, char minefield[rows][columns], cha
     }
 }
 
-void boardLayout(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) { 
+void board(int rows, int columns, char minefield[rows][columns]) { 
 	
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
 	            minefield[i][j] = '.';
-		    playerBoard[i][j] = '.';
 	        }
 	    }
-
-	for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
-    		for (int j = 0; j < columns; j++) { 
-    			printf("%c ", minefield[i][j]);
-		}
-     		
-		printf("\n");
-    }
-
 }
 
 int main() { 
@@ -112,7 +105,7 @@ int main() {
 	char minefield[rows][columns];
 	char playerBoard[rows][columns];
 
-	boardLayout(rows, columns, minefield, playerBoard);
+	board(rows, columns, minefield);
 	generateMinefield(rows, columns, mines, minefield);
 	generateNumberMap(rows, columns, minefield, playerBoard);
 }
