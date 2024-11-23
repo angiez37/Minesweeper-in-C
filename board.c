@@ -52,8 +52,8 @@ char** generateMinefield(int rows, int columns, int mines) {
     	}
 	
 	for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < columns; j++) {
-            minefield[i][j] = '.';
+        	for (int j = 0; j < columns; j++) {
+            		minefield[i][j] = '.';
         }
     }
 
@@ -68,6 +68,14 @@ char** generateMinefield(int rows, int columns, int mines) {
 			mines_placed++; 
 		}
 	}
+
+	for (int i = 0; i < rows; i++) { // only for testing 
+        	for (int j = 0; j < columns; j++) {
+            		printf("%c ", minefield[i][j]);
+        	}
+        	
+		printf("\n");
+    }
 
 	return minefield;
 }
