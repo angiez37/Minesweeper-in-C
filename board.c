@@ -60,7 +60,7 @@ void generateMinefield(int rows, int columns, int mines, char minefield[rows][co
 
 }
 
-void numberMap(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) { 
+void generateNumberMap(int rows, int columns, char minefield[rows][columns], char playerBoard[rows][columns]) { 
 	for (int i = 0; i < rows; i++) { 
 		for (int j = 0; j < columns; j++) { 
 			if (minefield[i][j] != 'X') { 
@@ -68,7 +68,6 @@ void numberMap(int rows, int columns, char minefield[rows][columns], char player
 				if (touching_mines == 0) { 
     					playerBoard[i][j] = ' ';
 				} else {
-					minefield[i][j] = '0' + touching_mines;
 					playerBoard[i][j] = '0' + touching_mines;    			
 				}
 			}
@@ -106,7 +105,14 @@ int main() {
 
 	srand(time(NULL)); 
 
+	int rows = 4; // for dev testing - Angel's code
+    	int columns = 4;
+    	int mines = 4;
+	
+	char minefield[rows][columns];
+	char playerBoard[rows][columns];
+
 	boardLayout(rows, columns, minefield, playerBoard);
 	generateMinefield(rows, columns, mines, minefield);
-	numberMap(rows, columns, minefield, playerBoard);
+	generateNumberMap(rows, columns, minefield, playerBoard);
 }
