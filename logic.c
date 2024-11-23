@@ -5,7 +5,8 @@
 #include "minesweeper.h"
 
 #define DEBUG 0
-#define TESTING 0
+
+
 
 // COPIED ESHA'S CODE INTO HERE JUST TO GENERATE TESTING INPUT
 int surroundingMines(int rows, int columns, char **minefield, int i, int j) { 
@@ -339,8 +340,9 @@ void processMove(int specified_row, int specified_column, int change, int rows, 
 
 
 // MY MAIN WILL NOT BE IN FINAL RELEASE, IT IS PURELY FOR TESTING PURPOSES OF ALL logic.c FUCTIONS
+
+/*
 int main() { 
-    if (TESTING) {
     
     int rows = 4;
     int columns = 5;
@@ -412,6 +414,5 @@ int main() {
     free(numbermap);
     free(board);
     printf("End of testing: All arrays freed.\n");
-
-    } // end of 'TESTING' if statement
 }
+*/
