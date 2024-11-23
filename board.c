@@ -85,7 +85,7 @@ void generateNumberMap(int rows, int columns, char minefield[rows][columns], cha
     }
 }
 
-void board(int rows, int columns, char minefield) { 
+void board(int rows, int columns, char minefield[rows][columns]) { 
 	
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < columns; j++) {
