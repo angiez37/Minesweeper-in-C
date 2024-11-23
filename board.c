@@ -73,9 +73,10 @@ char** generateMinefield(int rows, int columns, int mines) {
 }
 
 char** generateNumberMap(int rows, int columns, char **minefield) { 
-	char** playerBoard = (char**)malloc(rows * sizeof(char*));
+	
+	char** numberMap = (char**)malloc(rows * sizeof(char*));
     		for (int i = 0; i < rows; i++) {
-        		playerBoard[i] = (char*)malloc(columns * sizeof(char));
+        		numberMap[i] = (char*)malloc(columns * sizeof(char));
     		}
 
 	for (int i = 0; i < rows; i++) { 
@@ -83,35 +84,35 @@ char** generateNumberMap(int rows, int columns, char **minefield) {
 			if (minefield[i][j] != 'X') { 
 				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
 				if (touching_mines == 0) { 
-    					playerBoard[i][j] = ' ';
+    					numberMap[i][j] = ' ';
 				} else {
-					playerBoard[i][j] = '0' + touching_mines;    			
+					numberMap[i][j] = '0' + touching_mines;    			
 				}
 			} else { 
-				playerBoard[i][j] = 'X';
+				numberMap[i][j] = 'X';
 		}
 	}
 }
 	for (int i = 0; i < rows; i++) { // only for dev testing - need to print only the square player selects 
         	for (int j = 0; j < columns; j++) {
-            		printf("%c ", playerBoard[i][j]);
+            		printf("%c ", numberMap[i][j]);
         }
         printf("\n");
     }
 
-	return playerBoard;
+	return numberMap;
 }
 
-void boardLayout(int rows, int columns, char **minefield, char **playerBoard) { 
+char** gameboard(int rows, int columns) { 
 
-	for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
-    		for (int j = 0; j < columns; j++) { 
-    			printf("%c ", minefield[i][j]);
-		}
-     		
-		printf("\n");
+    char** gameboard = malloc(rows * sizeof(char*));
+    for (int i = 0; i < rows; i++) {
+        gameboard[i] = malloc(columns * sizeof(char));
+        for (int j = 0; j < columns; j++) {
+            gameboard[i][j] = '.';
+        }
     }
-
+    return gameboard;
 }
 
 int main() { 
@@ -123,11 +124,11 @@ int main() {
     	int mines = 10;
 	
 	char** minefield = generateMinefield(rows, columns, mines);
-	char** playerBoard = generateNumberMap(rows, columns, minefield);
-
-	boardLayout(rows, columns, minefield, playerBoard);
+	char** numberMap = generateNumberMap(rows, columns, minefield);
+	char** gameboard = gameboard(rows, columns);
 
 	free(minefield);
 	free(playerBoard);
+	free(gameboard);
 
 }
