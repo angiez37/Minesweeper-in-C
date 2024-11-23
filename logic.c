@@ -6,7 +6,7 @@
 #define MINEFIELDOUTPUT 1
 
 // COPIED ESHA'S CODE INTO HERE JUST TO GENERATE TESTING INPUT
-int surroundingMines(int rows, int columns, char minefield[rows][columns], int i, int j) { 
+int surroundingMines(int rows, int columns, char **minefield, int i, int j) { 
 	
 	int surrounding_mines = 0; 
 
@@ -48,19 +48,20 @@ int surroundingMines(int rows, int columns, char minefield[rows][columns], int i
 	return surrounding_mines; 
 }
 
-void boardLayout(int rows, int columns, int mines) {
+char** generateMinefield(int rows, int columns, int mines) { 	
 	
-	char minefield[rows][columns]; 
-	char playerBoard[rows][columns];
+	char** minefield = (char**)malloc(rows * sizeof(char*));
+		for (int i = 0; i < rows; i++) {
+			minefield[i] = (char*)malloc(columns * sizeof(char));
+    	}
 	
-	int mines_placed = 0; 
-
 	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < columns; j++) {
-	            minefield[i][j] = '.';
-		    playerBoard[i][j] = '.';
-	        }
-	    }
+        	for (int j = 0; j < columns; j++) {
+            		minefield[i][j] = '.';
+        }
+    }
+
+	int mines_placed = 0; 
 
 	while (mines_placed < mines) { 
 		int i = rand() % rows;
@@ -72,54 +73,59 @@ void boardLayout(int rows, int columns, int mines) {
 		}
 	}
 
-    if (MINEFIELDOUTPUT) {
-        printf("DEV - Printing Minefield:\n");
-        for (int i = 0; i < rows; i++) { // printing for dev purposes - remove later  
-                for (int j = 0; j < columns; j++) { 
-                    printf("%c ", minefield[i][j]);
-            }
-            printf("\n");
-        }
-    }
+	return minefield;
+}
+
+char** generateNumberMap(int rows, int columns, char **minefield) { 
+	
+	char** numberMap = (char**)malloc(rows * sizeof(char*));
+    		for (int i = 0; i < rows; i++) {
+        		numberMap[i] = (char*)malloc(columns * sizeof(char));
+    		}
 
 	for (int i = 0; i < rows; i++) { 
 		for (int j = 0; j < columns; j++) { 
 			if (minefield[i][j] != 'X') { 
 				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
 				if (touching_mines == 0) { 
-    					playerBoard[i][j] = '0';
+    					numberMap[i][j] = '0'; // change to '0' from ' '
 				} else {
-				minefield[i][j] = '0' + touching_mines;
-				playerBoard[i][j] = '0' + touching_mines;    			
+					numberMap[i][j] = '0' + touching_mines;    			
 				}
-			}
+			} else { 
+				numberMap[i][j] = 'X';
 		}
 	}
+}
+	return numberMap;
+}
 
-    if (MINEFIELDOUTPUT) {
-        printf("\nDEV - Printing PlayerBoard:\n");
-        for (int i = 0; i < rows; i++) { // only for dev testing - need to print only the square player selects 
-                for (int j = 0; j < columns; j++) {
-                        printf("%c ", playerBoard[i][j]);
-            }
-            printf("\n");
+char** generateGameboard(int rows, int columns) { 
+
+    char** gameboard = malloc(rows * sizeof(char*));
+    for (int i = 0; i < rows; i++) {
+        gameboard[i] = malloc(columns * sizeof(char));
+        for (int j = 0; j < columns; j++) {
+            gameboard[i][j] = '.';
         }
     }
-
+    return gameboard;
 }
+
 // END OF COPIED CODE FROM ESHA
 
 
 
 
-void modifyBoard(int r, int c, int rows, int columns, char board[rows][columns], char numbermap[rows][columns], int * squares_revealed) { // RECURSE CALLS WILL BE FUN
+//void modifyBoard(int r, int c, int rows, int columns, char board[rows][columns], char numbermap[rows][columns], int * squares_revealed) { // RECURSE CALLS WILL BE FUN
+void modifyBoard(int r, int c, int rows, int columns, char ** board, char ** numbermap, int * squares_revealed) { // RECURSE CALLS WILL BE FUN
     if (board[r][c] == '.') {
         board[r][c] = numbermap[r][c];
         (*squares_revealed)++;
     }
     else {
         if (DEBUG) {
-        printf("[%d][%d] not '.'\tSkipping\n", r, c); // dev
+        printf("[%d][%d] not '.\'\tSkipping\n", r, c); // dev
         }
         return;
     }
@@ -159,7 +165,7 @@ void modifyBoard(int r, int c, int rows, int columns, char board[rows][columns],
         }
         if (c < (columns-1)) { // E face
             if (DEBUG) {
-                printf("rows:%d cols:%d\tLooking E from [%d][%d] at [%d][%d]\n", rows, columns, r, c, r, c+1);
+                printf("Looking E from [%d][%d] at [%d][%d]\n", r, c, r, c+1);
             }
             modifyBoard(r, c+1, rows, columns, board, numbermap, squares_revealed);
         }
@@ -193,7 +199,8 @@ void modifyBoard(int r, int c, int rows, int columns, char board[rows][columns],
 
 }
 
-void gameEndCheck(int rows, int columns, char board[rows][columns], char minefield[rows][columns], int mines, int * flags) {
+// void gameEndCheck(int rows, int columns, char board[rows][columns], char minefield[rows][columns], int mines, int * flags) {
+void gameEndCheck(int rows, int columns, char ** board, char ** minefield, int mines, int * flags) {
     if (mines == *flags) { // same number of flags as mines, assume flag char is 'F'
         int correct_flags = 0;
         for (int i = 0; i < rows; i++) { 
@@ -210,7 +217,9 @@ void gameEndCheck(int rows, int columns, char board[rows][columns], char minefie
     }
 }
 
-void processMove(int specified_row, int specified_column, int change, int rows, int columns, char board[rows][columns], char minefield[rows][columns], char numbermap[rows][columns], int mines, int * flags, int * squares_revealed) {
+// void processMove(int specified_row, int specified_column, int change, int rows, int columns, char board[rows][columns], char minefield[rows][columns], char numbermap[rows][columns], int mines, int * flags, int * squares_revealed)
+
+void processMove(int specified_row, int specified_column, int change, int rows, int columns, char ** board, char ** minefield, char ** numbermap, int mines, int * flags, int * squares_revealed) {
     
     if (change == 0) { // 0 for dig
         if (numbermap[specified_row][specified_column] == 'X') {
@@ -244,41 +253,23 @@ void processMove(int specified_row, int specified_column, int change, int rows, 
 
 
 int main() { 
-
-    // eshas test
-	// boardLayout(5, 7, 3);
     
     int rows = 4;
     int columns = 5;
-	char minefield[4][5] = { {'X', '.', '.', '.', '.'}, {'X', '.', '.', '.', '.'}, {'.', '.', '.', '.', '.'}, {'.', '.', '.', '.', 'X'} };
+	
+    // this all just to hard code array for testing
+    char minefield_array[4][5] = { {'X', '.', '.', '.', '.'}, {'X', '.', '.', '.', '.'}, {'.', '.', '.', '.', '.'}, {'.', '.', '.', '.', 'X'} };
 
-    char numbermap[4][5];
-
-    //number map
-    for (int i = 0; i < rows; i++) { 
-		for (int j = 0; j < columns; j++) { 
-			if (minefield[i][j] != 'X') { 
-				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
-				if (touching_mines == 0) { 
-    				numbermap[i][j] = '0';
-				}
-                else {
-				numbermap[i][j] = '0' + touching_mines;    			
-				}
-			}
-            else {
-                numbermap[i][j] = 'X'; ////// ESHA ADD THIS
-            }
-		}
-	}
+    char **minefield = malloc(rows * sizeof(char *));
+    for (int i = 0; i < rows; i++) {
+        minefield[i] = minefield_array[i];
+    }
+    // end of hard coding array
+    
+    char ** numbermap = generateNumberMap(4, 5, minefield);
 
     //playerboard
-    char board[4][5];
-    for (int i = 0; i < rows; i++) {  // ESHA ADD THIS
-		for (int j = 0; j < columns; j++) { 
-			board[i][j] = '.'; // assuming we want blank char to be .
-		}
-	}
+    char ** board = generateGameboard(4, 5);
 
     if (DEBUG) {
         printf("DEV - Printing Minefield:\n");
@@ -301,8 +292,13 @@ int main() {
     printf("TESTING MOVE PROCESSING\n");
     int flags = 5;
     int squares_revealed = 0;
-    processMove(0, 4, 1, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
+    printf("\n\n\ntest step 1:\n");
     processMove(2, 2, 0, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
+    printf("\n\n\ntest step 2:\n");
+    processMove(3, 4, 1, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
+    //processMove(0, 0, 1, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
+    //processMove(1, 0, 1, 4, 5, board, minefield, numbermap, 2, &flags, &squares_revealed);
+
     printf("Modify Board Tests completed\n\nPrinting Board:\n");
 
     for (int i = 0; i < rows; i++) { // only for dev testing
@@ -313,4 +309,12 @@ int main() {
     }
     printf("Squares Revealed: %d of %d total.\n", squares_revealed, rows*columns);
 
+
+
+
+    printf("End of testing: Freeing all arrays.\n");
+    free(minefield);
+    free(numbermap);
+    free(board);
+    printf("End of testing: All arrays freed.\n");
 }
