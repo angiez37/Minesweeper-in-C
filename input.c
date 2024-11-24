@@ -23,7 +23,7 @@ char *welcomePage() {
     scanf("%99s", name);
 
     sleep(2);
-    printf(".___  ___.  __  .__   __.  _______         _______.____    __    ____  _______  _______ .______    _______ .______      \n");
+    printf("\n.___  ___.  __  .__   __.  _______         _______.____    __    ____  _______  _______ .______    _______ .______      \n");
     printf("|   \\/   | |  | |  \\ |  | |   ____|       /       |\\   \\  /  \\  /   / |   ____||   ____||   _  \\  |   ____||   _  \\     \n");
     printf("|  \\  /  | |  | |   \\|  | |  |__         |   (----` \\   \\/    \\/   /  |  |__   |  |__   |  |_)  | |  |__   |  |_)  |    \n");
     printf("|  |\\/|  | |  | |  . `  | |   __|         \\   \\      \\            /   |   __|  |   __|  |   ___/  |   __|  |      /     \n");
@@ -71,7 +71,7 @@ Controls:
     printf("- Enter the row and column number to reveal a tile.\n");
     printf("- Mark suspected mines using flags.\n\n");
 
-    printf("The Force is strong with you... good luck!\n");
+    printf("The Force is strong with you... good luck!\n\n");
 }
 
 // Function to handle difficulty selection
@@ -117,11 +117,11 @@ void Difficulty(int *rows, int *columns, int *mines) {
 
 }
 
-void parseInput(char *name, int choice, int rows, int columns, int mines) {
+void parseInput(char *name, int choice, int *rows, int *columns, int *mines) {
 
     switch (choice) {
-        case 1: rows = 9; columns = 9; mines = 10; break; // start game with default settings
-        case 2: Difficulty(&rows, &columns, &mines); break; // select difficulty
+        case 1: *rows = 9; *columns = 9; *mines = 10; break; // start game with default settings
+        case 2: Difficulty(rows, columns, mines); break; // select difficulty
         case 3: Instructions(name); parseInput(name, Menu(), rows, columns, mines); break; // display instructions
         case 4: exit(0); // Exit program
         default: printf("Invalid choice.\n"); parseInput(name, Menu(), rows, columns, mines);
@@ -129,7 +129,7 @@ void parseInput(char *name, int choice, int rows, int columns, int mines) {
     
 }
 
-
+/*
 int main() {
     int rows, columns, mines;
     char *name = welcomePage();  // Call welcomeMenu function
@@ -139,4 +139,5 @@ int main() {
     free(name);
     return 0;
 }
+*/
 
