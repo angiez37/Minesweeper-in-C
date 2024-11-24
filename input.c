@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <time.h>
+
+#define MIN_BOARD_SIZE 6
+#define MAX_BOARD_SIZE 30
 
 char *welcomePage() {
     printf("\033[2J"); // Clear the screen
@@ -50,7 +52,7 @@ int Menu() {
 }
 
 // Function to display the user instructions
-void Instructions(char *name) {
+void Instructions(const char *name) {
     printf("======================================\n");
     printf("            MISSION BRIEFING          \n");
     printf("======================================\n\n");
@@ -78,73 +80,56 @@ void Difficulty(int *rows, int *columns, int *mines) {
     printf("            DIFFICULTY LEVEL          \n");
     printf("======================================\n\n");
 
-    printf("The minimum row and column size is 6.\n");
-    printf("The maximum row and column size is 30.\n");
-    printf("Input Board Size: \n");
-    printf("Rows - ");
-    scanf("%d", rows);
-    printf("\n");
-    printf("Columns - ");
-    scanf("%d", columns);
-    printf("\n");
+    do {
+        printf("Input Board Size:\n");
+        printf("Rows (6-30): ");
+        scanf("%d", rows);
+        printf("Columns (6-30): ");
+        scanf("%d", columns);
 
-    if (*rows < 6 || *columns < 6 || *rows > 30 || *columns > 30) {
-        printf("Invalid board size. Please try again.\n");
-        Difficulty(rows, columns, mines);
-        return;
-    }
+        if (*rows < MIN_BOARD_SIZE || *columns < MIN_BOARD_SIZE || *rows > MAX_BOARD_SIZE || *columns > MAX_BOARD_SIZE) {
+            printf("Invalid board size. Please try again.\n");
+        }
+    } 
+    while (*rows < MIN_BOARD_SIZE || *columns < MIN_BOARD_SIZE || *rows > MAX_BOARD_SIZE || *columns > MAX_BOARD_SIZE);
 
     int grid = (*rows) * (*columns);
 
-    printf("Select a difficulty level.\n");
-    printf("1. Padawan Training (Easy)\n");
-    printf("2. Rebel Assault (Medium)\n");
-    printf("3. Jedi Master (Hard)\n");
-
     int choice;
-    printf("Level: ");
-    scanf("%d", &choice);
-    printf("\n");
+    do {
+        printf("Select a difficulty level:\n");
+        printf("1. Padawan Training (Easy)\n");
+        printf("2. Rebel Assault (Medium)\n");
+        printf("3. Jedi Master (Hard)\n");
+        printf("Level: ");
+        scanf("%d", &choice);
 
-    if (choice == 1) {//easy level is 14% mine density
-        *mines = grid / 7;
-    } else if (choice == 2) {//medium level is 20% mine density
-        *mines = grid / 5; 
-    } else if (choice == 3) {//hard level is 33% mine density
-        *mines = grid / 3;
-    }else {
-        printf("Invalid difficulty level. Please try again.\n");
-        Difficulty(rows, columns, mines);
-        return;
-    }
+        if (choice == 1) { // Easy: 14% mine density
+            *mines = grid / 7;
+        } else if (choice == 2) { // Medium: 20% mine density
+            *mines = grid / 5;
+        } else if (choice == 3) { // Hard: 33% mine density
+            *mines = grid / 3;
+        } else {
+            printf("Invalid difficulty level. Please try again.\n\n");
+        }
+    } while (choice < 1 || choice > 3);
 
 }
 
 void parseInput(char *name, int choice, int rows, int columns, int mines) {
 
-    if (choice == 1) { // Start game with default settings
-        rows = 9;
-        columns = 9;
-        mines = 10;
-    } 
-    else if (choice == 2) { // Select difficulty
-        Difficulty(&rows, &columns, &mines);
-    } 
-    else if (choice == 3) { // Instructions
-        Instructions(name);
-        Menu();
-    } 
-    else if (choice == 4) { // Exit
-        exit(0);
-    }
-    else {
-        printf("Invalid choice. Please try again.\n\n");
-        Menu();
+    switch (choice) {
+        case 1: rows = 9; columns = 9; mines = 10; break; // start game with default settings
+        case 2: Difficulty(&rows, &columns, &mines); break; // select difficulty
+        case 3: Instructions(name); parseInput(name, Menu(), rows, columns, mines); break; // display instructions
+        case 4: exit(0); // Exit program
+        default: printf("Invalid choice.\n"); parseInput(name, Menu(), rows, columns, mines);
     }
     
 }
 
-/*
+
 int main() {
     int rows, columns, mines;
     char *name = welcomePage();  // Call welcomeMenu function
@@ -154,4 +139,4 @@ int main() {
     free(name);
     return 0;
 }
-*/
+
