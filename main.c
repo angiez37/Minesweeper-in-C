@@ -22,25 +22,40 @@ int main() {
 
     int squaresToReveal = rows * columns - mines;
     int squaresRevealed = 0;
+    int flags = 0;
     int gameOver = 0;
 
     printf("\nThe mission begins, %s!\n", playerName);
     printf("Good luck defusing the mines.\n");
 
-    while (!gameOver && squaresRevealed < squaresToReveal) {
-        printf("\nCurrent Board:\n");
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                printf("%c ", gameBoard[i][j]);
-            }
-            printf("\n");
+    printf("\nCurrent Board:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            printf("%c ", gameBoard[i][j]);
         }
+        printf("\n");
+    }
 
+    while (!gameOver && squaresRevealed < squaresToReveal) {
+        // Ask the user if they want to dig or flag
+        int change;
+        char action;
+        printf("Enter 'd' to dig or 'f' to flag/unflag: ");
+        scanf(" %c", &action);
+        printf("\n");
+        if (action == 'f') {
+            change = 1;
+        } else if (action == 'd') {
+            change = 0;
+        } else {
+            printf("Invalid action. Please enter 'd' or 'f'.\n");
+            continue;
+        }
         int row, col;
         printf("Enter your move (row): ");
-        scanf("%d ", &row);
+        scanf("%d", &row);
         printf("Enter your move (column): ");
-        scanf("%d ", &col);
+        scanf("%d", &col);
 
         row--;
         col--;
@@ -50,23 +65,19 @@ int main() {
             continue;
         }
 
-        if (gameBoard[row][col] != '.') {
-            printf("Tile already revealed. Choose another one.\n");
-            continue;
-        }
-
-        if (minefield[row][col] == 'X') {
-            printf("\nBOOM! You hit a mine. Game over, %s.\n", playerName);
-            gameOver = 1;
-            break;
-        }
-
         // Reveal the square and apply ripple effect if necessary
-        digSquare(row, col, rows, columns, gameBoard, numberMap, &squaresRevealed);
+        processMove(row, col, change, rows, columns, gameBoard, minefield, numberMap, mines, &flags, &squaresRevealed);
 
         if (squaresRevealed == squaresToReveal) {
-            printf("\nCONGRATULATIONS, %s! You have defused all the mines and saved the galaxy!\n", playerName);
+            printf("\nCONGRATULATIONS, %s! You have defused all the mines and saved the galaxy!\n\n", playerName);
             gameOver = 1;
+        }
+        printf("\nCurrent Board:\n");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                printf("%c ", gameBoard[i][j]);
+            }
+            printf("\n");
         }
     }
 
