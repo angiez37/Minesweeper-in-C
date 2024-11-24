@@ -144,6 +144,7 @@ void parseInput(char *name, int choice, int rows, int columns, int mines) {
     
 }
 
+/*
 int main() {
     int rows, columns, mines;
     char *name = welcomePage();  // Call welcomeMenu function
@@ -153,3 +154,4 @@ int main() {
     free(name);
     return 0;
 }
+*/
