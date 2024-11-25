@@ -7,7 +7,7 @@
 #define DEBUG 0
 
 
-
+/*
 // COPIED ESHA'S CODE INTO HERE JUST TO GENERATE TESTING INPUT
 int surroundingMines(int rows, int columns, char **minefield, int i, int j) { 
 	
@@ -116,7 +116,7 @@ char** generateGameboard(int rows, int columns) {
 }
 
 // END OF COPIED CODE FROM ESHA
-
+*/
 
 
 
@@ -311,7 +311,6 @@ void processMove(int specified_row, int specified_column, int change, int rows, 
         }
 
         else { // if didn't dig a mine
-            printf("Calling Dig Square\n"); 
             digSquare(specified_row, specified_column, rows, columns, board, numbermap, squares_revealed);
         }
     }

@@ -123,6 +123,8 @@ char** generateGameboard(int rows, int columns) {
     return gameboard;
 }
 
+/*
+
 int main() { 
 
 	srand(time(NULL)); 
@@ -140,3 +142,5 @@ int main() {
 	free(gameboard);
 
 }
+
+*/
