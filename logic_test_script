@@ -30,12 +30,13 @@ test() {
     local COMMAND=$1
     local INP=$2
     local EX_OUT=$3
+    local EX_ERR=$4 
 
     EX_RET=1
     if [[ $(cat $EX_ERR) = "" ]]; then
         EX_RET=0
     fi
-    $COMMAND < $INP > test_out.txt
+    $COMMAND < $INP > test_out.txt 2> test_err.txt
     RET=$?
     if [[ $RET != $EX_RET ]]; then
         echo "TC $tc Failed"
@@ -52,16 +53,24 @@ test() {
         fails=$fails+1
         return
     fi
+    DIFF=$(diff test_err.txt $EX_ERR)
+    if [[ $DIFF != '' ]]; then
+        echo "TC $tc Failed Standard Error"
+        echo "$DIFF"
+        echo "-----------"
+        fails=$fails+1
+        return
+    fi
 
     echo "TC $tc Passed"
 }
 
-test './logic_test' 'logic_test_input1.txt' 'logic_test_output1.txt'
-test './logic_test' 'logic_test_input2.txt' 'logic_test_output2.txt'
+test './logic_test' 'logic_test_input1.txt' 'logic_test_output1.txt' 'empty.txt'
+test './logic_test' 'logic_test_input2.txt' 'logic_test_output2.txt' 'empty.txt'
 
 
 # clean up
-rm test_out.txt
+rm test_err.txt test_out.txt
 
 # return code
 exit $fails
