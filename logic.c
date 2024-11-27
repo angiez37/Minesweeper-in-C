@@ -332,10 +332,22 @@ void processMove(int specified_row, int specified_column, int change, int rows, 
 
         gameEndCheck(rows, columns, board, minefield, mines, flags); // check if game ended due to flagging change
     }
+    
+    //Added function component here to calculate score 
+    calculateScore(*squares_revealed, rows, columns);
 
 }
 
-
+// Reveals all mines on the board (called on game over)
+void revealAllMines(int rows, int columns, char **gameBoard, char **minefield) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
+            if (minefield[i][j] == 'X') {
+                gameBoard[i][j] = 'X';
+            }
+        }
+    }
+}
 
 
 // MY MAIN WILL NOT BE IN FINAL RELEASE, IT IS PURELY FOR TESTING PURPOSES OF ALL logic.c FUCTIONS
