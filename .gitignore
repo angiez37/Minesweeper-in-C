@@ -1,0 +1,9 @@
+logic
+board
+main
+
+logic_test
+test_results.txt
+*.gcda
+*.gcno
+*.gcov
