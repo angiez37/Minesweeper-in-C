@@ -306,7 +306,7 @@ bool gameEndCheck(int rows, int columns, char ** board, char ** minefield, int m
 |                2 - player has lost
 | Functions Called: digSquare - if user specifies dig (change==0) digSquare is called on [specified_row][specified_column]
 |                   gameEndCheck - calls at end of the flag processing to check if user has now won the game
-| /////////////////////////////////// DHRUV FUCTION --> lose
+|                   revealAllMines - called when user loses, to reveal to them where all the mines were on the board
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 */
 int processMove(int specified_row, int specified_column, int change, int rows, int columns, char ** board, char ** minefield, char ** numbermap, int mines, int * flags, int * squares_revealed) {
@@ -316,6 +316,7 @@ int processMove(int specified_row, int specified_column, int change, int rows, i
             if (DEBUG) {
                 printf("TRIGGER END OF GAME - LOSE\n");
             }
+            revealAllMines(rows, columns, board, minefield);
             return 2; // return value -> player has lost
         }
 
@@ -350,6 +351,9 @@ int processMove(int specified_row, int specified_column, int change, int rows, i
     return 0; // game is still ongoing
 }
 
+
+
+// DHRUV WROTE BELOW FUNCTION:
 // Reveals all mines on the board (called on game over)
 void revealAllMines(int rows, int columns, char **gameBoard, char **minefield) {
     for (int i = 0; i < rows; i++) {

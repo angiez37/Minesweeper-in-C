@@ -13,6 +13,16 @@ F 2 0 0 0
 1 1 0 1 1 
 0 0 0 1 . 
 Progress: 85.000% of the board revealed.
+. 2 0 0 0 
+. 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+Progress: 85.000% of the board revealed.
+F 2 0 0 0 
+. 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+Progress: 85.000% of the board revealed.
 F 2 0 0 0 
 F 2 0 0 0 
 1 1 0 1 1 

@@ -64,7 +64,6 @@ int main() {
         }
 
     }
-    
 
     if (result == 1) {
         printf("User WON\n");

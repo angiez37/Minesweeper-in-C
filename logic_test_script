@@ -65,8 +65,8 @@ test() {
     echo "TC $tc Passed"
 }
 
-test './logic_test' 'logic_test_input1.txt' 'logic_test_output1.txt' 'empty.txt'
-test './logic_test' 'logic_test_input2.txt' 'logic_test_output2.txt' 'empty.txt'
+test './logic_test' 'logic_test_input1.txt' 'logic_test_output1.txt' 'logic_test_empty.txt'
+test './logic_test' 'logic_test_input2.txt' 'logic_test_output2.txt' 'logic_test_empty.txt'
 
 
 # clean up
