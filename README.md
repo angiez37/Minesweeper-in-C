@@ -7,4 +7,6 @@ Minesweeper is a single-player puzzle-solving logic game played on a grid-like b
 
 Our version of the game offers the user multiple customizable configurations, allowing them to tweak the difficulty of the board and game to their wishes. The core gameplay of our game will be the player entering values representing grid coordinates, accompanied by specific flags or keywords to indicate which action (“digging”, “flagging”, etc) they wish to perform on the coordinate-specified square. 
 
+##### Example usage: 
+ 
 
