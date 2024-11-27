@@ -35,8 +35,8 @@ int main() {
         }
         printf("\n");
     }
-
-    while (!gameOver && squaresRevealed < squaresToReveal) {
+    int state_of_game = 0;
+    while (state_of_game == 0) {
         // Ask the user if they want to dig or flag
         int change;
         char action;
@@ -66,14 +66,7 @@ int main() {
         }
 
         // Reveal the square and apply ripple effect if necessary
-        int result = processMove(row, col, change, rows, columns, gameBoard, minefield, numberMap, mines, &flags, &squaresRevealed);
-
-        if (result == 1) { // player has won;
-            gameOver = 1;
-        }
-        if (result == 2) { // player has lost
-            gameOver = 1; // CHANGE THIS TO REFLECT LOSS FOR PLAYER -----------------------------------------
-        }
+        state_of_game = processMove(row, col, change, rows, columns, gameBoard, minefield, numberMap, mines, &flags, &squaresRevealed);
 
         printf("\nCurrent Board:\n");
         for (int i = 0; i < rows; i++) {
@@ -83,6 +76,17 @@ int main() {
             printf("\n");
         }
     }
+
+    // END OF GAME MAKE NICE DHRUV / IRFAN
+    if (state_of_game == 1) { // win
+        printf("PLAYER HAS WON");
+        // trigger win based things
+    }
+    if (state_of_game == 2) { // lose
+        printf("PLAYER HAS LOST");
+        // trigger loss based conditions
+    }
+
 
     // Clean up memory
     free(playerName);
