@@ -16,3 +16,6 @@ void Instructions(char *name);
 void Difficulty(int *rows, int *columns, int *mines);
 void parseInput(char *name, int choice, int *rows, int *columns, int *mines);
 
+// DHRUV'S FUNCTIONS
+void calculateScore(int squaresRevealed, int rows, int columns);
+void revealAllMines(int rows, int columns, char **gameBoard, char **minefield);
