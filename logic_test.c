@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> 
+#include <stdbool.h>
 
 #include "minesweeper.h"
 
@@ -48,19 +49,29 @@ int main() {
     int flags = 0;
     int squares_revealed = 0;
     int specified_row, specified_column, change;
+    int result = 0;
 
-    scanf("%d %d %d", &specified_row, &specified_column, &change); // take input from test input
+    while (result == 0) {
+        scanf("%d %d %d", &specified_row, &specified_column, &change); // take input from test input
+        result = processMove(specified_row, specified_column, change, 4, 5, board, minefield, numbermap, 3, &flags, &squares_revealed);
 
-    processMove(specified_row, specified_column, change, 4, 5, board, minefield, numbermap, 3, &flags, &squares_revealed);
-
-    // print board
-    for (int i = 0; i < rows; i++) { // only for dev testing
+        // print board
+        for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                     printf("%c ", board[i][j]);
         }
         printf("\n");
-    }
+        }
 
+    }
+    
+
+    if (result == 1) {
+        printf("User WON\n");
+    }
+    else if (result == 2) {
+        printf("User LOST\n");
+    }
 
     free(minefield);
     free(numbermap);

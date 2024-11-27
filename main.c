@@ -66,12 +66,15 @@ int main() {
         }
 
         // Reveal the square and apply ripple effect if necessary
-        processMove(row, col, change, rows, columns, gameBoard, minefield, numberMap, mines, &flags, &squaresRevealed);
+        int result = processMove(row, col, change, rows, columns, gameBoard, minefield, numberMap, mines, &flags, &squaresRevealed);
 
-        if (squaresRevealed == squaresToReveal) {
-            printf("\nCONGRATULATIONS, %s! You have defused all the mines and saved the galaxy!\n\n", playerName);
+        if (result == 1) { // player has won;
             gameOver = 1;
         }
+        if (result == 2) { // player has lost
+            gameOver = 1; // CHANGE THIS TO REFLECT LOSS FOR PLAYER -----------------------------------------
+        }
+
         printf("\nCurrent Board:\n");
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
