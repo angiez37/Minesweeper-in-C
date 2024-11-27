@@ -7,121 +7,6 @@
 
 #define DEBUG 0
 
-
-/*
-// COPIED ESHA'S CODE INTO HERE JUST TO GENERATE TESTING INPUT
-int surroundingMines(int rows, int columns, char **minefield, int i, int j) { 
-	
-	int surrounding_mines = 0; 
-
-	if (minefield[i][j] != 'X') {
-				
-		if (i < (rows - 1) && minefield[i+1][j] == 'X') {
-			surrounding_mines++; 
-		}	
-
-		if (i > 0 && minefield[i-1][j] == 'X') { 
-			surrounding_mines++;
-		}
-	
-		if (j < (columns - 1) && minefield[i][j+1] == 'X') {
-                	surrounding_mines++;
-            	}
-
-		if (j > 0 && minefield[i][j-1] == 'X') {
-                	surrounding_mines++;
-		}
-
-		if (i > 0 && j < (columns - 1) && minefield[i-1][j+1] == 'X') { 
-                	surrounding_mines++;
-            	}
-			
-		if (i < (rows - 1) && j < (columns - 1) && minefield[i+1][j+1] == 'X') {
-                	surrounding_mines++;
-            	}
-
-		if (i > 0 && j > 0 && minefield[i-1][j-1] == 'X') {
-			surrounding_mines++;
-            	}
-
-		if (j > 0 && i < (rows - 1) && minefield[i+1][j-1] == 'X') {
-                	surrounding_mines++;
-		}
-	}	
-
-	return surrounding_mines; 
-}
-
-char** generateMinefield(int rows, int columns, int mines) { 	
-	
-	char** minefield = (char**)malloc(rows * sizeof(char*));
-		for (int i = 0; i < rows; i++) {
-			minefield[i] = (char*)malloc(columns * sizeof(char));
-    	}
-	
-	for (int i = 0; i < rows; i++) {
-        	for (int j = 0; j < columns; j++) {
-            		minefield[i][j] = '.';
-        }
-    }
-
-	int mines_placed = 0; 
-
-	while (mines_placed < mines) { 
-		int i = rand() % rows;
-		int j = rand() % columns;
-		
-		if (minefield[i][j] != 'X') { 
-			minefield[i][j] = 'X'; 					
-			mines_placed++; 
-		}
-	}
-
-	return minefield;
-}
-
-char** generateNumberMap(int rows, int columns, char **minefield) { 
-	
-	char** numberMap = (char**)malloc(rows * sizeof(char*));
-    		for (int i = 0; i < rows; i++) {
-        		numberMap[i] = (char*)malloc(columns * sizeof(char));
-    		}
-
-	for (int i = 0; i < rows; i++) { 
-		for (int j = 0; j < columns; j++) { 
-			if (minefield[i][j] != 'X') { 
-				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
-				if (touching_mines == 0) { 
-    					numberMap[i][j] = '0'; // change to '0' from ' '
-				} else {
-					numberMap[i][j] = '0' + touching_mines;    			
-				}
-			} else { 
-				numberMap[i][j] = 'X';
-		}
-	}
-}
-	return numberMap;
-}
-
-char** generateGameboard(int rows, int columns) { 
-
-    char** gameboard = malloc(rows * sizeof(char*));
-    for (int i = 0; i < rows; i++) {
-        gameboard[i] = malloc(columns * sizeof(char));
-        for (int j = 0; j < columns; j++) {
-            gameboard[i][j] = '.';
-        }
-    }
-    return gameboard;
-}
-
-// END OF COPIED CODE FROM ESHA
-*/
-
-
-
-
 /*
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 | digSquare - Recursively ripple reveals unrevealed spaces on the game board.
@@ -340,12 +225,12 @@ int processMove(int specified_row, int specified_column, int change, int rows, i
             printf("BEFORE GAME END CHECK:\tmines:%d\tflags%d\n", mines, *flags);
         }
 
-        if (gameEndCheck(rows, columns, board, minefield, mines, flags)) {
+        if (gameEndCheck(rows, columns, board, minefield, mines, flags)) { // check if game ended due to flagging change
             return 1; // return value --> player has won
-        }; // check if game ended due to flagging change
+        }
     }
     
-    //Added function component here to calculate score 
+    // calculate % of board revealed
     calculateScore(*squares_revealed, rows, columns);
 
     return 0; // game is still ongoing
