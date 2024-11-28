@@ -1,0 +1,31 @@
+Minesweeper tasks to be done:
+
+?Function to plug in preset board? (or just use hard coded one like logic_test.c)
+
+
+Printing Nice Board -- Dhruv
+	- Polish Other Game Loop I/O
+
+Game loop input on one line (multiple token identifiers in scan)
+	- Letter number coordinates
+		- change input appropriately (use ASCII -shift value)
+
+Scoring Metrics
+	- add timer
+
+End of Game
+	- Win/Lose Message (unique for difficulties)
+	- Output score values
+	- Move Count --> add counter to game logic
+	- Menu
+	- Play Again
+		- Change difficulty option
+
+
+Game Twists / Theming (any more than I/O)
+
+
+GUI
+
+
+? Easter Egg ?
