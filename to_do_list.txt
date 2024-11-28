@@ -1,31 +1,47 @@
-Minesweeper tasks to be done:
+To-Do:
 
-?Function to plug in preset board? (or just use hard coded one like logic_test.c)
+Angel:
+- Game loop input on one line (multiple token identifiers in scan)
+- Letter number coordinates
+	- change input appropriately (use ASCII -shift value)
+- Fix EOF
+	- add message for when user EOF's ("retreat", "abort", "defeat" or something)
+	
 
 
-Printing Nice Board -- Dhruv
-	- Polish Other Game Loop I/O
 
-Game loop input on one line (multiple token identifiers in scan)
-	- Letter number coordinates
-		- change input appropriately (use ASCII -shift value)
+Jack:
+- Easter Egg
+- Help Dhruv implement functions into GUI
+
+
+
+
+Esha:
+- Function to plug in preset board (use hard coded one like logic_test.c)
+
+
+
+
+Dhruv:
+- GUI implementation of game
+- add menu trigger for gui
+
+
+
+
+Irfan:
+- Printing Nice Board --> Add Row / Column Labels (Letter & Number)
+
 
 Scoring Metrics
 	- add timer
+	- add move counter
 
 End of Game
 	- Win/Lose Message (unique for difficulties)
 	- Output score values
-	- Move Count --> add counter to game logic
-	- Menu
-	- Play Again
-		- Change difficulty option
-
-
-Game Twists / Theming (any more than I/O)
-
-
-GUI
-
-
-? Easter Egg ?
+		- Move Count --> add counter to game logic
+		- Timer (time @ end game - time just before start of game loop)
+	- Play Again or Exit
+		- Retrigger beginning Menu
