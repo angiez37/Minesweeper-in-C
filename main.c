@@ -2,22 +2,23 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <string.h>
 #include "minesweeper.h"
 
 void help() { 
     printf("Minesweeper v1.0.0");
-    printf(""); 
+    printf(" "); 
     printf("This is a Star-Wars themed Minesweeper game intended to be played in the command line.");
-    printf(""); 
+    printf(" "); 
     printf("Usage:");
     printf(" --help       Display this help message and exit\n");
-    printf(""); 
+    printf(" "); 
     printf("Before the game:");
     printf("1       Starts the game\n");
     printf("2       Allows user to select difficulty\n");
     printf("3       Displays instructions\n");
     printf("4       Exits the game\n");
-    printf("");
+    printf(" ");
     printf("During the game:");
     printf("d       To dig a square.\n");
     printf("f       To flag or unflag a square.\n");
