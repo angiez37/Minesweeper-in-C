@@ -18,7 +18,7 @@ Navigate to the directory:
 cd the-team-assignment-team-7-a-jedi.git  
 run ./main to start the game  
 
-## How to play
+## How to play (Command-line version)
 
 When you first start the game, you will be prompted with an introduction screen asking you to input your name. 
 
@@ -69,3 +69,27 @@ If you're unfamiliar with the game or need a refresher on how to play, we've got
 ![image](https://github.com/user-attachments/assets/27ca564b-7ca5-4c83-9e02-14587789cebb)
 
 ### Option 4: Exit Game
+
+## How to play (GUI version)
+
+Same rules, same concept; however, using the GTK documentation, a graphical user interface version has been implemented.
+
+Currently: (Note, final version will implement the GUI as an option but for now, it works as its individual file - made solely for testing purposes) to play the GUI version, follow the Example usage above but instead of running "run ./main to start the game" please do the following:
+
+1. gcc -o gui gui.c `pkg-config --cflags --libs gtk+-3.0`
+2. ./gui
+3. Enjoy!
+
+The GUI is incomplete and only displays basic functions of the Minesweeper game; however, it works and can be played!
+
+#### How it works:
+
+Similar to the command line version, it has the same rules except you are able to click on the tiles/blocks/cells instead of having to input the rows/columns. 
+
+Right click to flag, left click to dig
+
+![image](https://github.com/user-attachments/assets/21730b11-1702-4777-9c4c-aef21cf4e1b8)
+
+Above is an example gameplay.
+
+
