@@ -7,24 +7,26 @@
 
 #define DEBUG 0
 
+/* char** test_gameboard() { 
+	char **minefield = generateGameboard(4,5); 
+	char **numbermap = generateNumberMap(4, 5, minefield);
+    	char **board = generateGameboard(4, 5);
+
+	return board; 
+} // double check if this is what jack meant
+
 int main() { 
     
-    int rows = 4;
+    /* int rows = 4;
     int columns = 5;
 	
-    // this all just to hard code array for testing
     char minefield_array[4][5] = { {'X', '.', '.', '.', '.'}, {'X', '.', '.', '.', '.'}, {'.', '.', '.', '.', '.'}, {'.', '.', '.', '.', 'X'} };
 
     char **minefield = malloc(rows * sizeof(char *));
     for (int i = 0; i < rows; i++) {
         minefield[i] = minefield_array[i];
-    }
-    // end of hard coding array
-    
-    
-    // generate boards
-    char ** numbermap = generateNumberMap(4, 5, minefield);
-    char ** board = generateGameboard(4, 5);
+    } to be deleted 
+    */ 
 
 
 
