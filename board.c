@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h> 
 
+// calculates and returns the number of surrounding mines for a given square on the board
 int surroundingMines(int rows, int columns, char **minefield, int i, int j) { 
 	
 	int surrounding_mines = 0; 
@@ -44,6 +45,7 @@ int surroundingMines(int rows, int columns, char **minefield, int i, int j) {
 	return surrounding_mines; 
 }
 
+// randomly distributes mines
 char** generateMinefield(int rows, int columns, int mines) { 	
 	
 	char** minefield = (char**)malloc(rows * sizeof(char*));
@@ -80,6 +82,7 @@ char** generateMinefield(int rows, int columns, int mines) {
 	return minefield;
 }
 
+// generates and returns a number map based on the surrounding mines function 
 char** generateNumberMap(int rows, int columns, char **minefield) { 
 	
 	char** numberMap = (char**)malloc(rows * sizeof(char*));
@@ -111,6 +114,7 @@ char** generateNumberMap(int rows, int columns, char **minefield) {
 	return numberMap;
 }
 
+// returns the gameboard 
 char** generateGameboard(int rows, int columns) { 
 
     char** gameboard = malloc(rows * sizeof(char*));
