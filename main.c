@@ -4,7 +4,32 @@
 #include <unistd.h>
 #include "minesweeper.h"
 
-int main() {
+int main(int argc, char *argv[]) {
+
+    if (argc > 1 && strcmp(argv[1], "--help") == 0) {
+        help();
+        return 0;
+    }
+
+    void help() { 
+        printf("Minesweeper v1.0.0");
+        printf(""); 
+        printf("This is a Star-Wars themed Minesweeper game intended to be played in the command line.");
+        printf(""); 
+        printf("Usage:");
+        printf(" --help       Display this help message and exit\n");
+        printf(""); 
+        printf("Before the game:");
+        printf("1       Starts the game\n");
+        printf("2       Allows user to select difficulty\n");
+        printf("3       Displays instructions\n");
+        printf("4       Exits the game\n");
+        printf("");
+        printf("During the game:");
+        printf("d       To dig a square.\n");
+        printf("f       To flag or unflag a square.\n");
+    } 
+    
     // random number generator
     srand(time(NULL));
 
