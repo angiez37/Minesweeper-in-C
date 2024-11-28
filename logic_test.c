@@ -28,6 +28,10 @@ int main() {
         minefield[i] = minefield_array[i];
     } 
 
+    char ** numbermap = generateNumberMap(4, 5, minefield);
+    char ** board = generateGameboard(4, 5);
+
+
     if (DEBUG) { // make sure that minefield and numbermap generated properly
         printf("DEV - Printing Minefield:\n");
         for (int i = 0; i < rows; i++) { // printing for dev purposes
