@@ -1,7 +1,8 @@
 To-Do:
 
 EVERYONE:
-
+add your .c files to workflow and testing plan
+update ReadMe/Help based on new functionality
 
 
 Angel:
