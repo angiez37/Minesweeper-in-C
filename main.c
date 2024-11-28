@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
         printf("During the game:");
         printf("d       To dig a square.\n");
         printf("f       To flag or unflag a square.\n");
-    } 
+    } // dhruv you can add on to here
     
     // random number generator
     srand(time(NULL));
