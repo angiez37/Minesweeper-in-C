@@ -9,9 +9,9 @@ Our version of the game offers the user multiple customizable configurations, al
 
 #### Example usage: 
 
-Clone the repo in your local environment: 
-git clone https://github.com/Sam-Scott-McMaster/the-team-assignment-team-7-a-jedi.git
+Clone the repo in your local environment:  
+git clone https://github.com/Sam-Scott-McMaster/the-team-assignment-team-7-a-jedi.git  
 
-Navigate to the directory:
-cd the-team-assignment-team-7-a-jedi.git
-run ./main to start the game
+Navigate to the directory:  
+cd the-team-assignment-team-7-a-jedi.git  
+run ./main to start the game  
