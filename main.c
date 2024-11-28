@@ -58,10 +58,10 @@ int main(int argc, char *argv[]) {
         printf("\n");
     }
     int state_of_game = 0;
+    int change;
+    char action;
     while (state_of_game == 0) {
         // Ask the user if they want to dig or flag
-        int change;
-        char action;
         printf("Enter 'd' to dig or 'f' to flag/unflag: ");
         scanf(" %c", &action);
         printf("\n");
