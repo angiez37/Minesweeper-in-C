@@ -8,7 +8,7 @@
 void help() { 
     printf("Minesweeper v1.0.0\n");
     printf("This is a Star-Wars themed Minesweeper game intended to be played in the command line.\n");
-    printf("Usage:"\n);
+    printf("Usage:\n");
     printf(" --help       Display this help message and exit\n");
     printf("Before the game:\n");
     printf("1       Starts the game\n");
