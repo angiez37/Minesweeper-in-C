@@ -14,10 +14,11 @@
 
 	return board; 
 } // double check if this is what jack meant
+*/ 
 
 int main() { 
     
-    /* int rows = 4;
+    int rows = 4;
     int columns = 5;
 	
     char minefield_array[4][5] = { {'X', '.', '.', '.', '.'}, {'X', '.', '.', '.', '.'}, {'.', '.', '.', '.', '.'}, {'.', '.', '.', '.', 'X'} };
@@ -25,10 +26,7 @@ int main() {
     char **minefield = malloc(rows * sizeof(char *));
     for (int i = 0; i < rows; i++) {
         minefield[i] = minefield_array[i];
-    } to be deleted 
-    */ 
-
-
+    } 
 
     if (DEBUG) { // make sure that minefield and numbermap generated properly
         printf("DEV - Printing Minefield:\n");
