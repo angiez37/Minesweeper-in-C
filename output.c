@@ -15,7 +15,3 @@ char** outputMinefield(char **minefield, int rows, int columns) {
         printf("\n");
     }
 }
-
-
-
-
