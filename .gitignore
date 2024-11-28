@@ -1,6 +1,6 @@
 logic
 board
-main
+minesweeper
 
 logic_test
 test_results.txt

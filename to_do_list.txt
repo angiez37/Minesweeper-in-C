@@ -1,12 +1,16 @@
 To-Do:
 
+EVERYONE:
+
+
+
 Angel:
 - Game loop input on one line (multiple token identifiers in scan)
 - Letter number coordinates
 	- change input appropriately (use ASCII -shift value)
 - Fix EOF
 	- add message for when user EOF's ("retreat", "abort", "defeat" or something)
-	
+
 
 
 
