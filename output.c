@@ -2,11 +2,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stddef.h>
+#include <unistd.h>
 
 
 int endMenu(int state) {
     int choice;
     if (state == 1) {
+        // Printing victory message (ignore format, when printed it works as expected)
+        printf("   __        __    __    __ __ __    __ __ __     __ __ __     __ __    __    __\n");
+        printf("  \\  \\      /  /  |  |  |        |  |        |  /    __   \\  |   __  \\  \\ \\  / /\n");
+        printf("   \\  \\    /  /   |  |  |  |‾‾ ‾‾    ‾‾|  |‾‾   |  /   \\  |  |  |  )  |  \\ \\/ /\n");
+        printf("    \\  \\  /  /    |  |  |  |           |  |     |  |   |  |  |   ‾‾  /    |  |\n");
+        printf("     \\  \\/  /     |  |  |  |__ __      |  |     |  \\__ /  |  |  |\\  \\     |  |\n");
+        printf("      \\ __ /      |__|  |__ __ __|     |__|     \\__ __ __ /  |__| \\ _\\    |__|\n");
+
+        sleep(2);
+        printf("\n");
         printf("The Force is strong with you, Jedi!\n");
         printf("The mines have been defused, and peace has returned to the galaxy!\n");
     }
@@ -14,11 +25,13 @@ int endMenu(int state) {
         printf("You have failed me for the last time, Commander.\n");
         printf("The mines have detonated, and the galaxy is in ruins.\n");
     }
+    sleep(2);
     printf("\n");
     printf("1. Play Again\n");
     printf("2. Exit\n");
+    printf("\n");
     printf("Enter your choice:");
-    printf("%ls", &choice);
+    scanf("%d\n", &choice);
     return choice;
 }
 
@@ -52,7 +65,7 @@ void outputMinefield(char **minefield, int rows, int columns) { //char**
 }
 
 // Testing purposes, remove before submitting
-/*int main() {
+int main() {
     // Sample minefield for testing
     int rows = 3, columns = 4;
     
@@ -65,5 +78,8 @@ void outputMinefield(char **minefield, int rows, int columns) { //char**
 
     // Call the function to print the minefield
     outputMinefield(minefield, rows, columns);
+
+    int test = endMenu(1);
+
     return 0;
-}*/
+}
