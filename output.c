@@ -18,34 +18,52 @@ int endMenu(int state) {
     printf("1. Play Again\n");
     printf("2. Exit\n");
     printf("Enter your choice:");
-    printf("%d", &choice);
+    printf("%ls", &choice);
     return choice;
 }
 
 
-char** outputMinefield(char **minefield, int rows, int columns) {
+void outputMinefield(char **minefield, int rows, int columns) { //char**
 
-    printf("Location of Mines");
+    printf("Location of Mines\n");
 
     int count = 0;
     for (int i=0; i<rows; i++) {
-        while(count != columns) {
-            printf("—");
+        for(int i=0; i<columns; i++) {
+            printf(" ———");
         }
         printf("\n");
-        count = 0;
 
         for (int j=0; j<columns; j++) {
             printf("|");
-            printf("%c ", minefield[i][j]);
+            printf(" %c ", minefield[i][j]);
         }
         printf("|");
         printf("\n");
-    }
 
-    while(count != columns) {
-        printf("—");
+        count = 0;
+        for(int i=0; i<columns; i++) {
+            printf(" ———");
+        }
+        printf("\n");
     }
     printf("\n");
     count = 0;
 }
+
+// Testing purposes, remove before submitting
+/*int main() {
+    // Sample minefield for testing
+    int rows = 3, columns = 4;
+    
+    // Allocating memory for a 2D array dynamically to simulate the minefield
+    char *minefield[3] = {
+        "* . . .",
+        ". * . .",
+        ". . * ."
+    };
+
+    // Call the function to print the minefield
+    outputMinefield(minefield, rows, columns);
+    return 0;
+}*/
