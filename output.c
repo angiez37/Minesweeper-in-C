@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 
-int endMenu(int state) {
+int endMenu(int state) { // Outputting end menu messages
     int choice;
     int correct_input = 0;
     if (state == 1) {
@@ -23,6 +23,7 @@ int endMenu(int state) {
         printf("The mines have been defused, and peace has returned to the galaxy!\n");
     }
     else {
+        // Printing defeat message
         printf("   __ __ __     __ __ __    __ __ __    __ __ __         ___     __ __ __            \n");
         printf("  |   __   \\   |   __ __|  |   __ __|  |   __ __|      / __ \\   |__    __|    \n");
         printf("  |  |  \\   |  |  |__ __   |  |__ __   |  |__ __      / /__\\ \\     |  |       \n");
@@ -39,45 +40,45 @@ int endMenu(int state) {
     sleep(2);
     printf("\n");
     printf("1. Play Again\n");
-    printf("2. Exit\n");
+    printf("2. Exit\n"); // Play again or exit options
     printf("\n");
-    while (correct_input == 0) {
+    while (correct_input == 0) { // While loop to care for incorrect inputs
         printf("Enter your choice:");
         scanf("%d", &choice);
         printf("\n");
-        if (choice == 1 || choice == 2) {
-            correct_input = 1;
+        if (choice == 1 || choice == 2) { // Checking if user input correct
+            correct_input = 1; // Breaking out of loop
         }
         else {
             printf("Not in range! Pick either option 1 or 2.\n");
         }
     }
     
-    return choice;
+    return choice; // return user choice
 }
 
 
-void outputMinefield(char **minefield, int rows, int columns) { 
+void outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
 
     printf("Location of Mines\n");
 
     int count = 0;
     for (int i=0; i<rows; i++) {
-        for(int i=0; i<columns; i++) {
-            printf(" ———");
+        for(int i=0; i<columns; i++) { 
+            printf(" ———"); // Printing a line above each row for top border
         }
         printf("\n");
 
         for (int j=0; j<columns; j++) {
-            printf("|");
-            printf(" %c ", minefield[i][j]);
+            printf("|"); // Printing side borders
+            printf(" %c ", minefield[i][j]); // Printing each row
         }
-        printf("|");
+        printf("|"); 
         printf("\n");
 
         count = 0;
         for(int i=0; i<columns; i++) {
-            printf(" ———");
+            printf(" ———"); // Printing row of lines at bottom of each row for bottom border
         }
         printf("\n");
     }
