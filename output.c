@@ -58,27 +58,47 @@ int endMenu(int state) { // Outputting end menu messages
 }
 
 
-void outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
+char** outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
 
     printf("Location of Mines\n");
+    printf("\n");
 
     int count = 0;
+
+    printf("   ");
+    for (int k=0; k<columns; k++) { // Printing top numbers
+        if (k<9) {
+            printf("   %d  ", (k+1));
+        }
+        else {
+            printf("  %d  ", (k+1));
+        }
+    }
+    printf("\n");
+
     for (int i=0; i<rows; i++) {
+        printf("   ");
         for(int i=0; i<columns; i++) { 
-            printf(" ———"); // Printing a line above each row for top border
+            printf(" —————"); // Printing a line above each row for top border
         }
         printf("\n");
-
-        for (int j=0; j<columns; j++) {
-            printf("|"); // Printing side borders
-            printf(" %c ", minefield[i][j]); // Printing each row
+        printf("%d ", (i+1)); // Printing side numbers
+        if ((i+1)<10) {
+            printf(" |");
         }
-        printf("|"); 
+        else {
+            printf("|");
+        }
+        for (int j=0; j<columns; j++) {
+            printf("  %c  |", minefield[i][j]); // Printing each row with side border
+        }
+        //printf("|"); 
         printf("\n");
 
         count = 0;
+        printf("   ");
         for(int i=0; i<columns; i++) {
-            printf(" ———"); // Printing row of lines at bottom of each row for bottom border
+            printf(" —————"); // Printing row of lines at bottom of each row for bottom border
         }
         printf("\n");
     }
@@ -89,20 +109,28 @@ void outputMinefield(char **minefield, int rows, int columns) { // Outputting mi
 // Testing purposes, remove before submitting
 /*int main() {
     // Sample minefield for testing
-    int rows = 3, columns = 4;
+    int rows = 11, columns = 10;
     
     // Allocating memory for a 2D array dynamically to simulate the minefield
-    char *minefield[3] = {
-        "* . . .",
-        ". * . .",
-        ". . * ."
+    char *minefield[11] = {
+    "*..........",
+    ".*.........",
+    "..*........",
+    "...*.......",
+    "....*......",
+    ".....*.....",
+    "......*....",
+    ".......*...",
+    "........*..",
+    ".........*.",
+    "..........."
     };
 
     // Call the function to print the minefield
     outputMinefield(minefield, rows, columns);
 
-    int tc1 = endMenu(1);
-    printf("%d\n", tc1);
+    //int tc1 = endMenu(1);
+    //printf("%d\n", tc1);
 
     return 0;
 }*/
