@@ -260,5 +260,15 @@ void launch_gui() {
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
     int status = g_application_run(G_APPLICATION(app), 0, NULL);
     g_object_unref(app);
-    exit(0);
+
+    outputMinefield(minefield, BOARD_SIZE, BOARD_SIZE); 
+    int playAgain = endMenu(status);
+
+    while (playAgain == 1) {
+        launch_gui();
+    }
+    
+    if (playAgain == 2) {
+        exit(0);
+    }
 }

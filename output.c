@@ -43,7 +43,7 @@ int endMenu(int state) { // Outputting end menu messages
     printf("2. Exit\n"); // Play again or exit options
     printf("\n");
     while (correct_input == 0) { // While loop to care for incorrect inputs
-        printf("Enter your choice:");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
         printf("\n");
         if (choice == 1 || choice == 2) { // Checking if user input correct
