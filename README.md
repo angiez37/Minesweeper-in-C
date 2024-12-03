@@ -5,7 +5,7 @@ Built by: A JEDI (aka, Angel, Jack, Esha, Dhruv, Irfan)
 #### How to Install: 
 On your Linux command line please run the two following commands. 
 ----------------------------------------------------------------------
-#### sudo apt-get update
+#### sudo apt update
 #### sudo apt install libgtk-3-dev
 #### Verify its installed: pkg-config --modversion gtk+-3.0
 ----------------------------------------------------------------
