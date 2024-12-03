@@ -1,6 +1,15 @@
 # Minesweeper in a Galaxy Far, Far Away....
 Built by: A JEDI (aka, Angel, Jack, Esha, Dhruv, Irfan)
 
+### I will add this to the bottom later but for now: if anyone wants to run the game please install gtk
+#### How to Install: 
+On your Linux command line please run the two following commands. 
+----------------------------------------------------------------------
+#### sudo apt update
+#### sudo apt install libgtk-3-dev
+#### Verify its installed: pkg-config --modversion gtk+-3.0
+----------------------------------------------------------------
+
 #### How to play Minesweeper 
 
 Minesweeper is a single-player puzzle-solving logic game played on a grid-like board. The user attempts to figure out where within the grid there are hidden “mines” planted by the Empire to be avoided. As the user “digs up” more of the board, numbers are revealed indicating the number of adjacent mines to a given square. Using this information, the player will deduce where the hidden “mines” are, while avoiding them. 
