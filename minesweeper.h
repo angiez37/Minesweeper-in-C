@@ -1,7 +1,6 @@
 #include <stdbool.h>
 #include <gtk/gtk.h> // USING GTK API VERSION 3.0
 
-
 // ESHA'S FUNCTIONS
 char** generateMinefield(int rows, int columns, int mines);
 int surroundingMines(int rows, int columns, char **minefield, int i, int j);
