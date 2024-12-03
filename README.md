@@ -6,7 +6,8 @@ Built by: A JEDI (aka, Angel, Jack, Esha, Dhruv, Irfan)
 On your Linux command line please run the two following commands. 
 ----------------------------------------------------------------------
 #### sudo apt-get update
-#### sudo apt-get install -y libgtk-3-dev pkg-config
+#### sudo apt install libgtk-3-dev
+#### Verify its installed: pkg-config --modversion gtk+-3.0
 ----------------------------------------------------------------
 
 #### How to play Minesweeper 
