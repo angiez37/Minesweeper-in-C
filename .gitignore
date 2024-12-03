@@ -7,3 +7,6 @@ test_results.txt
 *.gcda
 *.gcno
 *.gcov
+
+gui
+gui.h

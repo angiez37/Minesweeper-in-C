@@ -1,4 +1,6 @@
 #include <stdbool.h>
+#include <gtk/gtk.h> // USING GTK API VERSION 3.0
+
 
 // ESHA'S FUNCTIONS
 char** generateMinefield(int rows, int columns, int mines);
@@ -14,13 +16,20 @@ bool gameEndCheck(int rows, int columns, char ** board, char ** minefield, int m
 // ANGEL'S FUNCTIONS
 char *welcomePage();
 int Menu();
-void Instructions(char *name);
+void Instructions(char const *name);
 void Difficulty(int *rows, int *columns, int *mines);
 void parseInput(char *name, int choice, int *rows, int *columns, int *mines);
 
 // DHRUV'S FUNCTIONS
 void calculateScore(int squaresRevealed, int rows, int columns);
 void revealAllMines(int rows, int columns, char **gameBoard, char **minefield);
+
+void reveal_all_bombs();
+void on_cell_clicked(GtkWidget *widget, GdkEventButton *event, int *coords);
+void initialize_gui_board(GtkWidget *grid);
+void activate(GtkApplication *app);
+int startGUI(int argc, char **argv);
+void launch_gui();
 
 // IRFAN"S FUNCTIONS
 int endMenu(int state);

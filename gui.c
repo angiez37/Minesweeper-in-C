@@ -1,6 +1,7 @@
 #include <gtk/gtk.h> // USING GTK API VERSION 3.0
 #include <stdlib.h>
 #include <time.h>
+#include "minesweeper.h"
 
 // Currently the board size and mine count are Macros and cannot be changed. However, only for testing purposes and will implement an option to change these values in the final version.
 #define BOARD_SIZE 16
@@ -13,7 +14,7 @@
 // Link to GTK Label for reference: https://docs.gtk.org/gtk3/class.Label.html
 // Link to GTK Widget for reference: https://docs.gtk.org/gtk3/class.Widget.html
 
-// One of the coolest things I've learned was this, struct
+// One of the coolest things I've learned was this while working on the GUI, struct
 // Groups related variables together and can use it similar to objects in OOP
 // For example, board[i][j].revealed is much more readable than revealed[i][j]
 typedef struct {
@@ -33,70 +34,70 @@ GtkWidget *game_over_label; // Global variable for the label - used to display t
 // Using functions from previously implemented board.c & logic.c (Not included in this file for testing purposes)
 // File has not been combined with the minesweeper.h yet however, the final version will have all implementations of game working together
 
-// Function to calculate surrounding mines
-int surroundingMines(int rows, int columns, char **minefield, int i, int j) {
-    int surrounding_mines = 0;
-    if (minefield[i][j] != 'X') {
-        if (i < rows - 1 && minefield[i + 1][j] == 'X') surrounding_mines++;
-        if (i > 0 && minefield[i - 1][j] == 'X') surrounding_mines++;
-        if (j < columns - 1 && minefield[i][j + 1] == 'X') surrounding_mines++;
-        if (j > 0 && minefield[i][j - 1] == 'X') surrounding_mines++;
-        if (i > 0 && j < columns - 1 && minefield[i - 1][j + 1] == 'X') surrounding_mines++;
-        if (i < rows - 1 && j < columns - 1 && minefield[i + 1][j + 1] == 'X') surrounding_mines++;
-        if (i > 0 && j > 0 && minefield[i - 1][j - 1] == 'X') surrounding_mines++;
-        if (i < rows - 1 && j > 0 && minefield[i + 1][j - 1] == 'X') surrounding_mines++;
-    }
-    return surrounding_mines;
-}
+// // Function to calculate surrounding mines
+// int surroundingMines(int rows, int columns, char **minefield, int i, int j) {
+//     int surrounding_mines = 0;
+//     if (minefield[i][j] != 'X') {
+//         if (i < rows - 1 && minefield[i + 1][j] == 'X') surrounding_mines++;
+//         if (i > 0 && minefield[i - 1][j] == 'X') surrounding_mines++;
+//         if (j < columns - 1 && minefield[i][j + 1] == 'X') surrounding_mines++;
+//         if (j > 0 && minefield[i][j - 1] == 'X') surrounding_mines++;
+//         if (i > 0 && j < columns - 1 && minefield[i - 1][j + 1] == 'X') surrounding_mines++;
+//         if (i < rows - 1 && j < columns - 1 && minefield[i + 1][j + 1] == 'X') surrounding_mines++;
+//         if (i > 0 && j > 0 && minefield[i - 1][j - 1] == 'X') surrounding_mines++;
+//         if (i < rows - 1 && j > 0 && minefield[i + 1][j - 1] == 'X') surrounding_mines++;
+//     }
+//     return surrounding_mines;
+// }
 
-// Function to generate the minefield
-char **generateMinefield(int rows, int columns, int mines) {
-    char **minefield = (char **)malloc(rows * sizeof(char *));
-    for (int i = 0; i < rows; i++) {
-        minefield[i] = (char *)malloc(columns * sizeof(char));
-        for (int j = 0; j < columns; j++) {
-            minefield[i][j] = '.';
-        }
-    }
+// // Function to generate the minefield
+// char **generateMinefield(int rows, int columns, int mines) {
+//     char **minefield = (char **)malloc(rows * sizeof(char *));
+//     for (int i = 0; i < rows; i++) {
+//         minefield[i] = (char *)malloc(columns * sizeof(char));
+//         for (int j = 0; j < columns; j++) {
+//             minefield[i][j] = '.';
+//         }
+//     }
 
-    int mines_placed = 0;
-    while (mines_placed < mines) {
-        int i = rand() % rows;
-        int j = rand() % columns;
-        if (minefield[i][j] != 'X') {
-            minefield[i][j] = 'X';
-            mines_placed++;
-        }
-    }
-    return minefield;
-}
+//     int mines_placed = 0;
+//     while (mines_placed < mines) {
+//         int i = rand() % rows;
+//         int j = rand() % columns;
+//         if (minefield[i][j] != 'X') {
+//             minefield[i][j] = 'X';
+//             mines_placed++;
+//         }
+//     }
+//     return minefield;
+// }
 
 
-// Function to generate the number map
-char** generateNumberMap(int rows, int columns, char **minefield) { 
+// // Function to generate the number map
+// char** generateNumberMap(int rows, int columns, char **minefield) { 
 	
-	char** numberMap = (char**)malloc(rows * sizeof(char*));
-    		for (int i = 0; i < rows; i++) {
-        		numberMap[i] = (char*)malloc(columns * sizeof(char));
-    		}
+// 	char** numberMap = (char**)malloc(rows * sizeof(char*));
+//     		for (int i = 0; i < rows; i++) {
+//         		numberMap[i] = (char*)malloc(columns * sizeof(char));
+//     		}
 
-	for (int i = 0; i < rows; i++) { 
-		for (int j = 0; j < columns; j++) { 
-			if (minefield[i][j] != 'X') { 
-				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
-				if (touching_mines == 0) { 
-    					numberMap[i][j] = '0';
-				} else {
-					numberMap[i][j] = '0' + touching_mines;    			
-				}
-			} 
-            else { 
-				numberMap[i][j] = 'X';
-		    }
-	    }
-    }  	
-    return numberMap;
-}
+// 	for (int i = 0; i < rows; i++) { 
+// 		for (int j = 0; j < columns; j++) { 
+// 			if (minefield[i][j] != 'X') { 
+// 				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
+// 				if (touching_mines == 0) { 
+//     					numberMap[i][j] = '0';
+// 				} else {
+// 					numberMap[i][j] = '0' + touching_mines;    			
+// 				}
+// 			} 
+//             else { 
+// 				numberMap[i][j] = 'X';
+// 		    }
+// 	    }
+//     }  	
+//     return numberMap;
+// }
 
 
 void reveal_all_bombs() {
@@ -231,9 +232,9 @@ void activate(GtkApplication *app) {
 }
 
 
-int main(int argc, char **argv) {
+int startGUI(int argc, char **argv) {
     // random number generator
-    srand(time(NULL));
+    // srand(time(NULL));
 
     GtkApplication *app = gtk_application_new("com.example.Minesweeper", G_APPLICATION_FLAGS_NONE);
 
@@ -252,4 +253,12 @@ int main(int argc, char **argv) {
     free(numberMap);
 
     return status;
+}
+
+void launch_gui() {
+    GtkApplication *app = gtk_application_new("com.example.minesweeper", G_APPLICATION_FLAGS_NONE);
+    g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
+    int status = g_application_run(G_APPLICATION(app), 0, NULL);
+    g_object_unref(app);
+    exit(0);
 }

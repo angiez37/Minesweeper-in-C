@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "minesweeper.h"
 
 #define MIN_BOARD_SIZE 6
 #define MAX_BOARD_SIZE 30
@@ -43,6 +44,8 @@ int Menu() {
     printf("2. Select Difficulty\n");
     printf("3. Instructions\n");
     printf("4. Exit\n\n");
+    printf("5. GUI\n");
+
 
     int choice;
     printf("Option: ");
@@ -124,6 +127,7 @@ void parseInput(char *name, int choice, int *rows, int *columns, int *mines) {
         case 2: Difficulty(rows, columns, mines); break; // select difficulty
         case 3: Instructions(name); parseInput(name, Menu(), rows, columns, mines); break; // display instructions
         case 4: exit(0); // Exit program
+        case 5: launch_gui(); break;
         default: printf("Invalid choice.\n"); parseInput(name, Menu(), rows, columns, mines);
     }
     
