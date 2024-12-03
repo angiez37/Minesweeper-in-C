@@ -4,8 +4,8 @@
 #include "minesweeper.h"
 
 // Currently the board size and mine count are Macros and cannot be changed. However, only for testing purposes and will implement an option to change these values in the final version.
-#define BOARD_SIZE 16
-#define MINE_COUNT 20
+#define BOARD_SIZE 18
+#define MINE_COUNT 40
 
 // Link to GTK documentation for reference: https://docs.gtk.org/gtk3/index.html
 // Link to GTK Application for reference: https://docs.gtk.org/gio/class.Application.html#methods
@@ -30,6 +30,7 @@ char **minefield;
 char **numberMap;
 int remaining_cells;
 GtkWidget *game_over_label; // Global variable for the label - used to display the game over message. Function defined using GTK
+
 
 // Using functions from previously implemented board.c & logic.c (Not included in this file for testing purposes)
 // File has not been combined with the minesweeper.h yet however, the final version will have all implementations of game working together
@@ -103,7 +104,8 @@ GtkWidget *game_over_label; // Global variable for the label - used to display t
 void reveal_all_bombs() {
     // Show the Game Over message
     // Imported function from gtk - it sets the text for the label and overwrites any text that was there before
-    gtk_label_set_text(GTK_LABEL(game_over_label), "Game Over! You hit a mine!");
+    gtk_label_set_text(GTK_LABEL(game_over_label), "Game Over! You hit a mine! \n Please Exit the game now!");
+
 
     // Disable all buttons on the board
     for (int i = 0; i < BOARD_SIZE; i++) {
@@ -172,21 +174,26 @@ void on_cell_clicked(GtkWidget *widget, GdkEventButton *event, int *coords) {
         return;
     }
 
-    // // Ripple reveal if the cell has no adjacent mines
-    // // Not sure why this isnt working
-    // if (numberMap[row][col] == '0') {
-    //     for (int dr = -1; dr <= 1; dr++) {
-    //         for (int dc = -1; dc <= 1; dc++) {
-    //             int newRow = row + dr;
-    //             int newCol = col + dc;
-    //             if (newRow >= 0 && newRow < BOARD_SIZE && newCol >= 0 && newCol < BOARD_SIZE) {
-    //                 if (!board[newRow][newCol].revealed) {
-    //                     on_cell_clicked(board[newRow][newCol].button, event, data);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    // Ripple reveal if the cell has no adjacent mines
+    if (numberMap[row][col] == '0') {
+        for (int dr = -1; dr <= 1; dr++) {
+            for (int dc = -1; dc <= 1; dc++) {
+                // Skip the current cell
+                if (dr == 0 && dc == 0) continue;
+
+                int newRow = row + dr;
+                int newCol = col + dc;
+
+                if (newRow >= 0 && newRow < BOARD_SIZE && newCol >= 0 && newCol < BOARD_SIZE) {
+                    if (!board[newRow][newCol].revealed) {
+                        int newCoords[2] = {newRow, newCol};
+                        //Call recursively
+                        on_cell_clicked(board[newRow][newCol].button, event, newCoords);
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Initialize the GUI board and link it to the existing logic
@@ -232,28 +239,28 @@ void activate(GtkApplication *app) {
 }
 
 
-int startGUI(int argc, char **argv) {
-    // random number generator
-    // srand(time(NULL));
+// int startGUI(int argc, char **argv) {
+//     // random number generator
+//     // srand(time(NULL));
 
-    GtkApplication *app = gtk_application_new("com.example.Minesweeper", G_APPLICATION_FLAGS_NONE);
+//     GtkApplication *app = gtk_application_new("com.example.Minesweeper", G_APPLICATION_FLAGS_NONE);
 
-    g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
+//     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
 
-    int status = g_application_run(G_APPLICATION(app), argc, argv);
+//     int status = g_application_run(G_APPLICATION(app), argc, argv);
 
-    g_object_unref(app);
+//     g_object_unref(app);
 
-    // Free memory
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        free(minefield[i]);
-        free(numberMap[i]);
-    }
-    free(minefield);
-    free(numberMap);
+//     // Free memory
+//     for (int i = 0; i < BOARD_SIZE; i++) {
+//         free(minefield[i]);
+//         free(numberMap[i]);
+//     }
+//     free(minefield);
+//     free(numberMap);
 
-    return status;
-}
+//     return status;
+// }
 
 void launch_gui() {
     GtkApplication *app = gtk_application_new("com.example.minesweeper", G_APPLICATION_FLAGS_NONE);
