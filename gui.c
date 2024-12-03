@@ -267,7 +267,6 @@ void launch_gui() {
     while (playAgain == 1) {
         launch_gui();
     }
-    
     if (playAgain == 2) {
         exit(0);
     }

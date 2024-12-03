@@ -55,6 +55,7 @@ int endMenu(int state) { // Outputting end menu messages
     }
     
     return choice; // return user choice
+    
 }
 
 

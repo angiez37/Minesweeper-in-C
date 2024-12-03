@@ -122,6 +122,7 @@ void Difficulty(int *rows, int *columns, int *mines) {
 void parseInput(char *name, int choice, int *rows, int *columns, int *mines) {
 
     switch (choice) {
+        
         case 0: launch_gui(); break;
         case 1: *rows = 9; *columns = 9; *mines = 10; break; // start game with default settings
         case 2: Difficulty(rows, columns, mines); break; // select difficulty
