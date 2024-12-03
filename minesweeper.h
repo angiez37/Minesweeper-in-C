@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include <gtk/gtk.h> // USING GTK API VERSION 3.0
+// #include <gtk/gtk.h> // USING GTK API VERSION 3.0
 
 // ESHA'S FUNCTIONS
 char** generateMinefield(int rows, int columns, int mines);
@@ -24,9 +24,9 @@ void calculateScore(int squaresRevealed, int rows, int columns);
 void revealAllMines(int rows, int columns, char **gameBoard, char **minefield);
 
 void reveal_all_bombs();
-void on_cell_clicked(GtkWidget *widget, GdkEventButton *event, int *coords);
-void initialize_gui_board(GtkWidget *grid);
-void activate(GtkApplication *app);
+// void on_cell_clicked(GtkWidget *widget, GdkEventButton *event, int *coords);
+// void initialize_gui_board(GtkWidget *grid);
+// void activate(GtkApplication *app);
 int startGUI(int argc, char **argv);
 void launch_gui();
 
