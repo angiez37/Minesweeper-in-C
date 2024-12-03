@@ -268,6 +268,7 @@ void launch_gui() {
         launch_gui();
     }
     if (playAgain == 2) {
+        outputMessage();
         exit(0);
     }
 }

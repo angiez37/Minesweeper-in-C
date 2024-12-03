@@ -55,7 +55,7 @@ int endMenu(int state) { // Outputting end menu messages
     }
     
     return choice; // return user choice
-    
+
 }
 
 
@@ -105,6 +105,17 @@ char** outputMinefield(char **minefield, int rows, int columns) { // Outputting 
     }
     printf("\n");
     count = 0;
+}
+
+void outputMessage(){
+    // Game ending message
+    printf("Thankyou for joining us on this brave journey\n");
+    sleep(1);
+    printf("Until our paths cross again in the vast expanse of the cosmos,\n");
+    sleep(1);
+    printf("keep your lightsaber close and your heart open to the mysteries of the universe.\n");
+    sleep(2);
+    printf("END OF GAME\n");
 }
 
 // Testing purposes, remove before submitting

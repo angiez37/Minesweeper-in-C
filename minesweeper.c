@@ -135,13 +135,6 @@ int main(int argc, char *argv[]) {
         free(numberMap);
         free(gameBoard);
     }
-    // Game ending message
-    printf("Thankyou for joining us on this brave journey");
-    sleep(1);
-    printf("Until our paths cross again in the vast expanse of the cosmos,");
-    sleep(1);
-    printf("keep your lightsaber close and your heart open to the mysteries of the universe.");
-    sleep(2);
-    printf("END OF GAME");
+    outputMessage();
     return 0;
 }
