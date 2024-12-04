@@ -5,6 +5,17 @@
 #include <string.h>
 #include "minesweeper.h"
 
+
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| help - displays the help message
+|
+| Arguments: None
+|
+| Returns - None
+| Functions Called: None
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 void help() { 
     printf("Minesweeper v1.0.0\n");
     printf("This is a Star-Wars themed Minesweeper game intended to be played in the command line.\n");
@@ -20,6 +31,28 @@ void help() {
     printf("f       To flag or unflag a square.\n");
 } // dhruv you can add on to here
 
+
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| main - main function of the program 
+|
+| Arguments: int argc - number of arguments
+|            char *argv[] - array of arguments
+|
+| Outputs: None
+| Returns: 0
+| Functions Called: help() - displays the help message
+                    welcomePage() - displays the welcome page
+                    Menu() - outlines the game options
+                    parseInput() - handles user input as selected from the welcome menu
+                    generateMinefield() - generates the minefield
+                    generateNumberMap() - generates the number map
+                    generateGameboard() - generates the gameboard
+                    processMove() - processes the users move based on parameters user inputted, handles the flagging process or calls digSquare to reveal the particular square
+                    outputMinefield() - outputs the minefield
+                    endMenu() - displays the end menu message
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 int main(int argc, char *argv[]) {
 
     if (argc > 1 && strcmp(argv[1], "--help") == 0) {
@@ -74,15 +107,26 @@ int main(int argc, char *argv[]) {
                 change = 1;
             } else if (action == 'd') {
                 change = 0;
-            } else {
+            } else if (action != 'd' && action != 'f') {
                 printf("Invalid action. Please enter 'd' or 'f'.\n");
+                while (getchar() != '\n'); // Clear buffer
                 continue;
             }
+            
             int row, col;
             printf("Enter your move (row): ");
-            scanf("%d", &row);
+            if (scanf("%d", &row) != 1) {
+                printf("Invalid input for row. Please enter a valid number.\n");
+                while (getchar() != '\n'); // Clear buffer
+                continue;
+            }
+
             printf("Enter your move (column): ");
-            scanf("%d", &col);
+            if (scanf("%d", &col) != 1) {
+                printf("Invalid input for column. Please enter a valid number.\n");
+                while (getchar() != '\n'); // Clear buffer
+                continue;
+            }
 
             row--;
             col--;

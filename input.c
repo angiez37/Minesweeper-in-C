@@ -6,6 +6,16 @@
 #define MIN_BOARD_SIZE 6
 #define MAX_BOARD_SIZE 30
 
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| welcomePage - Welcome page to greet the user and introduce them to the game
+|
+| Arguments: None
+|
+| Returns - returns the user's name
+| Functions Called: None
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 char *welcomePage() {
     printf("\033[2J"); // Clear the screen
     printf("\033[0;0H"); // Reset cursor to the top
@@ -37,23 +47,52 @@ char *welcomePage() {
     return name;
 }
 
-// Function to display the menu
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| Menu - Welcome menu outlining game options: 1. Start GUI Game, 2. Start CMD Line Game, 3. Select Difficulty, 4. Instructions
+|
+| Arguments: None
+|
+| Returns - returns the user's selected game option
+| Functions Called: None
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 int Menu() {
-    printf("Select an option to begin your mission:\n");
-    printf("1. Start GUI Game\n");
-    printf("2. Start CMD Line Game\n");
-    printf("3. Select Difficulty (ONLY FOR CMD LINE GAME)\n");
-    printf("4. Instructions\n");
-    printf("5. Exit\n\n");
-
     int choice;
-    printf("Option: ");
-    scanf("%d", &choice);
+    int valid;
+
+    do {
+        printf("Select an option to begin your mission:\n");
+        printf("1. Start GUI Game\n");
+        printf("2. Start CMD Line Game\n");
+        printf("3. Select Difficulty (ONLY FOR CMD LINE GAME)\n");
+        printf("4. Instructions\n");
+        printf("5. Exit\n\n");
+
+        printf("Option: ");
+        valid = scanf("%d", &choice);
+
+        if (valid != 1) {
+            printf("Invalid input. Please enter a number between 1 and 5.\n");
+            while (getchar() != '\n'); // Clear invalid input from buffer
+        } else if (choice < 1 || choice > 5) {
+            printf("Invalid choice. Please select a valid option.\n");
+        }
+    } while (valid != 1 || choice < 1 || choice > 5);
 
     return choice;
 }
 
-// Function to display the user instructions
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| Instruction - User friendly instructions on how to play the game
+|
+| Arguments: char *name - the user's name
+|
+| Returns: None
+| Functions Called: None
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 void Instructions(const char *name) {
     printf("======================================\n");
     printf("            MISSION BRIEFING          \n");
@@ -76,24 +115,48 @@ Controls:
     printf("The Force is strong with you... good luck!\n\n");
 }
 
-// Function to handle difficulty selection
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| Difficulty - Defines the difficulty level of the game inclding board size and mine density
+|
+| Arguments: int *rows - pointer to the number of rows in the board
+|            int *columns - pointer to the number of columns in the board
+|            int *mines - pointer to the number of mines in the board
+|
+| Returns - None
+| Functions Called: None
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 void Difficulty(int *rows, int *columns, int *mines) {
     printf("======================================\n");
     printf("            DIFFICULTY LEVEL          \n");
     printf("======================================\n\n");
 
+    int valid;
+
     do {
         printf("Input Board Size:\n");
+
         printf("Rows (6-30): ");
-        scanf("%d", rows);
+        valid = scanf("%d", rows);
+        if (valid != 1 || *rows < MIN_BOARD_SIZE || *rows > MAX_BOARD_SIZE) {
+            printf("Invalid input. Rows must be a number between 6 and 30.\n");
+            while (getchar() != '\n'); // Clear buffer
+            continue;
+        }
+
         printf("Columns (6-30): ");
-        scanf("%d", columns);
+        valid =scanf("%d", columns);
+        if (valid != 1 || *columns < MIN_BOARD_SIZE || *columns > MAX_BOARD_SIZE) {
+            printf("Invalid input. Columns must be a number between 6 and 30.\n");
+            while (getchar() != '\n'); // Clear buffer
+        }
 
         if (*rows < MIN_BOARD_SIZE || *columns < MIN_BOARD_SIZE || *rows > MAX_BOARD_SIZE || *columns > MAX_BOARD_SIZE) {
             printf("Invalid board size. Please try again.\n");
         }
     } 
-    while (*rows < MIN_BOARD_SIZE || *columns < MIN_BOARD_SIZE || *rows > MAX_BOARD_SIZE || *columns > MAX_BOARD_SIZE);
+    while (valid != 1 ||*rows < MIN_BOARD_SIZE || *columns < MIN_BOARD_SIZE || *rows > MAX_BOARD_SIZE || *columns > MAX_BOARD_SIZE);
 
     int grid = (*rows) * (*columns);
 
@@ -104,21 +167,40 @@ void Difficulty(int *rows, int *columns, int *mines) {
         printf("2. Rebel Assault (Medium)\n");
         printf("3. Jedi Master (Hard)\n");
         printf("Level: ");
-        scanf("%d", &choice);
+        valid = scanf("%d", &choice);
 
-        if (choice == 1) { // Easy: 14% mine density
-            *mines = grid / 7;
-        } else if (choice == 2) { // Medium: 20% mine density
-            *mines = grid / 5;
-        } else if (choice == 3) { // Hard: 33% mine density
-            *mines = grid / 3;
-        } else {
-            printf("Invalid difficulty level. Please try again.\n\n");
+        if (valid != 1 || choice < 1 || choice > 3) {
+            printf("Invalid difficulty level. Please try again.\n");
+            while (getchar() != '\n'); // Clear buffer
         }
-    } while (choice < 1 || choice > 3);
+    } while (valid != 1 ||choice < 1 || choice > 3);
+
+    if (choice == 1) { // Easy: 14% mine density
+        *mines = grid / 7;
+    } else if (choice == 2) { // Medium: 20% mine density
+        *mines = grid / 5;
+    } else if (choice == 3) { // Hard: 33% mine density
+        *mines = grid / 3;
+    } else {
+        printf("Invalid difficulty level. Please try again.\n\n");
+    }
 
 }
 
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| parseInput - Handles user input as selected from the welcome menu
+|
+| Arguments: char *name - the user's name
+|            int choice - the user's selected game option
+|            int *rows - pointer to the number of rows in the board
+|            int *columns - pointer to the number of columns in the board
+|            int *mines - pointer to the number of mines in the board
+|
+| Returns - None
+| Functions Called: launch_gui(), Difficulty(), Instructions(), Menu()
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 void parseInput(char *name, int choice, int *rows, int *columns, int *mines) {
 
     switch (choice) {
