@@ -109,13 +109,13 @@ char** outputMinefield(char **minefield, int rows, int columns) { // Outputting 
 
 void outputMessage(){
     // Game ending message
-    printf("Thankyou for joining us on this brave journey\n");
+    printf("Thank you for joining us on this brave journey\n");
     sleep(1);
     printf("Until our paths cross again in the vast expanse of the cosmos,\n");
     sleep(1);
     printf("keep your lightsaber close and your heart open to the mysteries of the universe.\n");
     sleep(2);
-    printf("END OF GAME\n");
+    printf("May the Force be with you.\n");
 }
 
 // Testing purposes, remove before submitting

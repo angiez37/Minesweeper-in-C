@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
             // Reveal the square and apply ripple effect if necessary
             state_of_game = processMove(row, col, change, rows, columns, gameBoard, minefield, numberMap, mines, &flags, &squaresRevealed);
 
-            printf("\nCurrent Board:\n");
+            printf("\nCurrent Board:\n"); //////////////////////////////////// THIS REPLACED WITH IRFAN's NEW OUTPUT
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     printf("%c ", gameBoard[i][j]);
