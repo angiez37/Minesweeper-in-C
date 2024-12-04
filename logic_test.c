@@ -7,30 +7,34 @@
 
 #define DEBUG 0
 
-/* char** test_gameboard() { 
-	char **minefield = generateGameboard(4,5); 
-	char **numbermap = generateNumberMap(4, 5, minefield);
-    	char **board = generateGameboard(4, 5);
+char **test_gameboard(int rows, int columns) {
 
-	return board; 
-} // double check if this is what jack meant
-*/ 
+	char minefield_array[4][5] = {
+    {'X', '.', '.', '.', '.'},
+    {'X', '.', '.', '.', '.'},
+    {'.', '.', '.', '.', '.'},
+    {'.', '.', '.', '.', 'X'}
+        };
+
+        char **minefield = malloc(rows * sizeof(char *));
+        for (int i = 0; i < rows; i++) {
+        	minefield[i] = malloc(columns * sizeof(char));
+        	for (int j = 0; j < columns; j++) {
+                	minefield[i][j] = minefield_array[i][j];
+    }
+}
+
+        return minefield;
+}
 
 int main() { 
     
-    int rows = 4;
-    int columns = 5;
-	
-    char minefield_array[4][5] = { {'X', '.', '.', '.', '.'}, {'X', '.', '.', '.', '.'}, {'.', '.', '.', '.', '.'}, {'.', '.', '.', '.', 'X'} };
-
-    char **minefield = malloc(rows * sizeof(char *));
-    for (int i = 0; i < rows; i++) {
-        minefield[i] = minefield_array[i];
-    } 
-
-    char ** numbermap = generateNumberMap(4, 5, minefield);
-    char ** board = generateGameboard(4, 5);
-
+	int rows = 4;
+	int columns = 5;
+		
+	char **minefield = test_gameboard(rows, columns);
+	char **numbermap = generateNumberMap(rows, columns, minefield);
+	char **board = generateGameboard(rows, columns);
 
     if (DEBUG) { // make sure that minefield and numbermap generated properly
         printf("DEV - Printing Minefield:\n");
@@ -76,7 +80,12 @@ int main() {
         printf("User LOST\n");
     }
 
-    free(minefield);
-    free(numbermap);
-    free(board);
+	for (int i = 0; i < rows; i++) {
+	    free(minefield[i]);
+	    free(numbermap[i]);
+	    free(board[i]);
+	}
+	free(minefield);
+	free(numbermap);
+	free(board);
 }
