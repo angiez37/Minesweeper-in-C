@@ -143,15 +143,15 @@ int main(int argc, char *argv[]) {
 
 
         time_t ending_time = time(NULL);
-        double total_time = difftime(ending_time, starting_time); // Time to find mines (whoevers outputting score needs to output this aswell)
+        double total_time = difftime(ending_time, starting_time); // Time to find mines
 
         win_lose_message(state_of_game); // Print win or lose message
         printBoard(gameBoard, rows, columns); // prints final board to user 
         calculateScore(squaresRevealed, rows, columns); // along with their score
-        printf("%f", total_time); // Printing time
+        printf("%f", total_time); // Printing time used
         
 
-        int end_choice = endMenu(); // Outputs end menu and asks user if they want to play again or exit
+        int end_choice = end_menu(); // Outputs end menu and asks user if they want to play again or exit
         if (end_choice == 2) {
             play_again = 0; // If user exits, breaks out of while loop;
         }

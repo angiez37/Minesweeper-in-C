@@ -120,7 +120,7 @@ char** printBoard(char **board, int rows, int columns) { // Outputting board
 
 } // end of printBoard
 
-char** outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
+/*char** outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
 
     printf("\n   ");
     for (int k=0; k<columns; k++) { // Printing top numbers
@@ -158,7 +158,7 @@ char** outputMinefield(char **minefield, int rows, int columns) { // Outputting 
         printf("\n");
     }
     printf("\n");
-}
+}*/
 
 void outputMessage(){
     // Game ending message
@@ -172,12 +172,12 @@ void outputMessage(){
 }
 
 // Testing purposes, remove before submitting
-/* int main() {
+int main() {
     // Sample minefield for testing
     int rows = 11, columns = 10;
     
     // Allocating memory for a 2D array dynamically to simulate the minefield
-    char *minefield[11] = {
+    /*char *minefield[11] = {
     "*..........",
     ".*.........",
     "..*........",
@@ -189,13 +189,14 @@ void outputMessage(){
     "........*..",
     ".........*.",
     "..........."
-    };
+    };*/
 
     // Call the function to print the minefield
-    outputMinefield(minefield, rows, columns);
 
-    //int tc1 = endMenu(1);
+    win_lose_message(2);
+    //int tc1 = end_menu();
     //printf("%d\n", tc1);
+    outputMessage();
 
     return 0;
-} */
+}

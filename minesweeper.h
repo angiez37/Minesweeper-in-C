@@ -34,6 +34,5 @@ void launch_gui();
 
 // IRFAN"S FUNCTIONS
 void win_lose_message(int state);
-int endMenu();
-void outputMinefield(char **minefield, int rows, int columns);
+int end_menu();
 void outputMessage();
