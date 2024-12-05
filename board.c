@@ -126,25 +126,3 @@ char** generateGameboard(int rows, int columns) {
     }
     return gameboard;
 }
-
-/*
-
-int main() { 
-
-	srand(time(NULL)); 
-
-    	int rows = 5; // for testing - Angel's code
-    	int columns = 7;
-    	int mines = 10;
-	
-	char** minefield = generateMinefield(rows, columns, mines);
-	char** numberMap = generateNumberMap(rows, columns, minefield);
-	char** gameboard = generateGameboard(rows, columns);
-
-	free(minefield);
-	free(numberMap);
-	free(gameboard);
-
-}
-
-*/
