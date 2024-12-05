@@ -96,9 +96,38 @@ int main(int argc, char *argv[]) {
             printf("\n");
         }
         int state_of_game = 0;
-        int change;
+        int row, col, change;
         char action;
         while (state_of_game == 0) {
+
+            printf("\nEnter move in the form <'d'/'f'> <row> <column>: ");
+            if(scanf(" %c %d %d", &action, &row, &col) != 3) { // scan input and if invalid
+                printf("Invalid input format. Please enter again.\n");
+                while (getchar() != '\n'); // Clear buffer
+                continue; // ask again for valid input
+            }
+
+            if (action != 'd' && action != 'f') {
+                printf("Invalid action. Please enter 'd' or 'f'.\n");
+                while (getchar() != '\n'); // Clear buffer
+                continue; // ask again for valid input
+            }
+            else { // indicate change depending on action flag
+                if (action == 'f') {
+                    change = 1;
+                } 
+                else if (action == 'd') {
+                    change = 0;
+                }
+            }
+
+            row--; // decrement for base 0 indexing
+            col--;
+            if (row < 0 || row >= rows || col < 0 || col >= columns) {
+                printf("Invalid move! Stay within the board.\n");
+                continue; // ask for new valid input
+            }
+            /*
             // Ask the user if they want to dig or flag
             printf("Enter 'd' to dig or 'f' to flag/unflag: ");
             scanf(" %c", &action);
@@ -107,13 +136,9 @@ int main(int argc, char *argv[]) {
                 change = 1;
             } else if (action == 'd') {
                 change = 0;
-            } else if (action != 'd' && action != 'f') {
-                printf("Invalid action. Please enter 'd' or 'f'.\n");
-                while (getchar() != '\n'); // Clear buffer
-                continue;
+            } else 
             }
             
-            int row, col;
             printf("Enter your move (row): ");
             if (scanf("%d", &row) != 1) {
                 printf("Invalid input for row. Please enter a valid number.\n");
@@ -135,6 +160,7 @@ int main(int argc, char *argv[]) {
                 printf("Invalid move! Stay within the board.\n");
                 continue;
             }
+            */
 
             // Reveal the square and apply ripple effect if necessary
             state_of_game = processMove(row, col, change, rows, columns, gameBoard, minefield, numberMap, mines, &flags, &squaresRevealed);
@@ -149,16 +175,6 @@ int main(int argc, char *argv[]) {
         }
         time_t ending_time = time(NULL);
         double total_time = difftime(ending_time, starting_time); // Time to find mines (whoevers outputting score needs to output this aswell)
-
-        /* END OF GAME MAKE NICE DHRUV / IRFAN
-        if (state_of_game == 1) { // win
-            printf("PLAYER HAS WON");
-            // trigger win based things
-        }
-        if (state_of_game == 2) { // lose
-            printf("PLAYER HAS LOST");
-            // trigger loss based conditions
-        }*/
 
         outputMinefield(minefield, rows, columns); // Outputs minefield
 
