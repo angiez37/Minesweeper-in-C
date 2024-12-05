@@ -29,7 +29,7 @@ void help() {
     printf("During the game:\n");
     printf("d       To dig a square.\n");
     printf("f       To flag or unflag a square.\n");
-} // dhruv you can add on to here
+} 
 
 
 /*
