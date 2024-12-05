@@ -172,12 +172,12 @@ void outputMessage(){
 }
 
 // Testing purposes, remove before submitting
-int main() {
+/*int main() {
     // Sample minefield for testing
     int rows = 11, columns = 10;
     
     // Allocating memory for a 2D array dynamically to simulate the minefield
-    /*char *minefield[11] = {
+    char *minefield[11] = {
     "*..........",
     ".*.........",
     "..*........",
@@ -189,14 +189,16 @@ int main() {
     "........*..",
     ".........*.",
     "..........."
-    };*/
+    };
 
     // Call the function to print the minefield
 
-    win_lose_message(2);
+    //win_lose_message(2);
     //int tc1 = end_menu();
     //printf("%d\n", tc1);
-    outputMessage();
+    //outputMessage();
+
+    end_menu();
 
     return 0;
-}
+}*/

@@ -1,0 +1,44 @@
+X 2 0 0 0 
+X 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 X 
+. 2 0 0 0 
+. 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+F 2 0 0 0 
+. 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+. 2 0 0 0 
+. 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+F 2 0 0 0 
+. 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+F 2 0 0 0 
+F 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+END OF GAME - WIN
+F 2 0 0 0 
+F 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 F 
+   __        __    __    __ __ __    __ __ __     __ __ __     __ __    __    __
+  \  \      /  /  |  |  |        |  |        |  /    __   \  |   __  \  \ \  / /
+   \  \    /  /   |  |  |  |‾‾ ‾‾    ‾‾|  |‾‾   |  /   \  |  |  |  )  |  \ \/ /
+    \  \  /  /    |  |  |  |           |  |     |  |   |  |  |   ‾‾  /    |  |
+     \  \/  /     |  |  |  |__ __      |  |     |  \__ /  |  |  |\  \     |  |
+      \ __ /      |__|  |__ __ __|     |__|     \__ __ __ /  |__| \ _\    |__|
+
+The Force is strong with you, Jedi!
+The mines have been defused, and peace has returned to the galaxy!
+
+Thank you for joining us on this brave journey
+Until our paths cross again in the vast expanse of the cosmos,
+keep your lightsaber close and your heart open to the mysteries of the universe.
+May the Force be with you.
+
