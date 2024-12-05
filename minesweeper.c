@@ -64,12 +64,12 @@ int main(int argc, char *argv[]) {
     srand(time(NULL));
 
     int play_again = 1;
+    int rows, columns, mines; // Default settings
+
+    char *playerName = welcomePage(); // welcome the player
+    
     while (play_again) {
-
-        // Welcome page
-        char *playerName = welcomePage();
-
-        int rows, columns, mines; // Default settings
+        
         int choice = Menu(); // Get menu choice
         parseInput(playerName, choice, &rows, &columns, &mines); // Adjust settings based on input
 
@@ -88,6 +88,7 @@ int main(int argc, char *argv[]) {
         printf("\nThe mission begins, %s!\n", playerName);
         printf("Good luck defusing the mines.\n");
 
+        /*
         printf("\nCurrent Board:\n");
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -95,10 +96,15 @@ int main(int argc, char *argv[]) {
             }
             printf("\n");
         }
+        */
+
         int state_of_game = 0;
         int row, col, change;
         char action;
         while (state_of_game == 0) {
+
+            printBoard(gameBoard, rows, columns); // print the board
+
 
             printf("\nEnter move in the form <'d'/'f'> <row> <column>: ");
             if(scanf(" %c %d %d", &action, &row, &col) != 3) { // scan input and if invalid
@@ -127,56 +133,17 @@ int main(int argc, char *argv[]) {
                 printf("Invalid move! Stay within the board.\n");
                 continue; // ask for new valid input
             }
-            /*
-            // Ask the user if they want to dig or flag
-            printf("Enter 'd' to dig or 'f' to flag/unflag: ");
-            scanf(" %c", &action);
-            printf("\n");
-            if (action == 'f') {
-                change = 1;
-            } else if (action == 'd') {
-                change = 0;
-            } else 
-            }
-            
-            printf("Enter your move (row): ");
-            if (scanf("%d", &row) != 1) {
-                printf("Invalid input for row. Please enter a valid number.\n");
-                while (getchar() != '\n'); // Clear buffer
-                continue;
-            }
-
-            printf("Enter your move (column): ");
-            if (scanf("%d", &col) != 1) {
-                printf("Invalid input for column. Please enter a valid number.\n");
-                while (getchar() != '\n'); // Clear buffer
-                continue;
-            }
-
-            row--;
-            col--;
-
-            if (row < 0 || row >= rows || col < 0 || col >= columns) {
-                printf("Invalid move! Stay within the board.\n");
-                continue;
-            }
-            */
 
             // Reveal the square and apply ripple effect if necessary
             state_of_game = processMove(row, col, change, rows, columns, gameBoard, minefield, numberMap, mines, &flags, &squaresRevealed);
 
-            printf("\nCurrent Board:\n"); //////////////////////////////////// THIS REPLACED WITH IRFAN's NEW OUTPUT
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < columns; j++) {
-                    printf("%c ", gameBoard[i][j]);
-                }
-                printf("\n");
-            }
-        }
+        } // end game loop
+
+
         time_t ending_time = time(NULL);
         double total_time = difftime(ending_time, starting_time); // Time to find mines (whoevers outputting score needs to output this aswell)
 
-        outputMinefield(minefield, rows, columns); // Outputs minefield
+        printBoard(gameBoard, rows, columns);
 
         int end_choice = endMenu(state_of_game); // Outputs end menu and asks user if they want to play again or exit
         if (end_choice == 2) {

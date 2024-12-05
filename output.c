@@ -48,6 +48,15 @@ int endMenu(int state) { // Outputting end menu messages
         printf("\n");
         if (choice == 1 || choice == 2) { // Checking if user input correct
             correct_input = 1; // Breaking out of loop
+            printf("\033[2J"); // Clear the screen
+            printf("\033[0;0H"); // Reset cursor to the top
+            printf("\n.___  ___.  __  .__   __.  _______         _______.____    __    ____  _______  _______ .______    _______ .______      \n");
+            printf("|   \\/   | |  | |  \\ |  | |   ____|       /       |\\   \\  /  \\  /   / |   ____||   ____||   _  \\  |   ____||   _  \\     \n");
+            printf("|  \\  /  | |  | |   \\|  | |  |__         |   (----` \\   \\/    \\/   /  |  |__   |  |__   |  |_)  | |  |__   |  |_)  |    \n");
+            printf("|  |\\/|  | |  | |  . `  | |   __|         \\   \\      \\            /   |   __|  |   __|  |   ___/  |   __|  |      /     \n");
+            printf("|  |  |  | |  | |  |\\   | |  |____    .----)   |      \\    /\\    /    |  |____ |  |____ |  |      |  |____ |  |\\  \\----.\n");
+            printf("|__|  |__| |__| |__| \\__| |_______|   |_______/        \\__/  \\__/     |_______||_______|| _|      |_______|| _| `._____|\n\n");
+            sleep(1);
         }
         else {
             printf("Not in range! Pick either option 1 or 2.\n");
@@ -59,14 +68,49 @@ int endMenu(int state) { // Outputting end menu messages
 }
 
 
-char** outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
+char** printBoard(char **board, int rows, int columns) { // Outputting board
 
-    printf("Location of Mines\n");
+    printf("\n   ");
+    for (int k=0; k<columns; k++) { // Printing top numbers
+        if (k<9) {
+            printf("   %d  ", (k+1));
+        }
+        else {
+            printf("  %d  ", (k+1));
+        }
+    }
     printf("\n");
 
-    int count = 0;
+    for (int i=0; i<rows; i++) {
+        printf("   ");
+        for(int i=0; i<columns; i++) { 
+            printf(" —————"); // Printing a line above each row for top border
+        }
+        printf("\n");
+        printf("%d ", (i+1)); // Printing side numbers
+        if ((i+1)<10) {
+            printf(" |");
+        }
+        else {
+            printf("|");
+        }
+        for (int j=0; j<columns; j++) {
+            printf("  %c  |", board[i][j]); // Printing each row with side border
+        }
+        printf("\n");
 
-    printf("   ");
+        printf("   ");
+        for(int i=0; i<columns; i++) {
+            printf(" —————"); // Printing row of lines at bottom of each row for bottom border
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+char** outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
+
+    printf("\n   ");
     for (int k=0; k<columns; k++) { // Printing top numbers
         if (k<9) {
             printf("   %d  ", (k+1));
@@ -93,10 +137,8 @@ char** outputMinefield(char **minefield, int rows, int columns) { // Outputting 
         for (int j=0; j<columns; j++) {
             printf("  %c  |", minefield[i][j]); // Printing each row with side border
         }
-        //printf("|"); 
         printf("\n");
 
-        count = 0;
         printf("   ");
         for(int i=0; i<columns; i++) {
             printf(" —————"); // Printing row of lines at bottom of each row for bottom border
@@ -104,7 +146,6 @@ char** outputMinefield(char **minefield, int rows, int columns) { // Outputting 
         printf("\n");
     }
     printf("\n");
-    count = 0;
 }
 
 void outputMessage(){
