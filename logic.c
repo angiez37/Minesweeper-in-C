@@ -229,9 +229,6 @@ int processMove(int specified_row, int specified_column, int change, int rows, i
             return 1; // return value --> player has won
         }
     }
-    
-    // calculate % of board revealed
-    calculateScore(*squares_revealed, rows, columns);
 
     return 0; // game is still ongoing
 }

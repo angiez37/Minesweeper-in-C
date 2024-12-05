@@ -105,6 +105,8 @@ int main(int argc, char *argv[]) {
 
             printBoard(gameBoard, rows, columns); // print the board
 
+            calculateScore(squaresRevealed, rows, columns); // print current score
+
 
             printf("\nEnter move in the form <'d'/'f'> <row> <column>: ");
             if(scanf(" %c %d %d", &action, &row, &col) != 3) { // scan input and if invalid
@@ -143,7 +145,9 @@ int main(int argc, char *argv[]) {
         time_t ending_time = time(NULL);
         double total_time = difftime(ending_time, starting_time); // Time to find mines (whoevers outputting score needs to output this aswell)
 
-        printBoard(gameBoard, rows, columns);
+        printBoard(gameBoard, rows, columns); // prints final board to user 
+        calculateScore(squaresRevealed, rows, columns); // along with their score
+        
 
         int end_choice = endMenu(state_of_game); // Outputs end menu and asks user if they want to play again or exit
         if (end_choice == 2) {

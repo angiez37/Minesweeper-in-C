@@ -10,7 +10,7 @@ int endMenu(int state) { // Outputting end menu messages
     int correct_input = 0;
     if (state == 1) {
         // Printing victory message (ignore format, when printed it works as expected)
-        printf("   __        __    __    __ __ __    __ __ __     __ __ __     __ __    __    __\n");
+        printf("\n   __        __    __    __ __ __    __ __ __     __ __ __     __ __    __    __\n");
         printf("  \\  \\      /  /  |  |  |        |  |        |  /    __   \\  |   __  \\  \\ \\  / /\n");
         printf("   \\  \\    /  /   |  |  |  |‾‾ ‾‾    ‾‾|  |‾‾   |  /   \\  |  |  |  )  |  \\ \\/ /\n");
         printf("    \\  \\  /  /    |  |  |  |           |  |     |  |   |  |  |   ‾‾  /    |  |\n");
@@ -24,7 +24,7 @@ int endMenu(int state) { // Outputting end menu messages
     }
     else {
         // Printing defeat message
-        printf("   __ __ __     __ __ __    __ __ __    __ __ __         ___     __ __ __            \n");
+        printf("\n   __ __ __     __ __ __    __ __ __    __ __ __         ___     __ __ __            \n");
         printf("  |   __   \\   |   __ __|  |   __ __|  |   __ __|      / __ \\   |__    __|    \n");
         printf("  |  |  \\   |  |  |__ __   |  |__ __   |  |__ __      / /__\\ \\     |  |       \n");
         printf("  |  |   |  |  |   __ __|  |   __ __|  |   __ __|    /  ___   \\    |  |         \n");
@@ -46,7 +46,7 @@ int endMenu(int state) { // Outputting end menu messages
         printf("Enter your choice: ");
         scanf("%d", &choice);
         printf("\n");
-        if (choice == 1 || choice == 2) { // Checking if user input correct
+        if (choice == 1) { // If user plays again reprint the minesweeper header
             correct_input = 1; // Breaking out of loop
             printf("\033[2J"); // Clear the screen
             printf("\033[0;0H"); // Reset cursor to the top
@@ -57,6 +57,9 @@ int endMenu(int state) { // Outputting end menu messages
             printf("|  |  |  | |  | |  |\\   | |  |____    .----)   |      \\    /\\    /    |  |____ |  |____ |  |      |  |____ |  |\\  \\----.\n");
             printf("|__|  |__| |__| |__| \\__| |_______|   |_______/        \\__/  \\__/     |_______||_______|| _|      |_______|| _| `._____|\n\n");
             sleep(1);
+        }
+        else if (choice == 2) { // user chose exit
+            correct_input = 1; // break  out of loop
         }
         else {
             printf("Not in range! Pick either option 1 or 2.\n");
@@ -70,43 +73,49 @@ int endMenu(int state) { // Outputting end menu messages
 
 char** printBoard(char **board, int rows, int columns) { // Outputting board
 
-    printf("\n   ");
+    // print number headers
+    printf("   "); // spacer
     for (int k=0; k<columns; k++) { // Printing top numbers
         if (k<9) {
-            printf("   %d  ", (k+1));
+            printf("  %d ", (k+1));
         }
         else {
-            printf("  %d  ", (k+1));
+            printf("  %d", (k+1));
         }
     }
-    printf("\n");
 
+    // print each row
     for (int i=0; i<rows; i++) {
-        printf("   ");
+        printf("\n   "); // spacer
         for(int i=0; i<columns; i++) { 
-            printf(" —————"); // Printing a line above each row for top border
+            printf(" ———"); // Printing a line above each row for top border
         }
+
         printf("\n");
-        printf("%d ", (i+1)); // Printing side numbers
+
+        // Printing side numbers
         if ((i+1)<10) {
-            printf(" |");
+            printf(" %d |", (i+1)); 
         }
         else {
-            printf("|");
+            printf("%d |", (i+1)); 
         }
+
+
         for (int j=0; j<columns; j++) {
-            printf("  %c  |", board[i][j]); // Printing each row with side border
+            printf(" %c |", board[i][j]); // Printing each row with side border
+        }
+
+    } // end of for rows in board loop
+
+    // print bottom line of board
+    printf("\n   "); // spacer
+    for(int i=0; i<columns; i++) {
+            printf(" ———"); // Printing bottom line of board
         }
         printf("\n");
 
-        printf("   ");
-        for(int i=0; i<columns; i++) {
-            printf(" —————"); // Printing row of lines at bottom of each row for bottom border
-        }
-        printf("\n");
-    }
-    printf("\n");
-}
+} // end of printBoard
 
 char** outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
 
@@ -160,7 +169,7 @@ void outputMessage(){
 }
 
 // Testing purposes, remove before submitting
-/*int main() {
+/* int main() {
     // Sample minefield for testing
     int rows = 11, columns = 10;
     
@@ -186,4 +195,4 @@ void outputMessage(){
     //printf("%d\n", tc1);
 
     return 0;
-}*/
+} */
