@@ -5,9 +5,7 @@
 #include <unistd.h>
 
 
-int endMenu(int state) { // Outputting end menu messages
-    int choice;
-    int correct_input = 0;
+void win_lose_message(int state) { // Outputting end menu messages
     if (state == 1) {
         // Printing victory message (ignore format, when printed it works as expected)
         printf("\n   __        __    __    __ __ __    __ __ __     __ __ __     __ __    __    __\n");
@@ -39,6 +37,11 @@ int endMenu(int state) { // Outputting end menu messages
 
     sleep(2);
     printf("\n");
+}
+
+int end_menu() {
+    int choice;
+    int correct_input = 0;
     printf("1. Play Again\n");
     printf("2. Exit\n"); // Play again or exit options
     printf("\n");
