@@ -33,6 +33,7 @@ int startGUI(int argc, char **argv);
 void launch_gui();
 
 // IRFAN"S FUNCTIONS
-int endMenu(int state);
+void win_lose_message(int state);
+int endMenu();
 void outputMinefield(char **minefield, int rows, int columns);
 void outputMessage();

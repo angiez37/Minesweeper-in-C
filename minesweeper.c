@@ -29,7 +29,7 @@ void help() {
     printf("During the game:\n");
     printf("d       To dig a square.\n");
     printf("f       To flag or unflag a square.\n");
-} 
+} // dhruv you can add on to here
 
 
 /*
@@ -145,11 +145,13 @@ int main(int argc, char *argv[]) {
         time_t ending_time = time(NULL);
         double total_time = difftime(ending_time, starting_time); // Time to find mines (whoevers outputting score needs to output this aswell)
 
+        win_lose_message(state_of_game); // Print win or lose message
         printBoard(gameBoard, rows, columns); // prints final board to user 
         calculateScore(squaresRevealed, rows, columns); // along with their score
+        printf("%f", total_time); // Printing time
         
 
-        int end_choice = endMenu(state_of_game); // Outputs end menu and asks user if they want to play again or exit
+        int end_choice = endMenu(); // Outputs end menu and asks user if they want to play again or exit
         if (end_choice == 2) {
             play_again = 0; // If user exits, breaks out of while loop;
         }
