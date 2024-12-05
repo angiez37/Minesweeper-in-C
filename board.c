@@ -75,13 +75,12 @@ char** generateMinefield(int rows, int columns, int mines) {
         }
 
         if (DEBUG) {
-        for (int i = 0; i < rows; i++) { // only for testing/debugging
-                for (int j = 0; j < columns; j++) {
-                        printf("%c ", minefield[i][j]);
-                }
-
+                for (int i = 0; i < rows; i++) { // only for testing/debugging
+                        for (int j = 0; j < columns; j++) {
+                                printf("%c ", minefield[i][j]);
+                        }
                 printf("\n");
-    }
+            }
         }
 
         return minefield;
@@ -112,10 +111,10 @@ char** generateNumberMap(int rows, int columns, char **minefield) {
 
         if (DEBUG) {
                 for (int i = 0; i < rows; i++) { // only for dev testing - need to print only the square player selects
-                for (int j = 0; j < columns; j++) {
-                printf("%c ", numberMap[i][j]);
-                }
-        printf("\n");
+                        for (int j = 0; j < columns; j++) {
+                                printf("%c ", numberMap[i][j]);
+                        }
+                printf("\n");
 
                 }
         }
