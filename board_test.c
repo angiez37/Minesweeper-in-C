@@ -1,47 +1,78 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "minesweeper.h" 
+#include <stdbool.h>
+
+#include "minesweeper.h"
+
+#define DEBUG 0
+
+char **test_gameboard(int rows, int columns) {
+    char minefield_array[4][5] = {
+        {'X', '.', '.', '.', '.'},
+        {'X', '.', '.', '.', '.'},
+        {'.', '.', '.', '.', '.'},
+        {'.', '.', '.', '.', 'X'}
+    };
+
+    char **minefield = malloc(rows * sizeof(char *));
+    for (int i = 0; i < rows; i++) {
+        minefield[i] = malloc(columns * sizeof(char));
+        for (int j = 0; j < columns; j++) {
+            minefield[i][j] = minefield_array[i][j];
+        }
+    }
+
+    return minefield;
+}
 
 int main() {
-    srand(time(NULL));
+    int rows = 4;
+    int columns = 5;
+    int mines;
 
-    int rows, columns, mines;
+    char **minefield = test_gameboard(rows, columns);
+    char **numbermap = generateNumberMap(rows, columns, minefield);
+    char **board = generateGameboard(rows, columns);
 
-    if (scanf("%d %d %d", &rows, &columns, &mines) != 3) {
-        fprintf(stderr, "Error: Invalid input format.\n");
-        return 1;
+    if (DEBUG) { 
+        printf("DEV - Printing Minefield:\n");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                printf("%c ", minefield[i][j]);
+            }
+            printf("\n");
+        }
+
+        printf("\nDEV - Printing NumberMap:\n");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                printf("%c ", numbermap[i][j]);
+            }
+            printf("\n");
+        }
     }
 
-    char** minefield = generateMinefield(rows, columns, mines);
-    if (!minefield) {
-        fprintf(stderr, "Error: Failed to generate minefield.\n");
-        return 1;
-    }
+    scanf("%d %d %d", &rows, &columns, &mines);
 
-    char** numberMap = generateNumberMap(rows, columns, minefield);
-    if (!numberMap) {
-        fprintf(stderr, "Error: Failed to generate number map.\n");
-        for (int i = 0; i < rows; i++) free(minefield[i]);
-        free(minefield);
-        return 1;
-   } 
+    minefield = generateMinefield(rows, columns, mines);
+    numbermap = generateNumberMap(rows, columns, minefield);
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
-            printf("%c ", numberMap[i][j]);
+            printf("%c ", numbermap[i][j]);
         }
         printf("\n");
     }
 
-   
     for (int i = 0; i < rows; i++) {
         free(minefield[i]);
-        free(numberMap[i]);
+        free(numbermap[i]);
+        free(board[i]);
     }
     free(minefield);
-    free(numberMap);
+    free(numbermap);
+    free(board);
 
     return 0;
 }
-
