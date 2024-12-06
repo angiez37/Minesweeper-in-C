@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "minesweeper.h"
+#include "board.h" 
 
 int main() {
     srand(time(NULL));
