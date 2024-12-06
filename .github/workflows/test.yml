@@ -42,7 +42,7 @@ jobs:
       - name: Upload board results
         uses: actions/upload-artifact@v4
         with:
-          name: Uploads
+          name: Upload board test results
           path: |
             ./board_tests/board_test_results.txt
             ./board_tests/board.c.gcov
