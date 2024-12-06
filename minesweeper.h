@@ -11,6 +11,8 @@ char** generateGameboard(int rows, int columns);
 int processMove(int specified_row, int specified_column, int change, int rows, int columns, char ** board, char ** minefield, char ** numbermap, int mines, int * flags, int * squares_revealed);
 void digSquare(int r, int c, int rows, int columns, char ** board, char ** numbermap, int * squares_revealed);
 bool gameEndCheck(int rows, int columns, char ** board, char ** minefield, int mines, int * flags);
+void printBoard(char **board, int rows, int columns);
+
 
 // ANGEL'S FUNCTIONS
 char *welcomePage();
@@ -31,6 +33,6 @@ int startGUI(int argc, char **argv);
 void launch_gui();
 
 // IRFAN"S FUNCTIONS
-int endMenu(int state);
-void outputMinefield(char **minefield, int rows, int columns);
+void win_lose_message(int state);
+int end_menu();
 void outputMessage();

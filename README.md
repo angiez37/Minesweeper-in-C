@@ -1,41 +1,58 @@
 # Minesweeper in a Galaxy Far, Far Away....
 Built by: A JEDI (aka, Angel, Jack, Esha, Dhruv, Irfan)
 
-### I will add this to the bottom later but for now: if anyone wants to run the game please install gtk
-#### How to Install: 
-On your Linux command line please run the two following commands. 
-----------------------------------------------------------------------
-#### sudo apt update
-#### sudo apt install libgtk-3-dev
-#### Verify its installed: pkg-config --modversion gtk+-3.0
-----------------------------------------------------------------
-
-#### How to play Minesweeper 
+### How to play Minesweeper 
 
 Minesweeper is a single-player puzzle-solving logic game played on a grid-like board. The user attempts to figure out where within the grid there are hidden “mines” planted by the Empire to be avoided. As the user “digs up” more of the board, numbers are revealed indicating the number of adjacent mines to a given square. Using this information, the player will deduce where the hidden “mines” are, while avoiding them. 
 
 #### The key to winning the game is to open all the safe squares without detonating a mine. 
 
-Our version of the game offers the user multiple customizable configurations, allowing them to tweak the difficulty of the board and game to their wishes. The core gameplay of our game will be the player entering values representing grid coordinates, accompanied by specific flags or keywords to indicate which action (“digging”, “flagging”, etc) they wish to perform on the coordinate-specified square. 
+Our version of the game offers the user two options:
 
-#### Example usage: 
+1. The Command-line version. The core gameplay of our game through the Command-line version will be the player entering values representing grid coordinates, accompanied by specific flags or keywords to indicate which action (“digging”, “flagging”, etc) they wish to perform on the coordinate-specified square. This version allows users to tweak the difficulty of the board and game to their wishes.
+2. The GUI version. The GUI version is limited in terms of customization however, provides a more visually engaging experience. The board is set to be 18x18 with 40 mines and although it lacks customization, it provides users the ease of playing. Players interact with the board using mouse clicks, where left-clicking on a cell reveals it, and right-clicking toggles a flag.
 
-Clone the repo in your local environment:  
-git clone https://github.com/Sam-Scott-McMaster/the-team-assignment-team-7-a-jedi.git  
+### How to run Minesweeper on your local computer: 
 
-Navigate to the directory:  
-cd the-team-assignment-team-7-a-jedi.git  
-run ./main to start the game  
+#### 1. Clone the repo in your local environment:  
+----------------------------------------------------------------------
+- git clone https://github.com/Sam-Scott-McMaster/the-team-assignment-team-7-a-jedi.git  
+----------------------------------------------------------------------
+
+#### 2. Navigate to the directory:  
+----------------------------------------------------------------------
+- cd /the-team-assignment-team-7-a-jedi.git
+-----------------------------------------------------------------------
+
+#### 3. Install library and verify: 
+----------------------------------------------------------------------
+-  sudo apt update
+-  sudo apt install libgtk-3-dev
+-  pkg-config --modversion gtk+-3.0
+----------------------------------------------------------------
+
+#### 4. Run Game: 
+----------------------------------------------------------------
+- make minesweeper
+- ./minesweeper
+---------------------------------------------------------------
+
+#### 4. Run help flag (optional): 
+----------------------------------------------------------------
+- ./minesweeper --help
+----------------------------------------------------------------
 
 ## How to play (Command-line version)
 
 When you first start the game, you will be prompted with an introduction screen asking you to input your name. 
 
+![image](https://github.com/user-attachments/assets/9e7bad4f-3781-4901-a1f6-725b652ba8af)
+
 You will then be asked to select an option.
 
-![image](https://github.com/user-attachments/assets/c77b01f3-502f-474b-aeaf-c1427db46466)
+![image](https://github.com/user-attachments/assets/6ae5bc16-e5eb-44af-b2eb-2e2917bb1db4)
 
-### Option 1: Begin Game!
+### Option 2: Begin CMD Line Game!
 
 #### Dig
 
@@ -65,31 +82,35 @@ Example usage is shown above.
 
 ### Help
 
-Help flag ...
+To run the help flag, please run:
+- minesweeper --help
 
-### Option 2: Select Difficulty
+![image](https://github.com/user-attachments/assets/5c029dc2-3a48-4b12-aa56-b87998e5fb58)
+
+
+### Option 3: Select Difficulty
 
 Our Minesweeper game stands out with its unique customization options, giving players the freedom to tailor their experience. You can choose the size of your board by specifying the number of rows and columns, as well as select your preferred difficulty level—easy, medium, or hard—ensuring a gameplay experience that suits your preference!
 
-### Option 3: Instructions:
+### Option 4: Instructions:
 
 If you're unfamiliar with the game or need a refresher on how to play, we've got you covered! Our instructions tab provides a clear and concise guide to help you learn the rules and gameplay mechanics before you dive into your Minesweeper adventure.
 
 ![image](https://github.com/user-attachments/assets/27ca564b-7ca5-4c83-9e02-14587789cebb)
 
-### Option 4: Exit Game
+### Option 5: Exit Game:
+
+If you would like to exit the game, you may do so.
 
 ## How to play (GUI version)
 
 Same rules, same concept; however, using the GTK documentation, a graphical user interface version has been implemented.
 
-Currently: (Note, final version will implement the GUI as an option but for now, it works as its individual file - made solely for testing purposes) to play the GUI version, follow the Example usage above but instead of running "run ./main to start the game" please do the following:
+When you are asked to select an option, select Option 1
 
-1. gcc -o gui gui.c `pkg-config --cflags --libs gtk+-3.0`
-2. ./gui
-3. Enjoy!
+![image](https://github.com/user-attachments/assets/6ae5bc16-e5eb-44af-b2eb-2e2917bb1db4)
 
-The GUI is incomplete and only displays basic functions of the Minesweeper game; however, it works and can be played!
+### Option 1: Begin GUI Game!
 
 #### How it works:
 
@@ -97,7 +118,9 @@ Similar to the command line version, it has the same rules except you are able t
 
 Right click to flag, left click to dig
 
-![image](https://github.com/user-attachments/assets/21730b11-1702-4777-9c4c-aef21cf4e1b8)
+Only downside: You are currently unable to select difficulty and change grid size.
+
+![image](https://github.com/user-attachments/assets/8553d873-de9e-4155-8bd4-efda5d81a5b8)
 
 Above is an example gameplay.
 

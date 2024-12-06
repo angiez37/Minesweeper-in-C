@@ -5,12 +5,10 @@
 #include <unistd.h>
 
 
-int endMenu(int state) { // Outputting end menu messages
-    int choice;
-    int correct_input = 0;
+void win_lose_message(int state) { // Outputting end menu messages
     if (state == 1) {
         // Printing victory message (ignore format, when printed it works as expected)
-        printf("   __        __    __    __ __ __    __ __ __     __ __ __     __ __    __    __\n");
+        printf("\n   __        __    __    __ __ __    __ __ __     __ __ __     __ __    __    __\n");
         printf("  \\  \\      /  /  |  |  |        |  |        |  /    __   \\  |   __  \\  \\ \\  / /\n");
         printf("   \\  \\    /  /   |  |  |  |‾‾ ‾‾    ‾‾|  |‾‾   |  /   \\  |  |  |  )  |  \\ \\/ /\n");
         printf("    \\  \\  /  /    |  |  |  |           |  |     |  |   |  |  |   ‾‾  /    |  |\n");
@@ -24,7 +22,7 @@ int endMenu(int state) { // Outputting end menu messages
     }
     else {
         // Printing defeat message
-        printf("   __ __ __     __ __ __    __ __ __    __ __ __         ___     __ __ __            \n");
+        printf("\n   __ __ __     __ __ __    __ __ __    __ __ __         ___     __ __ __            \n");
         printf("  |   __   \\   |   __ __|  |   __ __|  |   __ __|      / __ \\   |__    __|    \n");
         printf("  |  |  \\   |  |  |__ __   |  |__ __   |  |__ __      / /__\\ \\     |  |       \n");
         printf("  |  |   |  |  |   __ __|  |   __ __|  |   __ __|    /  ___   \\    |  |         \n");
@@ -39,6 +37,11 @@ int endMenu(int state) { // Outputting end menu messages
 
     sleep(2);
     printf("\n");
+}
+
+int end_menu() {
+    int choice;
+    int correct_input = 0;
     printf("1. Play Again\n");
     printf("2. Exit\n"); // Play again or exit options
     printf("\n");
@@ -46,8 +49,20 @@ int endMenu(int state) { // Outputting end menu messages
         printf("Enter your choice: ");
         scanf("%d", &choice);
         printf("\n");
-        if (choice == 1 || choice == 2) { // Checking if user input correct
+        if (choice == 1) { // If user plays again reprint the minesweeper header
             correct_input = 1; // Breaking out of loop
+            printf("\033[2J"); // Clear the screen
+            printf("\033[0;0H"); // Reset cursor to the top
+            printf("\n.___  ___.  __  .__   __.  _______         _______.____    __    ____  _______  _______ .______    _______ .______      \n");
+            printf("|   \\/   | |  | |  \\ |  | |   ____|       /       |\\   \\  /  \\  /   / |   ____||   ____||   _  \\  |   ____||   _  \\     \n");
+            printf("|  \\  /  | |  | |   \\|  | |  |__         |   (----` \\   \\/    \\/   /  |  |__   |  |__   |  |_)  | |  |__   |  |_)  |    \n");
+            printf("|  |\\/|  | |  | |  . `  | |   __|         \\   \\      \\            /   |   __|  |   __|  |   ___/  |   __|  |      /     \n");
+            printf("|  |  |  | |  | |  |\\   | |  |____    .----)   |      \\    /\\    /    |  |____ |  |____ |  |      |  |____ |  |\\  \\----.\n");
+            printf("|__|  |__| |__| |__| \\__| |_______|   |_______/        \\__/  \\__/     |_______||_______|| _|      |_______|| _| `._____|\n\n");
+            sleep(1);
+        }
+        else if (choice == 2) { // user chose exit
+            correct_input = 1; // break  out of loop
         }
         else {
             printf("Not in range! Pick either option 1 or 2.\n");
@@ -59,14 +74,55 @@ int endMenu(int state) { // Outputting end menu messages
 }
 
 
-char** outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
+char** printBoard(char **board, int rows, int columns) { // Outputting board
 
-    printf("Location of Mines\n");
-    printf("\n");
+    // print number headers
+    printf("   "); // spacer
+    for (int k=0; k<columns; k++) { // Printing top numbers
+        if (k<9) {
+            printf("  %d ", (k+1));
+        }
+        else {
+            printf("  %d", (k+1));
+        }
+    }
 
-    int count = 0;
+    // print each row
+    for (int i=0; i<rows; i++) {
+        printf("\n   "); // spacer
+        for(int i=0; i<columns; i++) { 
+            printf(" ———"); // Printing a line above each row for top border
+        }
 
-    printf("   ");
+        printf("\n");
+
+        // Printing side numbers
+        if ((i+1)<10) {
+            printf(" %d |", (i+1)); 
+        }
+        else {
+            printf("%d |", (i+1)); 
+        }
+
+
+        for (int j=0; j<columns; j++) {
+            printf(" %c |", board[i][j]); // Printing each row with side border
+        }
+
+    } // end of for rows in board loop
+
+    // print bottom line of board
+    printf("\n   "); // spacer
+    for(int i=0; i<columns; i++) {
+            printf(" ———"); // Printing bottom line of board
+        }
+        printf("\n");
+
+} // end of printBoard
+
+/*char** outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
+
+    printf("\n   ");
     for (int k=0; k<columns; k++) { // Printing top numbers
         if (k<9) {
             printf("   %d  ", (k+1));
@@ -93,10 +149,8 @@ char** outputMinefield(char **minefield, int rows, int columns) { // Outputting 
         for (int j=0; j<columns; j++) {
             printf("  %c  |", minefield[i][j]); // Printing each row with side border
         }
-        //printf("|"); 
         printf("\n");
 
-        count = 0;
         printf("   ");
         for(int i=0; i<columns; i++) {
             printf(" —————"); // Printing row of lines at bottom of each row for bottom border
@@ -104,18 +158,17 @@ char** outputMinefield(char **minefield, int rows, int columns) { // Outputting 
         printf("\n");
     }
     printf("\n");
-    count = 0;
-}
+}*/
 
 void outputMessage(){
     // Game ending message
-    printf("Thankyou for joining us on this brave journey\n");
+    printf("Thank you for joining us on this brave journey\n");
     sleep(1);
     printf("Until our paths cross again in the vast expanse of the cosmos,\n");
     sleep(1);
     printf("keep your lightsaber close and your heart open to the mysteries of the universe.\n");
     sleep(2);
-    printf("END OF GAME\n");
+    printf("May the Force be with you.\n");
 }
 
 // Testing purposes, remove before submitting
@@ -139,10 +192,13 @@ void outputMessage(){
     };
 
     // Call the function to print the minefield
-    outputMinefield(minefield, rows, columns);
 
-    //int tc1 = endMenu(1);
+    //win_lose_message(2);
+    //int tc1 = end_menu();
     //printf("%d\n", tc1);
+    //outputMessage();
+
+    end_menu();
 
     return 0;
 }*/
