@@ -5,6 +5,7 @@ minesweeper
 logic_test
 test_results.txt
 test
+score_test
 *.gcda
 *.gcno
 *.gcov

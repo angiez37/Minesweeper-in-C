@@ -1,0 +1,36 @@
+X 2 0 0 0 
+X 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 X
+Progress: 85.000% of the board revealed. 
+. 2 0 0 0 
+. 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+Progress: 90.000% of the board revealed. 
+F 2 0 0 0 
+. 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+Progress: 85.000% of the board revealed. 
+. 2 0 0 0 
+. 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+Progress: 90.000% of the board revealed. 
+F 2 0 0 0 
+. 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+Progress: 95.000% of the board revealed. 
+F 2 0 0 0 
+F 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 . 
+END OF GAME - WIN
+F 2 0 0 0 
+F 2 0 0 0 
+1 1 0 1 1 
+0 0 0 1 F 
+Progress: 100.000% of the board revealed. 
+User WON
