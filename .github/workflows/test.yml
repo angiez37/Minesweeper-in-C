@@ -17,15 +17,15 @@ jobs:
 
       - name: Run Test Cases
         run: make logic_test; ./logic_test_script >test_results.txt; gcov logic_test-logic.c
+        
+      - name: Run output Test Cases
+        run: make output_test; ./output_test_script >output_test_results.txt; gcov output_test-logic.c
 
       - name: permissions for board test script
         run: chmod +x board_tests/board_test_script
 
       - name: Run board test cases
         run: make board_test; ./board_tests/board_test_script >board_test_results.txt; gcov board_test-board.c
-      
-      - name: Run Board Test Cases
-        run: make output_test; ./output_test_script >output_test_results.txt; gcov output_test-logic.c
 
       - name: Upload
         uses: actions/upload-artifact@v4
