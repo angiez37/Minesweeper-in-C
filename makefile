@@ -7,8 +7,8 @@ logic_test: logic_test.c input.c board.c logic.c score.c output.c gui.c mineswee
 score_test: score_test.c input.c board.c logic.c score.c output.c gui.c minesweeper.h
 	gcc -o score_test --coverage score_test.c input.c board.c logic.c score.c output.c gui.c -lm -lgtk-3 $(FLAG1) $(FLAG2)
 
-board_test: board_test.c board.c input.c logic.c score.c output.c gui.c minesweeper.h
-	gcc -o board_test --coverage board_test.c input.c board.c logic.c score.c output.c gui.c -lm -lgtk-3 $(FLAG1) $(FLAG2)
+board_test: board_test.c board.c minesweeper.h
+	gcc -o board_test --coverage board_test.c board.c 
 
 output_test: output_test.c board.c logic.c output.c minesweeper.h
 	gcc -o output_test --coverage output_test.c board.c logic.c output.c
