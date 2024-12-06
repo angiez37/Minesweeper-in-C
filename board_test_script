@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Test Script adopted from script provided by Sam Scott @ McMaster University 2024
+# Test Script adopoted from script provided Sam Scott @ McMaster University 2024
 #
 
 declare -i tc=0
@@ -20,7 +20,7 @@ declare -i fails=0
 # std error file is empty. Otherwise it 
 # should be 1.
 #
-# OUTPUTS: A pass/fail report showing the
+# OUTPUTS: An pass/fail report showing the
 # difference between expected and actual
 # output on a failure (diff command)
 ############################################
