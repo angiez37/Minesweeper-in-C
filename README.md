@@ -58,25 +58,25 @@ You will then be asked to select an option.
 
 The dig (d) command is first command you need in order to dig the blocks in hopes of finding the squares without the mines. 
 
-![image](https://github.com/user-attachments/assets/4b233210-9002-4ffe-8f4d-4b08f95c480e)
+![image](https://github.com/user-attachments/assets/c0608c97-bb63-4b4f-b558-293425af45b6)
 
-As shown above, digging the second column of the second row resulted in "1" to be revealed. This means, there exists 1 tile adjacent to the tile you digged containing a mine. 
+As shown above, digging the second column of the second row resulted in "2" to be revealed. This means, there exists 2 tile adjacent to the tile you digged containing a mine. 
 
 ### Flag
 
 Flagging (f) command is the command used when you know (or have an idea) of where the mine is. Since you cant dig the mine, placing a flag is essential to win the game (as the ultimate goal is to reveal all the tiles).
 
-![image](https://github.com/user-attachments/assets/3b6221d2-c326-405f-92e4-d338957266d9)
+![image](https://github.com/user-attachments/assets/e779d622-f9a4-4075-a56f-3e0f435a76d1)
 
 This is an example usage of Flag (f).
 
-Since the tile with '1' on row 8 column 4 has an adjacent mine, the only possible area with the mine is on row 7 column 3. Thus, we've flagged that area to ensure the mine was detected. 
+Since the tile with '1' on row 8 column 6 has an adjacent mine, the only possible area with the mine is on row 9 column 6. Thus, we've flagged that area to ensure the mine was detected. 
 
 ### Unflag
 
 Unflagging (f) works similarly to flagging, allowing you to remove a flag from a cell if you believe it was placed incorrectly or no longer think a flag is needed there.
 
-![image](https://github.com/user-attachments/assets/716282c0-e301-4c2c-9f90-b7c9a3958715)
+![image](https://github.com/user-attachments/assets/29a693dd-14e7-4cbc-b3c1-ea71a82d9fdc)
 
 Example usage is shown above.
 
