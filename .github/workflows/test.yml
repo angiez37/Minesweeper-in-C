@@ -28,7 +28,7 @@ jobs:
         run: make output_test; ./output_test_script >output_test_results.txt; gcov output_test-output.c
 
       - name: Run board Test Cases
-        run: make board_test; ./board_test_script > board_test_results.txt; gcov board_test-board.c
+        run: make board_test; ./board_test_script >board_test_results.txt; gcov board_test-board.c
 
       - name: Upload
         uses: actions/upload-artifact@v4
