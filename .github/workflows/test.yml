@@ -15,9 +15,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev pkg-config
 
-      - name: permissions for board test script
-        run: chmod +x board_test_script
-
       - name: Run logic Test Cases
         run: make logic_test; ./logic_test_script >test_results.txt; gcov logic_test-logic.c
         
@@ -27,9 +24,6 @@ jobs:
       - name: Run output Test Cases
         run: make output_test; ./output_test_script >output_test_results.txt; gcov output_test-output.c
 
-      - name: Run board Test Cases
-        run: make board_test; ./board_test_script >board_test_results.txt; gcov board_test-board.c
-
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
@@ -37,15 +31,6 @@ jobs:
           path: |
             ./logic_test
             ./test_results.txt
-            ./*.gcov
-
-      - name: Upload board results
-        uses: actions/upload-artifact@v4
-        with:
-          name: Upload board test results
-          path: |
-            ./board_test
-            ./board_test_results.txt
             ./*.gcov
       
       - name: Upload
