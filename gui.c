@@ -268,8 +268,8 @@ void launch_gui() {
     int status = g_application_run(G_APPLICATION(app), 0, NULL);
     g_object_unref(app);
 
-    outputMinefield(minefield, BOARD_SIZE, BOARD_SIZE); 
-    int playAgain = endMenu(status);
+    // outputMinefield(minefield, BOARD_SIZE, BOARD_SIZE); 
+    int playAgain = end_menu(status);
 
     while (playAgain == 1) {
         launch_gui();
