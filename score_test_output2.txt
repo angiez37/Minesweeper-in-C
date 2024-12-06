@@ -1,0 +1,6 @@
+Progress: 0.000% of the board revealed.
+X . . . . 
+X . . . . 
+. . . . . 
+. . . . X 
+User LOST
