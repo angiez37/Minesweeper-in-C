@@ -66,6 +66,7 @@ test() {
 }
 
 test './score_test' 'logic_test_input1.txt' 'score_test_output1.txt' 'score_test_empty.txt'
+test './score_test' 'logic_test_input2.txt' 'score_test_output2.txt' 'score_test_empty.txt'
 
 # clean up
 rm test_err.txt test_out.txt

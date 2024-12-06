@@ -62,7 +62,8 @@ int main() {
     while (result == 0) {
         scanf("%d %d %d", &specified_row, &specified_column, &change); // take input from test input
         result = processMove(specified_row, specified_column, change, 4, 5, board, minefield, numbermap, 3, &flags, &squares_revealed);
-
+        calculateScore(squares_revealed, rows, columns);
+        // printf("\n");
         // print board
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -72,8 +73,6 @@ int main() {
         }
 
     }
-
-    calculateScore(squares_revealed, rows, columns);
 
     if (result == 1) {
         printf("User WON\n");
