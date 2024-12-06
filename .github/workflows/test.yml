@@ -18,13 +18,16 @@ jobs:
       - name: Run Test Cases
         run: make logic_test; ./logic_test_script >test_results.txt; gcov logic_test-logic.c
 
+      - name: permissions for board test script
+        run: chmod +x board_tests/board_test_script
+
       - name: Run board test cases
         run: make board_test; ./board_tests/board_test_script >board_test_results.txt; gcov board_test-board.c
 
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: Uploads
+          name: board test results
           path: |
             ./logic_test
             ./test_results.txt
@@ -35,6 +38,5 @@ jobs:
         with:
           name: Uploads
           path: |
-            ./board_test
-            ./board_test_results.txt
-            ./*.gcov
+            ./board_tests/board_test_results.txt
+            board.c.gcov
