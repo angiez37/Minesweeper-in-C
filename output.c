@@ -101,7 +101,7 @@ char** printBoard(char **board, int rows, int columns) { // Outputting board
             printf(" %d |", (i+1)); 
         }
         else {
-            printf("%d |", (i+1)); 
+            printf("%d |", (i+1));
         }
 
 
@@ -119,46 +119,6 @@ char** printBoard(char **board, int rows, int columns) { // Outputting board
         printf("\n");
 
 } // end of printBoard
-
-/*char** outputMinefield(char **minefield, int rows, int columns) { // Outputting minefield
-
-    printf("\n   ");
-    for (int k=0; k<columns; k++) { // Printing top numbers
-        if (k<9) {
-            printf("   %d  ", (k+1));
-        }
-        else {
-            printf("  %d  ", (k+1));
-        }
-    }
-    printf("\n");
-
-    for (int i=0; i<rows; i++) {
-        printf("   ");
-        for(int i=0; i<columns; i++) { 
-            printf(" —————"); // Printing a line above each row for top border
-        }
-        printf("\n");
-        printf("%d ", (i+1)); // Printing side numbers
-        if ((i+1)<10) {
-            printf(" |");
-        }
-        else {
-            printf("|");
-        }
-        for (int j=0; j<columns; j++) {
-            printf("  %c  |", minefield[i][j]); // Printing each row with side border
-        }
-        printf("\n");
-
-        printf("   ");
-        for(int i=0; i<columns; i++) {
-            printf(" —————"); // Printing row of lines at bottom of each row for bottom border
-        }
-        printf("\n");
-    }
-    printf("\n");
-}*/
 
 void outputMessage(){
     // Game ending message
