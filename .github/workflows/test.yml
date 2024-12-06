@@ -22,7 +22,7 @@ jobs:
         run: make logic_test; ./logic_test_script >test_results.txt; gcov logic_test-logic.c
         
       - name: Run score Test Cases
-        run: make score_test; ./score_test_script >score_test_results.txt; gcov score_test-score.c
+        run: make score_test; ./score_test_script.sh >score_test_results.txt; gcov score_test-score.c
 
       - name: Run output Test Cases
         run: make output_test; ./output_test_script >output_test_results.txt; gcov output_test-output.c
