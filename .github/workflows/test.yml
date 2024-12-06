@@ -35,6 +35,6 @@ jobs:
         with:
           name: Uploads
           path: |
-            ./board_test
+            ./board_tests/board_test
             ./board_test_results.txt
             ./*.gcov
