@@ -131,19 +131,16 @@ void on_cell_clicked(GtkWidget *widget, GdkEventButton *event, int *coords) {
     // Usage of arrow operater never crossed my mind, but after some searching online I found out that it is used to access the member of a struct using a pointer
     // Since the gtk button is defined using a pointer, the only way to access it, is using -> instead of . 
 
-    if (board[row][col].revealed || (event->button == GDK_BUTTON_SECONDARY && board[row][col].flagged)) { //If the cell is already revealed or flagged, do nothing; I need to change this so that if it is flagged, it will unflag but this was created for testing purposes in the first release.
-        return;
-    }
-
     if (event->button == GDK_BUTTON_SECONDARY) { // Right-click to toggle flag
         board[row][col].flagged = !board[row][col].flagged;
-
+    
         if (board[row][col].flagged) {
             gtk_button_set_label(GTK_BUTTON(widget), "🚩");
-        } else {
+        } 
+        else {
             gtk_button_set_label(GTK_BUTTON(widget), "");
         }
-
+        
         return;
     }
 
@@ -179,13 +176,15 @@ void on_cell_clicked(GtkWidget *widget, GdkEventButton *event, int *coords) {
         for (int dr = -1; dr <= 1; dr++) {
             for (int dc = -1; dc <= 1; dc++) {
                 // Skip the current cell
-                if (dr == 0 && dc == 0) continue;
+                if (dr == 0 && dc == 0){
+                    continue;
+                }
 
                 int newRow = row + dr;
                 int newCol = col + dc;
 
                 if (newRow >= 0 && newRow < BOARD_SIZE && newCol >= 0 && newCol < BOARD_SIZE) {
-                    if (!board[newRow][newCol].revealed) {
+                    if (!board[newRow][newCol].revealed && !board[newRow][newCol].flagged) {
                         int newCoords[2] = {newRow, newCol};
                         //Call recursively
                         on_cell_clicked(board[newRow][newCol].button, event, newCoords);
@@ -238,37 +237,13 @@ void activate(GtkApplication *app) {
     gtk_widget_show_all(window);
 }
 
-
-// int startGUI(int argc, char **argv) {
-//     // random number generator
-//     // srand(time(NULL));
-
-//     GtkApplication *app = gtk_application_new("com.example.Minesweeper", G_APPLICATION_FLAGS_NONE);
-
-//     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
-
-//     int status = g_application_run(G_APPLICATION(app), argc, argv);
-
-//     g_object_unref(app);
-
-//     // Free memory
-//     for (int i = 0; i < BOARD_SIZE; i++) {
-//         free(minefield[i]);
-//         free(numberMap[i]);
-//     }
-//     free(minefield);
-//     free(numberMap);
-
-//     return status;
-// }
-
 void launch_gui() {
+    // Opens the GUI window
     GtkApplication *app = gtk_application_new("com.example.minesweeper", G_APPLICATION_FLAGS_NONE);
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
     int status = g_application_run(G_APPLICATION(app), 0, NULL);
     g_object_unref(app);
 
-    // outputMinefield(minefield, BOARD_SIZE, BOARD_SIZE); 
     int playAgain = end_menu(status);
 
     while (playAgain == 1) {
