@@ -141,7 +141,7 @@ void on_cell_clicked(GtkWidget *widget, GdkEventButton *event, int *coords) {
                 int newCol = col + dc;
 
                 if (newRow >= 0 && newRow < BOARD_SIZE && newCol >= 0 && newCol < BOARD_SIZE) {
-                    if (!board[newRow][newCol].revealed && !board[newRow][newCol].flagged) {
+                    if (!board[newRow][newCol].revealed) {
                         int newCoords[2] = {newRow, newCol};
                         //Call recursively
                         on_cell_clicked(board[newRow][newCol].button, event, newCoords);
