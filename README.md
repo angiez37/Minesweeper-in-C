@@ -96,7 +96,7 @@ Our Minesweeper game stands out with its unique customization options, giving pl
 
 If you're unfamiliar with the game or need a refresher on how to play, we've got you covered! Our instructions tab provides a clear and concise guide to help you learn the rules and gameplay mechanics before you dive into your Minesweeper adventure.
 
-![image](https://github.com/user-attachments/assets/27ca564b-7ca5-4c83-9e02-14587789cebb)
+![image](https://github.com/user-attachments/assets/1b397def-a977-4db4-96bd-b8035851b651)
 
 ### Option 5: Exit Game:
 
