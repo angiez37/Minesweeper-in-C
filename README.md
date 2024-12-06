@@ -116,7 +116,7 @@ When you are asked to select an option, select Option 1
 
 Similar to the command line version, it has the same rules except you are able to click on the tiles/blocks/cells instead of having to input the rows/columns. 
 
-Right click to flag, left click to dig
+Right click to flag, right click again to unflag or unmark, left click to dig
 
 Only downside: You are currently unable to select difficulty and change grid size.
 
