@@ -22,16 +22,19 @@ void help() {
     printf("Usage:\n");
     printf(" --help       Display this help message and exit\n");
     printf("Before the game:\n");
-    printf("1       Starts the game\n");
-    printf("2       Select difficulty\n");
-    printf("3       Displays instructions\n");
-    printf("4       Exit the game\n");
-    printf("During the game:\n");
+    printf("1       Starts the GUI game\n");
+    printf("2       Starts the CMD LINE game\n");
+    printf("3       Select difficulty\n");
+    printf("4       Displays instructions\n");
+    printf("5       Exit the game\n");
+    printf("During the CMD LINE game:\n");
     printf("d       To dig a square.\n");
     printf("f       To flag or unflag a square.\n");
-} // dhruv you can add on to here
-
-
+    printf("During the GUI game:\n");
+    printf("left click       To dig a square.\n");
+    printf("right click      To flag a square.\n");
+    printf("You may exit the game whenever you like by closing the window.\n");
+} 
 /*
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 | main - main function of the program 
