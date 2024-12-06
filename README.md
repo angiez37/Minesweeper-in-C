@@ -124,4 +124,6 @@ Only downside: You are currently unable to select difficulty and change grid siz
 
 Above is an example gameplay.
 
+#### IMPORTANT NOTE: Please close the GUI game window once you are done with the game. It will then prompt you to play again or exit safely. 
 
+### Good Luck!
