@@ -3,6 +3,7 @@ board
 minesweeper
 
 logic_test
+board_test
 test_results.txt
 test
 score_test
