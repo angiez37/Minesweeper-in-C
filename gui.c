@@ -3,7 +3,7 @@
 #include <time.h>
 #include "minesweeper.h"
 
-// Currently the board size and mine count are Macros and cannot be changed. However, only for testing purposes and will implement an option to change these values in the final version.
+// Currently the board size and mine count are Macros and cannot be changed.
 #define BOARD_SIZE 18
 #define MINE_COUNT 40
 
@@ -31,75 +31,18 @@ char **numberMap;
 int remaining_cells;
 GtkWidget *game_over_label; // Global variable for the label - used to display the game over message. Function defined using GTK
 
-
-// Using functions from previously implemented board.c & logic.c (Not included in this file for testing purposes)
-// File has not been combined with the minesweeper.h yet however, the final version will have all implementations of game working together
-
-// // Function to calculate surrounding mines
-// int surroundingMines(int rows, int columns, char **minefield, int i, int j) {
-//     int surrounding_mines = 0;
-//     if (minefield[i][j] != 'X') {
-//         if (i < rows - 1 && minefield[i + 1][j] == 'X') surrounding_mines++;
-//         if (i > 0 && minefield[i - 1][j] == 'X') surrounding_mines++;
-//         if (j < columns - 1 && minefield[i][j + 1] == 'X') surrounding_mines++;
-//         if (j > 0 && minefield[i][j - 1] == 'X') surrounding_mines++;
-//         if (i > 0 && j < columns - 1 && minefield[i - 1][j + 1] == 'X') surrounding_mines++;
-//         if (i < rows - 1 && j < columns - 1 && minefield[i + 1][j + 1] == 'X') surrounding_mines++;
-//         if (i > 0 && j > 0 && minefield[i - 1][j - 1] == 'X') surrounding_mines++;
-//         if (i < rows - 1 && j > 0 && minefield[i + 1][j - 1] == 'X') surrounding_mines++;
-//     }
-//     return surrounding_mines;
-// }
-
-// // Function to generate the minefield
-// char **generateMinefield(int rows, int columns, int mines) {
-//     char **minefield = (char **)malloc(rows * sizeof(char *));
-//     for (int i = 0; i < rows; i++) {
-//         minefield[i] = (char *)malloc(columns * sizeof(char));
-//         for (int j = 0; j < columns; j++) {
-//             minefield[i][j] = '.';
-//         }
-//     }
-
-//     int mines_placed = 0;
-//     while (mines_placed < mines) {
-//         int i = rand() % rows;
-//         int j = rand() % columns;
-//         if (minefield[i][j] != 'X') {
-//             minefield[i][j] = 'X';
-//             mines_placed++;
-//         }
-//     }
-//     return minefield;
-// }
-
-
-// // Function to generate the number map
-// char** generateNumberMap(int rows, int columns, char **minefield) { 
-	
-// 	char** numberMap = (char**)malloc(rows * sizeof(char*));
-//     		for (int i = 0; i < rows; i++) {
-//         		numberMap[i] = (char*)malloc(columns * sizeof(char));
-//     		}
-
-// 	for (int i = 0; i < rows; i++) { 
-// 		for (int j = 0; j < columns; j++) { 
-// 			if (minefield[i][j] != 'X') { 
-// 				int touching_mines = surroundingMines(rows, columns, minefield, i, j);
-// 				if (touching_mines == 0) { 
-//     					numberMap[i][j] = '0';
-// 				} else {
-// 					numberMap[i][j] = '0' + touching_mines;    			
-// 				}
-// 			} 
-//             else { 
-// 				numberMap[i][j] = 'X';
-// 		    }
-// 	    }
-//     }  	
-//     return numberMap;
-// }
-
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| reveal_all_bombs - Displays all bombs on the board when the game is over, disables buttons, and shows the "Game Over" message.
+| 
+| Arguments: None
+| 
+| Pointers / Side Effects: Updates the board to display all bomb positions and disables user interaction.
+| Outputs: Displays "Game Over" message and revealed bomb positions on the GUI.
+| Returns: None
+| Functions Called: gtk_label_set_text, gtk_button_set_label, gtk_widget_set_sensitive
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
 void reveal_all_bombs() {
     // Show the Game Over message
@@ -120,7 +63,21 @@ void reveal_all_bombs() {
     // g_timeout_add_seconds(2, (GSourceFunc)gtk_main_quit, NULL); // Wait 2 seconds and then quit
 }
 
-
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| on_cell_clicked - Handles user clicks on the 2d array cell. Left-click digs the cell to reveal a number whereas right-click toggles a flag. 
+| Recursively reveals adjacent cells if no mines are nearby.
+| 
+| Arguments: widget = Pointer to the clicked widget (cell button)
+|            event = Event containing button press details (left or right-click)
+|            coords = Array of integers containing the row and column indices of the clicked cell
+| 
+| Pointers / Side Effects: Updates the board with revealed numbers or flags. Terminates the game if a mine is clicked.
+| Outputs: Updates GUI to reflect revealed cells, flags, or game end.
+| Returns: None
+| Functions Called: gtk_button_set_label, gtk_widget_set_sensitive, reveal_all_bombs, g_print
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
 void on_cell_clicked(GtkWidget *widget, GdkEventButton *event, int *coords) {
     int row = coords[0];
@@ -195,6 +152,19 @@ void on_cell_clicked(GtkWidget *widget, GdkEventButton *event, int *coords) {
     }
 }
 
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| initialize_gui_board - Initializes the GUI representation of the game board by creating buttons for each cell and linking them to click events.
+| 
+| Arguments: grid = GTK widget grid where buttons will be placed.
+| 
+| Pointers / Side Effects: Dynamically allocates memory for cell coordinates. Associates buttons with their respective cells.
+| Outputs: Buttons displayed on the GUI grid.
+| Returns: None
+| Functions Called: gtk_button_new, gtk_grid_attach, g_signal_connect
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
+
 // Initialize the GUI board and link it to the existing logic
 void initialize_gui_board(GtkWidget *grid) {
     for (int i = 0; i < BOARD_SIZE; ++i) {
@@ -210,10 +180,23 @@ void initialize_gui_board(GtkWidget *grid) {
             coords[1] = j;
 
             // Was not able to find this on GTK documentation. Weird.
-            g_signal_connect(board[i][j].button, "button-press-event", G_CALLBACK(on_cell_clicked), coords); // Not too sure how or what this does. Used gpt generate this line of code and to help me understand but still confused. But without this, the buttons do not work and the game does not function. Very unique and interesting.
+            g_signal_connect(board[i][j].button, "button-press-event", G_CALLBACK(on_cell_clicked), coords);
         }
     }
 }
+
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| activate - Sets up the main game window and initializes the board and game logic.
+| 
+| Arguments: app = GTK application pointer
+| 
+| Pointers / Side Effects: Creates and displays the game window, initializes the board and minefield.
+| Outputs: Initialized game GUI.
+| Returns: None
+| Functions Called: gtk_application_window_new, gtk_window_set_title, initialize_gui_board
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
 void activate(GtkApplication *app) {
     // Create the main window
@@ -236,6 +219,19 @@ void activate(GtkApplication *app) {
     initialize_gui_board(grid);
     gtk_widget_show_all(window);
 }
+
+/*
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+| launch_gui - Launches the GTK application and sets up the game window. Handles the main game loop and exit conditions.
+| 
+| Arguments: None
+| 
+| Pointers / Side Effects: Manages application lifecycle, allowing for replay or exit after a game ends.
+| Outputs: Game window and replay/exit options.
+| Returns: None
+| Functions Called: activate, g_application_run, g_object_unref
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+*/
 
 void launch_gui() {
     // Opens the GUI window
