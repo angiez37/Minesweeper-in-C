@@ -152,7 +152,7 @@ int main(int argc, char *argv[]) {
         printBoard(gameBoard, rows, columns); // prints final board to user 
         calculateScore(squaresRevealed, rows, columns); // along with their score
         printf("\n");
-        printf("Time taken: %f", total_time); // Printing time used
+        printf("%f", total_time); // Printing time used
         printf("\n");
         
 
