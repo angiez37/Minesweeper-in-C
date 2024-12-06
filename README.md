@@ -33,7 +33,7 @@ Our version of the game offers the user two options:
 
 #### 4. Run Game: 
 ----------------------------------------------------------------
-- make minesweeper
+- make
 - ./minesweeper
 ---------------------------------------------------------------
 
