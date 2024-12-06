@@ -12,3 +12,6 @@ minesweeper: minesweeper.c input.c board.c logic.c score.c output.c gui.c minesw
 
 board_test: ./board_tests/board_test.c board.c board.h 
 	gcc -o board_test --coverage ./board_tests/board_test.c board.c
+
+output_test: output_test.c board.c logic.c score.c output.c minesweeper.h
+	gcc -o output_test --coverage output_test.c board.c logic.c score.c output.c
