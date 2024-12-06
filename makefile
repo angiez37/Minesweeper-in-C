@@ -10,7 +10,7 @@ FLAG2 = `pkg-config --libs gtk+-3.0`
 minesweeper: minesweeper.c input.c board.c logic.c score.c output.c gui.c minesweeper.h
 	gcc -o minesweeper minesweeper.c input.c board.c logic.c score.c output.c gui.c -lm -lgtk-3 $(FLAG1) $(FLAG2)
 
-board_test: ./board_tests/board_test.c board.c board.h 
+board_test: ./board_tests/board_test.c board.c ./board_tests/board.h 
 	gcc -o board_test --coverage ./board_tests/board_test.c board.c
 
 output_test: output_test.c board.c logic.c score.c output.c minesweeper.h
