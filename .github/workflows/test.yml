@@ -27,7 +27,7 @@ jobs:
       - name: Run Board Test Cases
         run: |
           make board_test
-          ./board_tests/board_test_script > board_test_results.txt
+          ./board_tests/board_test_script > ./board_tests/board_test_results.txt
           gcov board_test-board.c
 
       - name: Upload
