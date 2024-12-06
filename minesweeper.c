@@ -151,7 +151,9 @@ int main(int argc, char *argv[]) {
         win_lose_message(state_of_game); // Print win or lose message
         printBoard(gameBoard, rows, columns); // prints final board to user 
         calculateScore(squaresRevealed, rows, columns); // along with their score
+        printf("\n");
         printf("%f", total_time); // Printing time used
+        printf("\n");
         
 
         int end_choice = end_menu(); // Outputs end menu and asks user if they want to play again or exit
