@@ -23,6 +23,9 @@ jobs:
 
       - name: Run board test cases
         run: make board_test; ./board_tests/board_test_script >board_test_results.txt; gcov board_test-board.c
+      
+      - name: Run Board Test Cases
+        run: make output_test; ./output_test_script >output_test_results.txt; gcov output_test-logic.c
 
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -40,3 +43,12 @@ jobs:
           path: |
             ./board_tests/board_test_results.txt
             board.c.gcov
+      
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: output test results
+          path: |
+            ./output_test
+            ./output_test_results.txt
+            ./*.gcov
