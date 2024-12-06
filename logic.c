@@ -215,10 +215,13 @@ int processMove(int specified_row, int specified_column, int change, int rows, i
         if (board[specified_row][specified_column] == '.') { // if space was unmarked
             board[specified_row][specified_column] = 'F'; // flag it
             *flags+=1;
+            (*squares_revealed)++; // increment score
         }
         else if (board[specified_row][specified_column] == 'F') { // if space was flagged
             board[specified_row][specified_column] = '.'; // remove it
             *flags-=1;
+            (*squares_revealed)--; // decrement score
+
         }
 
         if (DEBUG) { // for diagnosing
