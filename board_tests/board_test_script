@@ -65,13 +65,12 @@ test() {
     echo "TC $tc Passed"
 }
 
-# Update file paths to reference the board_tests/ directory
-test './board_test' 'board_tests/board_test_input1.txt' 'board_tests/board_test_output1.txt' 'board_tests/board_test_empty.txt'
-test './board_test' 'board_tests/board_test_input2.txt' 'board_tests/board_test_output2.txt' 'board_tests/board_test_empty.txt'
-test './board_test' 'board_tests/board_test_input3.txt' 'board_tests/board_test_output3.txt' 'board_tests/board_test_empty.txt'
-test './board_test' 'board_tests/board_test_input4.txt' 'board_tests/board_test_output4.txt' 'board_tests/board_test_empty.txt'
-test './board_test' 'board_tests/board_test_input5.txt' 'board_tests/board_test_output5.txt' 'board_tests/board_test_empty.txt'
-test './board_test' 'board_tests/board_test_input6.txt' 'board_tests/board_test_output6.txt' 'board_tests/board_test_empty.txt'
+test './board_test' 'board_test_input1.txt' 'board_test_output1.txt' 'board_test_empty.txt'
+test './board_test' 'board_test_input2.txt' 'board_test_output2.txt' 'board_test_empty.txt'
+test './board_test' 'board_test_input3.txt' 'board_test_output3.txt' 'board_test_empty.txt'
+test './board_test' 'board_test_input4.txt' 'board_test_output4.txt' 'board_test_empty.txt'
+test './board_test' 'board_test_input5.txt' 'board_test_output5.txt' 'board_test_empty.txt'
+test './board_test' 'board_test_input6.txt' 'board_test_output6.txt' 'board_test_empty.txt'
 
 # clean up
 rm test_err.txt test_out.txt
