@@ -24,6 +24,9 @@ jobs:
       - name: Run output Test Cases
         run: make output_test; ./output_test_script >output_test_results.txt; gcov output_test-output.c
       
+      - name: Make input test script executable
+        run: chmod +x input_test_script
+
       - name: Run input Test Cases
         run: make input_test; ./input_test_script >input_test_results.txt; gcov input_test-input.c
 
