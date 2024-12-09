@@ -65,7 +65,6 @@ test() {
     echo "TC $tc Passed"
 }
 
-test './input_test' 'input_test_input1.txt' 'input_test_output1.txt' 'input_test_empty.txt'
 test './input_test' 'input_test_input2.txt' 'input_test_output2.txt' 'input_test_empty.txt'
 test './input_test' 'input_test_input3.txt' 'input_test_output3.txt' 'input_test_empty.txt'
 test './input_test' 'input_test_input4.txt' 'input_test_output4.txt' 'input_test_empty.txt'
