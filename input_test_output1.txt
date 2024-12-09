@@ -1,0 +1,31 @@
+[2J[0;0HA long time ago in a galaxy far, far away...
+
+It is a period of war. Hidden mines endanger the galaxy...
+
+Enter your name: 
+.___  ___.  __  .__   __.  _______         _______.____    __    ____  _______  _______ .______    _______ .______      
+|   \/   | |  | |  \ |  | |   ____|       /       |\   \  /  \  /   / |   ____||   ____||   _  \  |   ____||   _  \     
+|  \  /  | |  | |   \|  | |  |__         |   (----` \   \/    \/   /  |  |__   |  |__   |  |_)  | |  |__   |  |_)  |    
+|  |\/|  | |  | |  . `  | |   __|         \   \      \            /   |   __|  |   __|  |   ___/  |   __|  |      /     
+|  |  |  | |  | |  |\   | |  |____    .----)   |      \    /\    /    |  |____ |  |____ |  |      |  |____ |  |\  \----.
+|__|  |__| |__| |__| \__| |_______|   |_______/        \__/  \__/     |_______||_______|| _|      |_______|| _| `._____|
+
+Welcome Angel!
+
+Select an option to begin your mission:
+1. Start GUI Game
+2. Start CMD Line Game
+3. Select Difficulty (ONLY FOR CMD LINE GAME)
+4. Instructions
+5. Exit
+
+Option: 
+Game Over!
+1. Play Again
+2. Exit
+
+Enter your choice: 
+Thank you for joining us on this brave journey
+Until our paths cross again in the vast expanse of the cosmos,
+keep your lightsaber close and your heart open to the mysteries of the universe.
+May the Force be with you.

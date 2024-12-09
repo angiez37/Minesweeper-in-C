@@ -72,6 +72,7 @@ int Menu() {
 
         printf("Option: ");
         valid = scanf("%d", &choice);
+        printf("\n");
 
         if (valid != 1) {
             printf("Invalid input. Please enter a number between 1 and 5.\n");
@@ -152,10 +153,6 @@ void Difficulty(int *rows, int *columns, int *mines) {
             printf("Invalid input. Columns must be a number between 6 and 30.\n");
             while (getchar() != '\n'); // Clear buffer
         }
-
-        if (*rows < MIN_BOARD_SIZE || *columns < MIN_BOARD_SIZE || *rows > MAX_BOARD_SIZE || *columns > MAX_BOARD_SIZE) {
-            printf("Invalid board size. Please try again.\n");
-        }
     } 
     while (valid != 1 ||*rows < MIN_BOARD_SIZE || *columns < MIN_BOARD_SIZE || *rows > MAX_BOARD_SIZE || *columns > MAX_BOARD_SIZE);
 
@@ -182,8 +179,6 @@ void Difficulty(int *rows, int *columns, int *mines) {
         *mines = grid / 5;
     } else if (choice == 3) { // Hard: 33% mine density
         *mines = grid / 3;
-    } else {
-        printf("Invalid difficulty level. Please try again.\n\n");
     }
 
 }
@@ -210,20 +205,8 @@ void parseInput(char *name, int choice, int *rows, int *columns, int *mines) {
         case 3: Difficulty(rows, columns, mines); break; // select difficulty
         case 4: Instructions(name); parseInput(name, Menu(), rows, columns, mines); break; // display instructions
         case 5: exit(0); // Exit program
-        default: printf("Invalid choice.\n"); parseInput(name, Menu(), rows, columns, mines);
     }
     
 }
 
-/*
-int main() {
-    int rows, columns, mines;
-    char *name = welcomePage();  // Call welcomeMenu function
-    int choice = Menu(); // Call menu function
-
-    parseInput(name, choice, rows, columns, mines); //parse user menu input
-    free(name);
-    return 0;
-}
-*/
 

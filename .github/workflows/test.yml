@@ -23,6 +23,9 @@ jobs:
 
       - name: Run output Test Cases
         run: make output_test; ./output_test_script >output_test_results.txt; gcov output_test-output.c
+      
+      - name: Run input Test Cases
+        run: make input_test; ./input_test_script >input_test_results.txt; gcov input_test-input.c
 
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -40,4 +43,13 @@ jobs:
           path: |
             ./output_test
             ./output_test_results.txt
+            ./*.gcov
+      
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: input test results
+          path: |
+            ./input_test
+            ./input_test_results.txt
             ./*.gcov
