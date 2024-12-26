@@ -16,22 +16,17 @@ Our version of the game offers the user two options:
 
 #### 1. Clone the repo in your local environment:  
 ----------------------------------------------------------------------
-- git clone https://github.com/Sam-Scott-McMaster/the-team-assignment-team-7-a-jedi.git  
+- git clone https://github.com/angiez37/Minesweeper-in-C.git
 ----------------------------------------------------------------------
 
-#### 2. Navigate to the directory:  
-----------------------------------------------------------------------
-- cd /the-team-assignment-team-7-a-jedi.git
------------------------------------------------------------------------
-
-#### 3. Install library and verify: 
+#### 2. Install library and verify: 
 ----------------------------------------------------------------------
 -  sudo apt update
 -  sudo apt install libgtk-3-dev
 -  pkg-config --modversion gtk+-3.0
 ----------------------------------------------------------------
 
-#### 4. Run Game: 
+#### 3. Run Game: 
 ----------------------------------------------------------------
 - make
 - ./minesweeper
