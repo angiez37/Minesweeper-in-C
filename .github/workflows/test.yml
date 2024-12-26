@@ -16,19 +16,19 @@ jobs:
           sudo apt-get install -y libgtk-3-dev pkg-config
 
       - name: Run logic Test Cases
-        run: make logic_test; ./logic_test_script >test_results.txt; gcov logic_test-logic.c
+        run: make logic_test; ./tests/logic_test_script >test_results.txt; gcov logic_test-logic.c
         
       - name: Run score Test Cases
-        run: make score_test; ./score_test_script.sh >score_test_results.txt; gcov score_test-score.c
+        run: make score_test; ./tests/score_test_script.sh >score_test_results.txt; gcov score_test-score.c
 
       - name: Run output Test Cases
-        run: make output_test; ./output_test_script >output_test_results.txt; gcov output_test-output.c
+        run: make output_test; ./tests/output_test_script >output_test_results.txt; gcov output_test-output.c
       
       - name: Make input test script executable
-        run: chmod +x input_test_script
+        run: chmod +x tests/input_test_script
 
       - name: Run input Test Cases
-        run: make input_test; ./input_test_script >input_test_results.txt; gcov input_test-input.c
+        run: make input_test; ./tests/input_test_script >input_test_results.txt; gcov input_test-input.c
 
       - name: Upload
         uses: actions/upload-artifact@v4

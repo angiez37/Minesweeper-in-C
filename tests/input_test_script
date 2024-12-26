@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Test Script adopoted from script provided Sam Scott @ McMaster University 2024
+# Test Script adopted from script provided Sam Scott @ McMaster University 2024
 #
 
 declare -i tc=0
@@ -45,7 +45,7 @@ test() {
         fails=$fails+1
         return
     fi
-    DIFF=$(diff test_out.txt $EX_OUT)
+    DIFF=$(diff -u -E -Z -b -w test_out.txt $EX_OUT)
     if [[ $DIFF != '' ]]; then
         echo "TC $tc Failed Standard Output"
         echo "$DIFF"
@@ -65,8 +65,11 @@ test() {
     echo "TC $tc Passed"
 }
 
-test './logic_test' 'logic_test_input1.txt' 'logic_test_output1.txt' 'logic_test_empty.txt'
-test './logic_test' 'logic_test_input2.txt' 'logic_test_output2.txt' 'logic_test_empty.txt'
+test './input_test' 'tests/input_test_input2.txt' 'tests/input_test_output2.txt' 'tests/input_test_empty.txt'
+test './input_test' 'tests/input_test_input3.txt' 'tests/input_test_output3.txt' 'tests/input_test_empty.txt'
+test './input_test' 'tests/input_test_input4.txt' 'tests/input_test_output4.txt' 'tests/input_test_empty.txt'
+test './input_test' 'tests/input_test_input5.txt' 'tests/input_test_output5.txt' 'tests/input_test_empty.txt'
+test './input_test' 'tests/input_test_input6.txt' 'tests/input_test_output6.txt' 'tests/input_test_empty.txt'
 
 
 # clean up
